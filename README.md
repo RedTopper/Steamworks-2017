@@ -6,3 +6,4 @@ The FRC 2017 programming repository for team 3695
 
 ### Contributors
  * Aaron Walter
+ * Jason Wilcox
