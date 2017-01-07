@@ -2,8 +2,8 @@
 The FRC 2017 programming repository for team 3695
 
 ### Goals
- - [ ] High Speed (0 Degree) Turning/Handling
- - [ ] Redundant Camera System (Raspi)
+ - [ ] High Speed point pivot Turning/Handling
+ - [ ] Redundant Camera System (Raspi) / front + rear cam
  - [ ] Quick Switch Control System
  - [ ] Proximity (Sonar) Sensors
  - [ ] Autonomous Baseline (5 pts.)
