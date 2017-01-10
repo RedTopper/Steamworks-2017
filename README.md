@@ -16,7 +16,9 @@ The FRC 2017 programming repository for team 3695
 
 ### Contributors
  * Aaron Walter
+ * Kurtis Bowen 
  * Colton Kreischer
  * Jason Wilcox
- * Kurtis Bowen 
  * Dylan Hampton
+ * Grant Eads
+ * Lily Jennings
