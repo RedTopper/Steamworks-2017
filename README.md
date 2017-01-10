@@ -14,6 +14,43 @@ The FRC 2017 programming repository for team 3695
 ### Important Links
  - [Eclipse Setup](https://wpilib.screenstepslive.com/s/4485/m/13809/l/599681-installing-eclipse-c-java)
 
+### Groups
+#### Raspi
+ * Brogan
+ * Jason
+ 
+#### Frontend Stats
+ * Lily
+ 
+#### Backend Stats
+ * Lizbeth
+ * Juleah
+ 
+#### Arduino
+ * Jason
+
+#### Bling
+ * Dylan
+ * Jason
+
+#### Image Processing
+ * Max
+ * Dewey
+ * Brogan
+
+#### Frontend Robot
+ * Dylan
+ * Michael
+ * Kacie
+ * Colton
+
+#### Backend Robot
+ * Dewey
+ * Max
+ * Dylan
+ * Brogan
+ * Colton
+
 ### Contributors
  * Aaron Walter
  * Colton Kreischer
