@@ -19,6 +19,7 @@ The FRC 2017 programming repository for team 3695
  * Kurtis Bowen 
  * Colton Kreischer
  * Jason Wilcox
+ * Kacie Miller
  * Brogan Clements
  * Dewey Wheeler
  * Dylan Hampton
