@@ -16,11 +16,9 @@ The FRC 2017 programming repository for team 3695
 
 ### Contributors
  * Aaron Walter
- * That Kurt Feller
- * Colton Kreischer
- * Jason Wilcox
- * Colton Kreischer
- * Jason Wilcox
+ * That Kurt Feller²³ 
+ * Colton Kreischer²
+ * Jason Wilcox²
  * Juleah Richardson
  * Lizbeth Quiroz
  * Michael Jedziniak
