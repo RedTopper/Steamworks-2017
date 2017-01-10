@@ -19,5 +19,14 @@ The FRC 2017 programming repository for team 3695
  * That Kurt Feller
  * Colton Kreischer
  * Jason Wilcox
+ * Colton Kreischer
+ * Jason Wilcox
+ * Juleah Richardson
+ * Lizbeth Quiroz
+ * Michael Jedziniak
+ * Kacie Miller
+ * Brogan Clements
+ * Dewey Wheeler
+ * Dylan Hampton
  * Grant Eads
  * Lily Jennings
