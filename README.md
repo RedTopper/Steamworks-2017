@@ -18,4 +18,5 @@ The FRC 2017 programming repository for team 3695
  * Aaron Walter
  * Colton Kreischer
  * Jason Wilcox
- * Kurtis Bowen
+ * Kurtis Bowen 
+ * Dylan Hampton
