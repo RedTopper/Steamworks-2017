@@ -19,6 +19,7 @@ The FRC 2017 programming repository for team 3695
  * Kurtis Bowen 
  * Colton Kreischer
  * Jason Wilcox
+ * Dewey Wheeler
  * Dylan Hampton
  * Grant Eads
  * Lily Jennings
