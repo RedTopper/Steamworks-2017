@@ -12,6 +12,7 @@ These groups are important, I think.
 #### Backend Stats
  * Lizbeth
  * Juleah
+ * Colton
  
 #### Arduino
  * Jason
@@ -19,6 +20,7 @@ These groups are important, I think.
 #### Bling
  * Dylan
  * Jason
+ * Colton
 
 #### Image Processing
  * Max
