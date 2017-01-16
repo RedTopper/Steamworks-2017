@@ -53,5 +53,13 @@ public class SubsystemDrive extends Subsystem {
 		double[] tank = Controller.DRIVE_AXIS();
 		tankdrive(tank[0],tank[1]);
 	}
+    
+    public void straightLines(Joystick joy){
+    	roboDrive.tankDrive(joy.getRawAxis(5), joy.getRawAxis(5));
+    }
+    
+    public void dualStickDrive(Joystick joy){
+    	roboDrive.tankDrive(joy.getRawAxis(1), joy.getRawAxis(5));
+    }
 }
 
