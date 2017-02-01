@@ -7,7 +7,7 @@ THIS BRANCH SHOULD NEVER BE MERGED WITH THE MASTER BRANCH. EVER.
 ### Goals
  - [ ] Add Overlays
  - [ ] Add Streaming
- - [ ] Invert Camera(When it records, it is inverted)
+ - [X] Invert Camera
 
 ### Contributors
  * Jason Wilcox
