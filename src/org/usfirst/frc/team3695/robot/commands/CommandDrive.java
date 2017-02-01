@@ -21,7 +21,7 @@ public class CommandDrive extends Command {
 
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
-    	Robot.subsystemDrive.rocketDrive(Controller.DRIVE_JOY());;
+    	Robot.subsystemDrive.dualStickDrive(Controller.DRIVE_JOY());;
     }
 
     // Make this return true when this Command no longer needs to run execute()
