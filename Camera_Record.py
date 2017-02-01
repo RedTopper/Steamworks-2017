@@ -4,16 +4,16 @@ import cv2
 # Constants
 VIDEO_WIDTH = 1280
 VIDEO_HEIGHT = 720
-VIDEO_FPS = 15
+VIDEO_FPS = 30
 VIDEO_OUTPUT = time.strftime("%I-%M-%S") + ".mp4" # FORMAT: HOUR-MINUTE-TIME
 VIDEO_CODEC = cv2.VideoWriter_fourcc(*'MPEG')
 CAMERA = cv2.VideoCapture(1)
 
 # Capture Settings
-CAMERA.set(3, 1280)
-CAMERA.set(4, 720)
-CAMERA.set(5, 30)
-CAMERA.set(6, fourcc)
+CAMERA.set(3, VIDEO_WIDTH)
+CAMERA.set(4, VIDEO_HEIGHT)
+CAMERA.set(5, VIDEO_FPS)
+CAMERA.set(6, VIDEO_CODEC)
 
 # Define Output Location
 out = cv2.VideoWriter(VIDEO_OUTPUT, VIDEO_CODEC, VIDEO_FPS, (VIDEO_WIDTH, VIDEO_HEIGHT))
