@@ -6,7 +6,7 @@ import time
 VIDEO_WIDTH = 1280
 VIDEO_HEIGHT = 720
 VIDEO_FPS = 30
-VIDEO_OUTPUT = time.strftime("%I-%M-%S") + ".mp4" # FORMAT: HOUR-MINUTE-TIME
+VIDEO_OUTPUT = time.strftime("%I-%M-%S") + ".mp4" # FORMAT: HOUR-MINUTE-SECOND
 VIDEO_CODEC = cv2.VideoWriter_fourcc(*'MPEG')
 CAMERA = cv2.VideoCapture(1)
 
