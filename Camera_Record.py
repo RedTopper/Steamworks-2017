@@ -6,9 +6,9 @@ import time
 VIDEO_WIDTH = 1280
 VIDEO_HEIGHT = 720
 VIDEO_FPS = 30
-VIDEO_OUTPUT = time.strftime("%I-%M-%S") + ".mp4" # FORMAT: HOUR-MINUTE-SECOND
+VIDEO_OUTPUT = time.strftime("%I-%M-%S") + ".mp4"  # FORMAT: HOUR-MINUTE-SECOND
 VIDEO_CODEC = cv2.VideoWriter_fourcc(*'MPEG')
-CAMERA = cv2.VideoCapture(1)
+CAMERA = cv2.VideoCapture("Oats.mp4")
 
 # Capture Settings
 CAMERA.set(3, VIDEO_WIDTH)
@@ -19,7 +19,6 @@ CAMERA.set(6, VIDEO_CODEC)
 # Define Output Location
 out = cv2.VideoWriter(VIDEO_OUTPUT, VIDEO_CODEC, VIDEO_FPS, (VIDEO_WIDTH, VIDEO_HEIGHT))
 
-
 while CAMERA.isOpened():
     # retrieve the frame being sent.
     # ret = true if frame is retrieved, false if not
@@ -28,17 +27,17 @@ while CAMERA.isOpened():
 
     if ret:
         # outputs frame to file
+        frame = cv2.flip(frame, 1)
         out.write(frame)
 
         # Shows frame on screen
-        cv2.imshow('frame',frame)
+        cv2.imshow('frame', frame)
 
         # Press c to end code
         if cv2.waitKey(1) == ord('c'):
             break
     else:
         break
-
 
 CAMERA.release()
 out.release()
