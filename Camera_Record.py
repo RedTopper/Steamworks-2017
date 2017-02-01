@@ -1,6 +1,7 @@
 import numpy as np
 import cv2
 import time
+import os
 
 # Constants
 VIDEO_WIDTH = 1280
@@ -26,8 +27,10 @@ while CAMERA.isOpened():
     ret, frame = CAMERA.read()
 
     if ret:
-        # outputs frame to file
+        # Rewrites the frame to be correctly displayed
         frame = cv2.flip(frame, 1)
+
+        # outputs frame to file
         out.write(frame)
 
         # Shows frame on screen
@@ -38,6 +41,7 @@ while CAMERA.isOpened():
             break
     else:
         break
+
 
 CAMERA.release()
 out.release()
