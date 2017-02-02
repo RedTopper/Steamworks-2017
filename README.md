@@ -7,10 +7,10 @@ THIS BRANCH SHOULD NEVER BE MERGED WITH THE MASTER BRANCH. EVER.
 
 ### Goals
  - [ ] Add Overlays
- - [ ] Add Streaming
  - [X] Invert Camera
- - [ ] Use a library to create an image buffer
- - [ ] Find python streaming library
+ - [ ] Use CAMERA to create image buffer
+ - [ ] Implement FLASK
+ - [ ] Use FLASK to stream and create user interface (Does it work?)
 
 ### Contributors
  * Jason Wilcox
