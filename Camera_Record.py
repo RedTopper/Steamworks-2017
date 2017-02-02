@@ -3,10 +3,10 @@ import cv2
 import time
 
 # Constants
-VIDEO_WIDTH = 1280
-VIDEO_HEIGHT = 720
-VIDEO_FPS = 30
-VIDEO_OUTPUT = time.strftime("%I-%M-%S") + ".mp4"  # FORMAT: HOUR-MINUTE-SECOND
+VIDEO_WIDTH = 640
+VIDEO_HEIGHT = 360
+VIDEO_FPS = 29
+VIDEO_OUTPUT = time.strftime("%I-%M-%d") + ".mp4"  # FORMAT: HOUR-MINUTE-DAY
 VIDEO_CODEC = cv2.VideoWriter_fourcc(*'MPEG')
 CAMERA = cv2.VideoCapture("Oats.mp4")
 
