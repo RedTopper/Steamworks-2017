@@ -2,6 +2,7 @@ import numpy as np
 import cv2
 import time
 import os
+import shutil
 
 # Constants
 VIDEO_WIDTH = 1280
@@ -46,3 +47,7 @@ while CAMERA.isOpened():
 CAMERA.release()
 out.release()
 cv2.destroyAllWindows()
+
+# Moves the video to a Videos folder for organization
+dir_path = os.path.dirname(os.path.realpath(__file__))
+shutil.move(dir_path + "\\\\" + VIDEO_OUTPUT, dir_path + "\\\\Videos\\\\")
