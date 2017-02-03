@@ -1,6 +1,8 @@
 import numpy as np
 import cv2
 import time
+import os
+import shutil
 
 # Constants
 VIDEO_WIDTH = 640
@@ -26,8 +28,10 @@ while CAMERA.isOpened():
     ret, frame = CAMERA.read()
 
     if ret:
-        # outputs frame to file
+        # Rewrites the frame to be correctly displayed
         frame = cv2.flip(frame, 1)
+
+        # outputs frame to file
         out.write(frame)
 
         # Shows frame on screen
@@ -39,6 +43,11 @@ while CAMERA.isOpened():
     else:
         break
 
+
 CAMERA.release()
 out.release()
 cv2.destroyAllWindows()
+
+# Moves the video to a Videos folder for organization
+dir_path = os.path.dirname(os.path.realpath(__file__))
+shutil.move(dir_path + "\\\\" + VIDEO_OUTPUT, dir_path + "\\\\Videos\\\\")
