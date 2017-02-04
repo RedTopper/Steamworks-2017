@@ -23,4 +23,11 @@ public class Constants {
 	 */
 	public static int DRIVER_STICK = 0,
 			OPERATOR_STICK = 1;
+	
+	/**
+	 * PCM Ports
+	 */
+	public static int CLOSE_GEAR_FLAPS = 0,
+			OPEN_GEAR_FLAPS = 1,
+			CLOSE_GEAR_FEEDER_FLAPS = 4;
 }
