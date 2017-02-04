@@ -1,0 +1,43 @@
+<xml version="1.0">
+<dashboard>
+	<widget field="System Information:" type="String" class="edu.wpi.first.smartdashboard.gui.elements.TextBox">
+		<location x="-97" y="452"/>
+		<width>815</width>
+	</widget>
+	<widget field="Catapult Completely Down" type="Boolean" class="edu.wpi.first.smartdashboard.gui.elements.BooleanBox">
+		<location x="451" y="112"/>
+		<width>268</width>
+		<height>42</height>
+	</widget>
+	<widget field="System Pressure" type="Number" class="edu.wpi.first.smartdashboard.gui.elements.SimpleDial">
+		<location x="304" y="301"/>
+		<property name="Upper Limit" value="120.0"/>
+	</widget>
+	<static-widget class="edu.wpi.first.smartdashboard.gui.elements.RobotPreferences">
+		<location x="0" y="208"/>
+		<width>304</width>
+		<height>240</height>
+	</static-widget>
+	<static-widget class="edu.wpi.first.smartdashboard.gui.elements.Label">
+		<location x="384" y="18"/>
+		<height>14</height>
+		<property name="Text" value="...then do this..."/>
+	</static-widget>
+	<static-widget class="edu.wpi.first.smartdashboard.gui.elements.WebcamViewerExtension">
+		<location x="720" y="0"/>
+		<width>640</width>
+		<height>480</height>
+	</static-widget>
+	<widget field="Drive Mode" type="String Chooser" class="edu.wpi.first.smartdashboard.gui.elements.Chooser">
+		<location x="-1" y="144"/>
+	</widget>
+	<widget field="Do Flash" type="Command" class="edu.wpi.first.smartdashboard.gui.elements.Command">
+		<location x="2" y="2"/>
+	</widget>
+	<widget field="Scheduler" type="Scheduler" class="edu.wpi.first.smartdashboard.gui.elements.Scheduler">
+		<location x="3" y="54"/>
+	</widget>
+</dashboard>
+<live-window>
+</live-window>
+</xml>
