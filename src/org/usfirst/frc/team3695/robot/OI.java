@@ -54,5 +54,6 @@ public class OI {
 		Button closeFlap = new JoystickButton(new Joystick(Constants.OPERATOR_STICK), 6);
 		openFlap.whenPressed(new CommandFlaps(true));
 		closeFlap.whenPressed(new CommandFlaps(false));
+		
 	}
 }

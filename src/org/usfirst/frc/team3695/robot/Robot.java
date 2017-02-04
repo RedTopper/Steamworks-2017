@@ -1,8 +1,10 @@
 
 package org.usfirst.frc.team3695.robot;
 
+import org.usfirst.frc.team3695.robot.commands.CommandAscend;
 import org.usfirst.frc.team3695.robot.commands.CommandCompressor;
 import org.usfirst.frc.team3695.robot.commands.CommandDrive;
+import org.usfirst.frc.team3695.robot.subsystems.SubsystemAscend;
 import org.usfirst.frc.team3695.robot.subsystems.SubsystemCompressor;
 import org.usfirst.frc.team3695.robot.subsystems.SubsystemDrive;
 import org.usfirst.frc.team3695.robot.subsystems.SubsystemFlaps;
@@ -31,7 +33,9 @@ public class Robot extends IterativeRobot {
 	public static SubsystemDrive subsystemDrive;
 	public static SubsystemCompressor subsystemCompressor;
 	public static SubsystemFlaps subsystemFlaps;
+	public static SubsystemAscend subsystemAscend;
 	Command commanderDrive;
+	Command commanderAscend;
 
 	/**
 	 * This function is run when the robot is first started up and should be
@@ -39,15 +43,18 @@ public class Robot extends IterativeRobot {
 	 */
 	@Override
 	public void robotInit() {
-		oi = new OI();
+		
 		subsystemDrive = new SubsystemDrive();
 		subsystemCompressor = new SubsystemCompressor();
 		subsystemFlaps = new SubsystemFlaps();
+		subsystemAscend = new SubsystemAscend();
 		commanderDrive = new CommandDrive();
+		commanderAscend = new CommandAscend();
 		commandComp = new CommandCompressor();
 		//chooser.addDefault("Default Auto", new ExampleCommand());
 		// chooser.addObject("My Auto", new MyAutoCommand());
 		SmartDashboard.putData("Auto mode", chooser);
+		oi = new OI();
 	}
 
 	/**

@@ -11,7 +11,8 @@ public class Constants {
 	public static int LEFT_MOTOR = 2,
 			OTHER_LEFT_MOTOR = 3,
 			RIGHT_MOTOR = 0,
-			OTHER_RIGHT_MOTOR = 1;
+			OTHER_RIGHT_MOTOR = 1,
+			CLIMBER_MOTOR = 4;
 	/**
 	 * Motor Inverts
 	 */

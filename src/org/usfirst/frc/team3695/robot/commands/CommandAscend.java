@@ -1,47 +1,33 @@
 package org.usfirst.frc.team3695.robot.commands;
 
+import org.usfirst.frc.team3695.robot.Controller;
 import org.usfirst.frc.team3695.robot.Robot;
 
+import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.command.Command;
 
 /**
  *
  */
-public class CommandFlaps extends Command {
-	boolean complete = false;
-	boolean opening;
-	/**
-	 * 
-	 */
-    public CommandFlaps(boolean isOpening) {
+public class CommandAscend extends Command {
+
+    public CommandAscend() {
         // Use requires() here to declare subsystem dependencies
-        //requires(Robot.subsystemFlaps);
-        this.opening = isOpening;
-        complete = false;
+    	requires(Robot.subsystemAscend);
     }
 
     // Called just before this Command runs the first time
     protected void initialize() {
-    	complete = false;
     }
 
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
-    	if (!complete)
-    		if (opening){
-    			Robot.subsystemFlaps.openFlaps();
-    			//Robot.subsystemFlaps.toggleFlaps();
-    			complete = true;
-    		} else {
-    			Robot.subsystemFlaps.closeFlaps();
-    			//Robot.subsystemFlaps.toggleFlaps();
-    			complete = true;
-    		}
+    	Robot.subsystemAscend.climb(new Joystick(1));
     }
 
     // Make this return true when this Command no longer needs to run execute()
     protected boolean isFinished() {
-        return complete;
+        return false;
     }
 
     // Called once after isFinished returns true
