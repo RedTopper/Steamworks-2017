@@ -5,6 +5,7 @@ import org.usfirst.frc.team3695.robot.commands.CommandCompressor;
 import org.usfirst.frc.team3695.robot.commands.CommandDrive;
 import org.usfirst.frc.team3695.robot.subsystems.SubsystemCompressor;
 import org.usfirst.frc.team3695.robot.subsystems.SubsystemDrive;
+import org.usfirst.frc.team3695.robot.subsystems.SubsystemFlaps;
 
 import edu.wpi.first.wpilibj.IterativeRobot;
 import edu.wpi.first.wpilibj.command.Command;
@@ -29,6 +30,7 @@ public class Robot extends IterativeRobot {
 	SendableChooser<Command> chooser = new SendableChooser<>();
 	public static SubsystemDrive subsystemDrive;
 	public static SubsystemCompressor subsystemCompressor;
+	public static SubsystemFlaps subsystemFlaps;
 	Command commanderDrive;
 
 	/**
@@ -40,6 +42,7 @@ public class Robot extends IterativeRobot {
 		oi = new OI();
 		subsystemDrive = new SubsystemDrive();
 		subsystemCompressor = new SubsystemCompressor();
+		subsystemFlaps = new SubsystemFlaps();
 		commanderDrive = new CommandDrive();
 		commandComp = new CommandCompressor();
 		//chooser.addDefault("Default Auto", new ExampleCommand());
