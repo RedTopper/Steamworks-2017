@@ -4,10 +4,12 @@ package org.usfirst.frc.team3695.robot;
 import org.usfirst.frc.team3695.robot.commands.CommandAscend;
 import org.usfirst.frc.team3695.robot.commands.CommandCompressor;
 import org.usfirst.frc.team3695.robot.commands.CommandDrive;
+import org.usfirst.frc.team3695.robot.commands.CommandShooter;
 import org.usfirst.frc.team3695.robot.subsystems.SubsystemAscend;
 import org.usfirst.frc.team3695.robot.subsystems.SubsystemCompressor;
 import org.usfirst.frc.team3695.robot.subsystems.SubsystemDrive;
 import org.usfirst.frc.team3695.robot.subsystems.SubsystemFlaps;
+import org.usfirst.frc.team3695.robot.subsystems.SubsystemShooter;
 
 import edu.wpi.first.wpilibj.IterativeRobot;
 import edu.wpi.first.wpilibj.command.Command;
@@ -34,8 +36,10 @@ public class Robot extends IterativeRobot {
 	public static SubsystemCompressor subsystemCompressor;
 	public static SubsystemFlaps subsystemFlaps;
 	public static SubsystemAscend subsystemAscend;
+	public static SubsystemShooter subsystemShooter;
 	Command commanderDrive;
 	Command commanderAscend;
+	Command commanderSpin;
 
 	/**
 	 * This function is run when the robot is first started up and should be
@@ -48,8 +52,10 @@ public class Robot extends IterativeRobot {
 		subsystemCompressor = new SubsystemCompressor();
 		subsystemFlaps = new SubsystemFlaps();
 		subsystemAscend = new SubsystemAscend();
+		subsystemShooter = new SubsystemShooter();
 		commanderDrive = new CommandDrive();
 		commanderAscend = new CommandAscend();
+		commanderSpin = new CommandShooter();
 		commandComp = new CommandCompressor();
 		//chooser.addDefault("Default Auto", new ExampleCommand());
 		// chooser.addObject("My Auto", new MyAutoCommand());
