@@ -18,7 +18,7 @@ The FRC 2017 programming repository for team 3695
 ### Contributors
  * Aaron Walter
  * That Kurt Feller²³ 
- * Colton Kreischer<sup>2</sup><sup><sup>2</sup></sup><sup><sup><sup>2</sup></sup></sup><sup><sup><sup><sup>2</sup></sup></sup></sup>
+ * Colton Kreischer
  * Jason Wilcox²
  * Juleah Richardson
  * Lizbeth Quiroz
