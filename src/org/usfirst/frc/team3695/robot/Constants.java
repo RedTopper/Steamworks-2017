@@ -8,8 +8,10 @@ public class Constants {
 	/**
 	 * Motor PWM Ports
 	 */
-	public static int LEFT_MOTOR = 1,
-			RIGHT_MOTOR = 0;
+	public static int LEFT_MOTOR = 2,
+			OTHER_LEFT_MOTOR = 3,
+			RIGHT_MOTOR = 0,
+			OTHER_RIGHT_MOTOR = 1;
 	/**
 	 * Motor Inverts
 	 */
