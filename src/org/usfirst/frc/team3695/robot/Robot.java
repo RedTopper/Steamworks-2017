@@ -1,7 +1,9 @@
 
 package org.usfirst.frc.team3695.robot;
 
+import org.usfirst.frc.team3695.robot.commands.CommandCompressor;
 import org.usfirst.frc.team3695.robot.commands.CommandDrive;
+import org.usfirst.frc.team3695.robot.subsystems.SubsystemCompressor;
 import org.usfirst.frc.team3695.robot.subsystems.SubsystemDrive;
 
 import edu.wpi.first.wpilibj.IterativeRobot;
@@ -23,8 +25,10 @@ public class Robot extends IterativeRobot {
 	public static OI oi;
 
 	Command autonomousCommand;
+	Command commandComp;
 	SendableChooser<Command> chooser = new SendableChooser<>();
 	public static SubsystemDrive subsystemDrive;
+	public static SubsystemCompressor subsystemCompressor;
 	Command commanderDrive;
 
 	/**
@@ -35,7 +39,9 @@ public class Robot extends IterativeRobot {
 	public void robotInit() {
 		oi = new OI();
 		subsystemDrive = new SubsystemDrive();
+		subsystemCompressor = new SubsystemCompressor();
 		commanderDrive = new CommandDrive();
+		commandComp = new CommandCompressor();
 		//chooser.addDefault("Default Auto", new ExampleCommand());
 		// chooser.addObject("My Auto", new MyAutoCommand());
 		SmartDashboard.putData("Auto mode", chooser);

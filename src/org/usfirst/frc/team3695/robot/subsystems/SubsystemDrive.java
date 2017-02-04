@@ -4,6 +4,8 @@ import org.usfirst.frc.team3695.robot.Constants;
 import org.usfirst.frc.team3695.robot.Controller;
 import org.usfirst.frc.team3695.robot.commands.CommandDrive;
 
+import com.ctre.CANTalon;
+
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.RobotDrive;
 import edu.wpi.first.wpilibj.Talon;
@@ -13,8 +15,10 @@ import edu.wpi.first.wpilibj.command.Subsystem;
  *
  */
 public class SubsystemDrive extends Subsystem {
-	private Talon left;
-    private Talon right;
+	private CANTalon left1;
+	private CANTalon left2;
+    private CANTalon right1;
+    private CANTalon right2;
     private RobotDrive roboDrive;
 
     public void initDefaultCommand() {
@@ -25,9 +29,11 @@ public class SubsystemDrive extends Subsystem {
      * Initialize Needed Drivetrain Variables
      */
     public SubsystemDrive(){
-    	left = new Talon(Constants.LEFT_MOTOR);
-    	right = new Talon(Constants.RIGHT_MOTOR);
-    	roboDrive = new RobotDrive(left,right);
+    	left1 = new CANTalon(Constants.LEFT_MOTOR);
+    	left2 = new CANTalon(Constants.OTHER_LEFT_MOTOR);
+    	right1 = new CANTalon(Constants.RIGHT_MOTOR);
+    	right2 = new CANTalon(Constants.OTHER_RIGHT_MOTOR);
+    	roboDrive = new RobotDrive(left1,left2,right1,right2);
     }
     
     /**
@@ -60,6 +66,10 @@ public class SubsystemDrive extends Subsystem {
     
     public void dualStickDrive(Joystick joy){
     	roboDrive.tankDrive(joy.getRawAxis(1), joy.getRawAxis(5));
+    }
+    
+    public void motorTest(Joystick joy){
+    	left1.set(joy.getZ());;
     }
 }
 
