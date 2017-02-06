@@ -1,5 +1,12 @@
 package org.usfirst.frc.team3695.robot;
 
+import org.usfirst.frc.team3695.robot.commands.CommandCompressor;
+import org.usfirst.frc.team3695.robot.commands.CommandFlaps;
+
+import edu.wpi.first.wpilibj.Joystick;
+import edu.wpi.first.wpilibj.buttons.Button;
+import edu.wpi.first.wpilibj.buttons.JoystickButton;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 /**
  * This class is the glue that binds the controls on the physical operator
@@ -33,4 +40,20 @@ public class OI {
 	// Start the command when the button is released and let it run the command
 	// until it is finished as determined by it's isFinished method.
 	// button.whenReleased(new ExampleCommand());
+	
+	public OI(){
+		/**
+		 * To Compress, or Not To Compress. It is now an option.
+		 */
+		SmartDashboard.putData("Disable Compressor", new CommandCompressor());
+		
+		/**
+		 * Gear Flapping
+		 */
+		Button openFlap = new JoystickButton(new Joystick(Constants.OPERATOR_STICK), 5);
+		Button closeFlap = new JoystickButton(new Joystick(Constants.OPERATOR_STICK), 6);
+		openFlap.whenPressed(new CommandFlaps(true));
+		closeFlap.whenPressed(new CommandFlaps(false));
+		
+	}
 }

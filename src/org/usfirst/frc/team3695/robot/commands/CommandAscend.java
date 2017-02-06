@@ -1,26 +1,28 @@
 package org.usfirst.frc.team3695.robot.commands;
 
+import org.usfirst.frc.team3695.robot.Controller;
 import org.usfirst.frc.team3695.robot.Robot;
 
+import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.command.Command;
 
 /**
- * Code that kills Pnuematics until interruption
+ *
  */
-public class CommandCompressor extends Command {
+public class CommandAscend extends Command {
 
-    public CommandCompressor() {
+    public CommandAscend() {
         // Use requires() here to declare subsystem dependencies
-        requires(Robot.subsystemCompressor);
+    	requires(Robot.subsystemAscend);
     }
 
     // Called just before this Command runs the first time
     protected void initialize() {
-    	Robot.subsystemCompressor.setState(false);
     }
 
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
+    	Robot.subsystemAscend.climb(new Joystick(1));
     }
 
     // Make this return true when this Command no longer needs to run execute()
@@ -30,12 +32,10 @@ public class CommandCompressor extends Command {
 
     // Called once after isFinished returns true
     protected void end() {
-    	Robot.subsystemCompressor.setState(true);
     }
 
     // Called when another command which requires one or more of the same
     // subsystems is scheduled to run
     protected void interrupted() {
-    	end();
     }
 }
