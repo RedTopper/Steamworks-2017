@@ -2,7 +2,7 @@
 package org.usfirst.frc.team3695.robot;
 
 import org.usfirst.frc.team3695.robot.commands.CommandAscend;
-import org.usfirst.frc.team3695.robot.commands.CommandCompressor;
+import org.usfirst.frc.team3695.robot.commands.CommandKillCompressor;
 import org.usfirst.frc.team3695.robot.commands.CommandDrive;
 import org.usfirst.frc.team3695.robot.commands.CommandShooter;
 import org.usfirst.frc.team3695.robot.subsystems.SubsystemAscend;
@@ -16,30 +16,31 @@ import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.command.Scheduler;
 import edu.wpi.first.wpilibj.livewindow.LiveWindow;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 /**
- * The VM is configured to automatically run this class, and to call the
- * functions corresponding to each mode, as described in the IterativeRobot
- * documentation. If you change the name of this class or the package after
- * creating this project, you must also update the manifest file in the resource
- * directory.
+ * Team 3695 Main Robot Function
+ * @author 3695
+ *
  */
 public class Robot extends IterativeRobot {
 
 	public static OI oi;
-
-	Command autonomousCommand;
-	Command commandComp;
+	
+	//Subsystems
+	public static SubsystemDrive subsystemDrive = new SubsystemDrive();
+	public static SubsystemCompressor subsystemCompressor = new SubsystemCompressor();
+	public static SubsystemFlaps subsystemFlaps = new SubsystemFlaps();
+	public static SubsystemAscend subsystemAscend = new SubsystemAscend();
+	public static SubsystemShooter subsystemShooter = new SubsystemShooter();
+	
+	//Commands
+	Command commandComp = new CommandKillCompressor();
+	Command commanderDrive = new CommandDrive();
+	Command commanderAscend = new CommandAscend();
+	Command commanderShoot = new CommandShooter();
+	
+	//Choosers
 	SendableChooser<Command> chooser = new SendableChooser<>();
-	public static SubsystemDrive subsystemDrive;
-	public static SubsystemCompressor subsystemCompressor;
-	public static SubsystemFlaps subsystemFlaps;
-	public static SubsystemAscend subsystemAscend;
-	public static SubsystemShooter subsystemShooter;
-	Command commanderDrive;
-	Command commanderAscend;
-	Command commanderSpin;
 
 	/**
 	 * This function is run when the robot is first started up and should be
@@ -48,19 +49,12 @@ public class Robot extends IterativeRobot {
 	@Override
 	public void robotInit() {
 		
-		subsystemDrive = new SubsystemDrive();
-		subsystemCompressor = new SubsystemCompressor();
-		subsystemFlaps = new SubsystemFlaps();
-		subsystemAscend = new SubsystemAscend();
-		subsystemShooter = new SubsystemShooter();
-		commanderDrive = new CommandDrive();
-		commanderAscend = new CommandAscend();
-		commanderSpin = new CommandShooter();
-		commandComp = new CommandCompressor();
-		//chooser.addDefault("Default Auto", new ExampleCommand());
-		// chooser.addObject("My Auto", new MyAutoCommand());
-		SmartDashboard.putData("Auto mode", chooser);
 		oi = new OI();
+		
+		//Chooser init
+		//chooser.addDefault("Default Auto", new ExampleCommand());
+		//chooser.addObject("My Auto", new MyAutoCommand());
+		//SmartDashboard.putData("Auto mode", chooser);
 	}
 
 	/**
@@ -68,65 +62,41 @@ public class Robot extends IterativeRobot {
 	 * You can use it to reset any subsystem information you want to clear when
 	 * the robot is disabled.
 	 */
-	@Override
 	public void disabledInit() {
 
 	}
 
-	@Override
 	public void disabledPeriodic() {
 		Scheduler.getInstance().run();
 	}
 
 	/**
-	 * This autonomous (along with the chooser code above) shows how to select
-	 * between different autonomous modes using the dashboard. The sendable
-	 * chooser code works with the Java SmartDashboard. If you prefer the
-	 * LabVIEW Dashboard, remove all of the chooser code and uncomment the
-	 * getString code to get the auto name from the text box below the Gyro
-	 *
-	 * You can add additional auto modes by adding additional commands to the
-	 * chooser code above (like the commented example) or additional comparisons
-	 * to the switch structure below with additional strings & commands.
+	 * Initializes autonomous control with a selection on the driver dash
 	 */
-	@Override
 	public void autonomousInit() {
-		autonomousCommand = chooser.getSelected();
-
-		/*
-		 * String autoSelected = SmartDashboard.getString("Auto Selector",
-		 * "Default"); switch(autoSelected) { case "My Auto": autonomousCommand
-		 * = new MyAutoCommand(); break; case "Default Auto": default:
-		 * autonomousCommand = new ExampleCommand(); break; }
-		 */
-
-		// schedule the autonomous command (example)
-		if (autonomousCommand != null)
-			autonomousCommand.start();
+		//autonomousCommand = chooser.getSelected();
+		//if (autonomousCommand != null)
+		//	autonomousCommand.start();
 	}
 
 	/**
 	 * This function is called periodically during autonomous
 	 */
-	@Override
 	public void autonomousPeriodic() {
 		Scheduler.getInstance().run();
 	}
-
-	@Override
+	
+	/**
+	 * This function is called once to initialize operator control
+	 */
 	public void teleopInit() {
-		// This makes sure that the autonomous stops running when
-		// teleop starts running. If you want the autonomous to
-		// continue until interrupted by another command, remove
-		// this line or comment it out.
-		if (autonomousCommand != null)
-			autonomousCommand.cancel();
+		//if (autonomousCommand != null)
+		//	autonomousCommand.cancel();
 	}
 
 	/**
 	 * This function is called periodically during operator control
 	 */
-	@Override
 	public void teleopPeriodic() {
 		Scheduler.getInstance().run();
 	}
@@ -134,7 +104,6 @@ public class Robot extends IterativeRobot {
 	/**
 	 * This function is called periodically during test mode
 	 */
-	@Override
 	public void testPeriodic() {
 		LiveWindow.run();
 	}

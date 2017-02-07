@@ -19,12 +19,11 @@ public class SubsystemShooter extends Subsystem {
 	}
 	
     public void initDefaultCommand() {
-        // Set the default command for a subsystem here.
         setDefaultCommand(new CommandShooter());
     }
     
     public void spin(double speed){
-    	shooterMotor.set((Constants.SHOOTER_MOTOR_INVERT ? -1.0 : 1.0) * speed);
+    	shooterMotor.set((Constants.SHOOTER_MOTOR_INVERT ? -1.0 : 1.0) * speed * Constants.SHOOTER_LIMIT);
     }
     
     public void spin(Joystick joy){

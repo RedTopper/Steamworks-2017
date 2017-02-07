@@ -4,12 +4,14 @@ public class Constants {
 	/**
 	 * Non Boosting Drive Speed
 	 */
-	public static final double NO_BOOST_MULTIPLIER = 0.5;
+	public static final double 
+			NO_BOOST_MULTIPLIER = 0.5;
 	
 	/**
 	 * Motor PWM Ports
 	 */
-	public static int LEFT_MOTOR = 2,
+	public static final int 
+			LEFT_MOTOR = 2,
 			OTHER_LEFT_MOTOR = 3,
 			RIGHT_MOTOR = 0,
 			OTHER_RIGHT_MOTOR = 1,
@@ -19,22 +21,32 @@ public class Constants {
 	/**
 	 * Motor Inverts
 	 */
-	public static boolean LEFT_MOTOR_INVERT = false,
+	public static final boolean 
+			LEFT_MOTOR_INVERT = false,
 			RIGHT_MOTOR_INVERT = false,
 			SHOOTER_MOTOR_INVERT = false;
 	
 	/**
 	 * Joystick Assignments
 	 */
-	public static int DRIVER_STICK = 0,
+	public static final int 
+			DRIVER_STICK = 0,
 			OPERATOR_STICK = 1;
 	
 	/**
 	 * PCM Ports
 	 */
-	public static int CLOSE_GEAR_FLAPS = 0,
+	public static final int 
+			CLOSE_GEAR_FLAPS = 0,
 			OPEN_GEAR_FLAPS = 1,
 			CLOSE_GEAR_FEEDER_FLAPS = 4;
 	
-	public static double SHOOTER_SPEED = 0.85;
+	public static final double 
+			SHOOTER_SPEED = 0.85;
+	
+	/**
+	 * Limit the shooter speed so it does not destroy the gearbox. :)
+	 */
+	public static final double 
+			SHOOTER_LIMIT = 0.4;
 }
