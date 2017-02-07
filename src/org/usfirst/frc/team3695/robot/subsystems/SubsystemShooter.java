@@ -23,11 +23,14 @@ public class SubsystemShooter extends Subsystem {
     }
     
     public void spin(double speed){
-    	shooterMotor.set((Constants.SHOOTER_MOTOR_INVERT ? -1.0 : 1.0) * speed * Constants.SHOOTER_LIMIT);
+    	shooterMotor.set((Constants.SHOOTER_MOTOR_INVERT ? -1.0 : 1.0) * speed);
     }
     
     public void spin(Joystick joy){
-    	spin(joy.getRawAxis(2));
+    	if (joy.getRawButton(1))
+    		spin(Constants.SHOOTER_SPEED);
+    	else
+    		spin(0.0);
     }
 }
 

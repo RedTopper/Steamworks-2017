@@ -19,7 +19,7 @@ public class SubsystemAscend extends Subsystem {
 	}
 	
 	public void climb(Joystick joy){
-		climberMotor.set(joy.getRawAxis(3));
+		climberMotor.set((Constants.ASCENDER_MOTOR_INVERT ? -1.0 : 1.0 ) * (joy.getRawAxis(3) - joy.getRawAxis(2)) * Constants.ASCENDER_LIMIT);
 	}
 
     public void initDefaultCommand() {

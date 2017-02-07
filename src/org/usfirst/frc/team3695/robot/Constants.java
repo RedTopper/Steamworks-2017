@@ -24,7 +24,8 @@ public class Constants {
 	public static final boolean 
 			LEFT_MOTOR_INVERT = false,
 			RIGHT_MOTOR_INVERT = false,
-			SHOOTER_MOTOR_INVERT = false;
+			SHOOTER_MOTOR_INVERT = false,
+			ASCENDER_MOTOR_INVERT = true;
 	
 	/**
 	 * Joystick Assignments
@@ -45,8 +46,8 @@ public class Constants {
 			SHOOTER_SPEED = 0.85;
 	
 	/**
-	 * Limit the shooter speed so it does not destroy the gearbox. :)
+	 * Limit the Ascender speed so it does not destroy the gearbox. :)
 	 */
 	public static final double 
-			SHOOTER_LIMIT = 0.4;
+			ASCENDER_LIMIT = 0.8;
 }

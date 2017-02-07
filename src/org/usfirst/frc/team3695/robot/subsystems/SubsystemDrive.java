@@ -35,7 +35,10 @@ public class SubsystemDrive extends Subsystem {
     }
     
     public void dualStickDrive(Joystick joy){
-    	roboDrive.tankDrive(joy.getRawAxis(1), joy.getRawAxis(5));
+    	double add = joy.getRawAxis(2) - joy.getRawAxis(3);//Adds in linear driving
+    	double left = joy.getRawAxis(1) + add;
+    	double right = joy.getRawAxis(5) + add;
+    	roboDrive.tankDrive(left, right);
     }
     
     /**
