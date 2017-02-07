@@ -26,17 +26,21 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
  * directory.
  */
 public class Robot extends IterativeRobot {
-
-	public static OI oi;
-
-	Command autonomousCommand;
-	Command commandComp;
-	SendableChooser<Command> chooser = new SendableChooser<>();
+	//Choosers
+	SendableChooser<Command> autoChooser = new SendableChooser<>(); // should this be a sendable command chooser or a normal sendableChooser?
+	
+	
+	// Static Subsystems
 	public static SubsystemDrive subsystemDrive;
 	public static SubsystemCompressor subsystemCompressor;
 	public static SubsystemFlaps subsystemFlaps;
 	public static SubsystemAscend subsystemAscend;
 	public static SubsystemShooter subsystemShooter;
+	public static OI oi;
+	
+	// Commands
+	Command autonomousCommand;
+	Command commandComp;
 	Command commanderDrive;
 	Command commanderAscend;
 	Command commanderSpin;
@@ -47,20 +51,26 @@ public class Robot extends IterativeRobot {
 	 */
 	@Override
 	public void robotInit() {
-		
+		// Initialize Subsystems
 		subsystemDrive = new SubsystemDrive();
 		subsystemCompressor = new SubsystemCompressor();
 		subsystemFlaps = new SubsystemFlaps();
 		subsystemAscend = new SubsystemAscend();
 		subsystemShooter = new SubsystemShooter();
+		oi = new OI();
+		
+		// Initialize Commands
 		commanderDrive = new CommandDrive();
 		commanderAscend = new CommandAscend();
 		commanderSpin = new CommandShooter();
 		commandComp = new CommandCompressor();
-		//chooser.addDefault("Default Auto", new ExampleCommand());
-		// chooser.addObject("My Auto", new MyAutoCommand());
-		SmartDashboard.putData("Auto mode", chooser);
-		oi = new OI();
+		
+		// autoChooser setup
+		SmartDashboard.putData("Auto mode", autoChooser); // TODO add AutonomousPosition enum
+		// autoChooser.addDefault("Center", AutonomousPosition.CENTER);
+		// autoChooser.addObject("Left", AutonomousPosition.LEFT);
+		// autoChooser.addObject("Right", AutonomousPosition.RIGHT);
+		
 	}
 
 	/**
@@ -91,7 +101,7 @@ public class Robot extends IterativeRobot {
 	 */
 	@Override
 	public void autonomousInit() {
-		autonomousCommand = chooser.getSelected();
+		autonomousCommand = autoChooser.getSelected();
 
 		/*
 		 * String autoSelected = SmartDashboard.getString("Auto Selector",
