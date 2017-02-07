@@ -45,7 +45,7 @@ public class OI {
 		/**
 		 * Intelligent Interface
 		 */
-		SmartDashboard.putData("", new CommandDriveWithCam());
+		//SmartDashboard.putData("", new CommandDriveWithCam());
 		
 		/**
 		 * To Compress, or Not To Compress. It is now an option.
