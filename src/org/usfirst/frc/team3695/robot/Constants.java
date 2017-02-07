@@ -1,6 +1,14 @@
 package org.usfirst.frc.team3695.robot;
 
 public class Constants {
+	
+	/**
+	 * Resolution of all roborio streaming cameras.
+	 */
+	public static final int 
+			CAM_WIDTH = 640,
+			CAM_HEIGHT = 480;
+	
 	/**
 	 * Non Boosting Drive Speed
 	 */
