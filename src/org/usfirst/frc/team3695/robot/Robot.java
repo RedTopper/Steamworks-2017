@@ -27,7 +27,7 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
  */
 public class Robot extends IterativeRobot {
 	//Choosers
-	SendableChooser<Command> autoChooser = new SendableChooser<>(); // should this be a sendable command chooser or a normal sendableChooser?
+	SendableChooser<Enumeration> autoChooser = new SendableChooser<>(); // should this be a sendable command chooser or a normal sendableChooser?
 	
 	
 	// Static Subsystems
