@@ -13,8 +13,6 @@ import org.opencv.core.Scalar;
 import org.opencv.core.Size;
 import org.opencv.imgproc.Imgproc;
 
-import edu.wpi.first.wpilibj.vision.VisionPipeline;
-
 /**
 * GripPipeline class.
 *
@@ -22,7 +20,7 @@ import edu.wpi.first.wpilibj.vision.VisionPipeline;
 *
 * @author GRIP
 */
-public class Grip implements VisionPipeline {
+public class Grip {
 
 	//Outputs
 	private Mat hsvThresholdOutput = new Mat();
