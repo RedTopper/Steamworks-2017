@@ -1,27 +1,22 @@
 
 package org.usfirst.frc.team3695.robot;
 
-import java.beans.EventHandler;
-
 import org.usfirst.frc.team3695.robot.commands.CommandAscend;
 import org.usfirst.frc.team3695.robot.commands.CommandDrive;
 import org.usfirst.frc.team3695.robot.commands.CommandKillCompressor;
 import org.usfirst.frc.team3695.robot.commands.CommandShooter;
-import org.usfirst.frc.team3695.robot.enumeration.Cam;
 import org.usfirst.frc.team3695.robot.subsystems.SubsystemAscend;
 import org.usfirst.frc.team3695.robot.subsystems.SubsystemCompressor;
 import org.usfirst.frc.team3695.robot.subsystems.SubsystemDrive;
 import org.usfirst.frc.team3695.robot.subsystems.SubsystemFlaps;
 import org.usfirst.frc.team3695.robot.subsystems.SubsystemShooter;
+import org.usfirst.frc.team3695.robot.vision.Vision;
 
-import edu.wpi.cscore.UsbCamera;
 import edu.wpi.first.wpilibj.IterativeRobot;
 import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.command.Scheduler;
 import edu.wpi.first.wpilibj.livewindow.LiveWindow;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
-import edu.wpi.first.wpilibj.vision.VisionRunner;
-import edu.wpi.first.wpilibj.vision.VisionThread;
 
 /**
  * Team 3695 Main Robot Function
@@ -45,9 +40,6 @@ public class Robot extends IterativeRobot {
 	Command commanderAscend = new CommandAscend();
 	Command commanderShoot = new CommandShooter();
 	
-	private VisionThread visionThread;
-	private final Object imgLock = new Object();
-	
 	//Choosers
 	SendableChooser<Command> chooser = new SendableChooser<>();
 
@@ -60,18 +52,12 @@ public class Robot extends IterativeRobot {
 		
 		oi = new OI();
 		
-		UsbCamera cam0 = new UsbCamera("Front Camera", Cam.FRONT_CAM.getDev());
-		UsbCamera cam1 = new UsbCamera("Rear Camera", Cam.REAR_CAM.getDev());
+		new Vision().start();
 		
 		//Chooser init
 		//chooser.addDefault("Default Auto", new ExampleCommand());
 		//chooser.addObject("My Auto", new MyAutoCommand());
 		//SmartDashboard.putData("Auto mode", chooser);
-	
-		visionThread = new VisionThread(cam0, new Grip(), new VisionRunner.Listener<Grip> {
-			
-		});
-		visionThread.start();
 	}
 
 	/**
