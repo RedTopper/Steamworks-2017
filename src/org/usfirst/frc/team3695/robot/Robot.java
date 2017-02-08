@@ -27,9 +27,17 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
  * directory.
  */
 public class Robot extends IterativeRobot {
-	//Choosers
+	// Auto
+	private Autonomous autonomousCommand;
+	
+	// Choosers
 	SendableChooser<Autonomous> autoChooser = new SendableChooser<>(); // should this be a sendable command chooser or a normal sendableChooser?
 	
+	// Commands
+	Command commandComp;
+	Command commanderDrive;
+	Command commanderAscend;
+	Command commanderSpin;
 	
 	// Static Subsystems
 	public static SubsystemDrive subsystemDrive;
@@ -38,13 +46,6 @@ public class Robot extends IterativeRobot {
 	public static SubsystemAscend subsystemAscend;
 	public static SubsystemShooter subsystemShooter;
 	public static OI oi;
-	
-	// Commands
-	Command autonomousCommand;
-	Command commandComp;
-	Command commanderDrive;
-	Command commanderAscend;
-	Command commanderSpin;
 
 	/**
 	 * This function is run when the robot is first started up and should be
