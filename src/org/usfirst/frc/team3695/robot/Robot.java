@@ -5,6 +5,7 @@ import org.usfirst.frc.team3695.robot.commands.CommandAscend;
 import org.usfirst.frc.team3695.robot.commands.CommandCompressor;
 import org.usfirst.frc.team3695.robot.commands.CommandDrive;
 import org.usfirst.frc.team3695.robot.commands.CommandShooter;
+import org.usfirst.frc.team3695.robot.enumeration.Autonomous;
 import org.usfirst.frc.team3695.robot.subsystems.SubsystemAscend;
 import org.usfirst.frc.team3695.robot.subsystems.SubsystemCompressor;
 import org.usfirst.frc.team3695.robot.subsystems.SubsystemDrive;
@@ -27,7 +28,7 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
  */
 public class Robot extends IterativeRobot {
 	//Choosers
-	SendableChooser<Enum> autoChooser = new SendableChooser<>(); // should this be a sendable command chooser or a normal sendableChooser?
+	SendableChooser<Autonomous> autoChooser = new SendableChooser<>(); // should this be a sendable command chooser or a normal sendableChooser?
 	
 	
 	// Static Subsystems
@@ -67,9 +68,9 @@ public class Robot extends IterativeRobot {
 		
 		// autoChooser setup
 		SmartDashboard.putData("Auto mode", autoChooser); // TODO add AutonomousPosition enum
-		// autoChooser.addDefault("Center", AutonomousPosition.CENTER);
-		// autoChooser.addObject("Left", AutonomousPosition.LEFT);
-		// autoChooser.addObject("Right", AutonomousPosition.RIGHT);
+		autoChooser.addDefault("Center", Autonomous.CENTER);
+		autoChooser.addObject("Left", Autonomous.LEFT);
+		autoChooser.addObject("Right", Autonomous.RIGHT);
 		
 	}
 
