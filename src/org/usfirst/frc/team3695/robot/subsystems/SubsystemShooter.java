@@ -19,7 +19,6 @@ public class SubsystemShooter extends Subsystem {
 	}
 	
     public void initDefaultCommand() {
-        // Set the default command for a subsystem here.
         setDefaultCommand(new CommandShooter());
     }
     
@@ -28,7 +27,9 @@ public class SubsystemShooter extends Subsystem {
     }
     
     public void spin(Joystick joy){
-    	spin(joy.getRawAxis(2));
+    	if (joy.getRawButton(1))
+    		spin(Constants.SHOOTER_SPEED);
+    	else
+    		spin(0.0);
     }
 }
-

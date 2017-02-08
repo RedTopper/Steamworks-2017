@@ -1,14 +1,12 @@
 package org.usfirst.frc.team3695.robot.subsystems;
 
 import org.usfirst.frc.team3695.robot.Constants;
-import org.usfirst.frc.team3695.robot.Controller;
 import org.usfirst.frc.team3695.robot.commands.CommandDrive;
 
 import com.ctre.CANTalon;
 
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.RobotDrive;
-import edu.wpi.first.wpilibj.Talon;
 import edu.wpi.first.wpilibj.command.Subsystem;
 
 /**
@@ -36,38 +34,17 @@ public class SubsystemDrive extends Subsystem {
     	roboDrive = new RobotDrive(left1,left2,right1,right2);
     }
     
-    /**
-     * Single Joystick drive
-     */
-    public void arcadeDrive(Joystick joy){
-    	roboDrive.arcadeDrive(joy);
-    }
-    
-    /**
-     * RobotDrive TankDrive (Left Right Representaion)
-     * @param left
-     * @param right
-     */
-    public void tankdrive(double left, double right) {
-		roboDrive.tankDrive(left,right);
-	}
-    
-    /**
-     * Rocket League Inspired Controls
-     */
-    public void rocketDrive(Joystick joy) {
-		double[] tank = Controller.DRIVE_AXIS();
-		tankdrive(tank[0],tank[1]);
-	}
-    
-    public void straightLines(Joystick joy){
-    	roboDrive.tankDrive(joy.getRawAxis(5), joy.getRawAxis(5));
-    }
-    
     public void dualStickDrive(Joystick joy){
-    	roboDrive.tankDrive(joy.getRawAxis(1), joy.getRawAxis(5));
+    	double add = joy.getRawAxis(2) - joy.getRawAxis(3);//Adds in linear driving
+    	double left = joy.getRawAxis(1) + add;
+    	double right = joy.getRawAxis(5) + add;
+    	roboDrive.tankDrive(left, right);
     }
     
+    /**
+     * @deprecated
+     * @param joy
+     */
     public void motorTest(Joystick joy){
     	left1.set(joy.getZ());;
     }
