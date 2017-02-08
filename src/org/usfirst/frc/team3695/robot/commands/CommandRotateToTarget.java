@@ -50,7 +50,7 @@ public class CommandRotateToTarget extends Command {
     		int x0 = rect0.x + (rect0.width / 2);
     		int x1 = rect1.x + (rect1.width / 2);
     		int targetCenter = (x0 + x1) / 2;
-    		int diff = Math.abs(x1 - x0);
+    		int diff = Math.abs(targetCenter - screenCenter);
     		if (diff <= centerThreshold) {
     			// TODO: Try to center the view from here (w/ PID?)
     			doneRotating = true;
@@ -58,6 +58,7 @@ public class CommandRotateToTarget extends Command {
     		else {
     			if (targetCenter < screenCenter) {
     				// TODO: Rotate left
+    				
     			} else {
     				// TODO: Rotate right
     			}
