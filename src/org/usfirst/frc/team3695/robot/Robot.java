@@ -4,6 +4,7 @@ package org.usfirst.frc.team3695.robot;
 import org.usfirst.frc.team3695.robot.commands.CommandAscend;
 import org.usfirst.frc.team3695.robot.commands.CommandDrive;
 import org.usfirst.frc.team3695.robot.commands.CommandKillCompressor;
+import org.usfirst.frc.team3695.robot.commands.CommandRotateToTarget;
 import org.usfirst.frc.team3695.robot.commands.CommandShooter;
 import org.usfirst.frc.team3695.robot.subsystems.SubsystemAscend;
 import org.usfirst.frc.team3695.robot.subsystems.SubsystemCompressor;
@@ -26,6 +27,7 @@ import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 public class Robot extends IterativeRobot {
 
 	public static OI oi;
+	public static Grip camPipeline = new Grip();
 	
 	//Subsystems
 	public static SubsystemDrive subsystemDrive = new SubsystemDrive();
@@ -36,9 +38,10 @@ public class Robot extends IterativeRobot {
 	
 	//Commands
 	Command commandComp = new CommandKillCompressor();
-	Command commanderDrive = new CommandDrive();
-	Command commanderAscend = new CommandAscend();
-	Command commanderShoot = new CommandShooter();
+	Command commandDrive = new CommandDrive();
+	Command commandAscend = new CommandAscend();
+	Command commandShoot = new CommandShooter();
+	Command commandTarget = new CommandRotateToTarget(camPipeline);
 	
 	//Choosers
 	SendableChooser<Command> chooser = new SendableChooser<>();
