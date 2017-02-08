@@ -1,4 +1,3 @@
-
 package org.usfirst.frc.team3695.robot;
 
 import org.usfirst.frc.team3695.robot.commands.CommandAscend;
@@ -6,6 +5,7 @@ import org.usfirst.frc.team3695.robot.commands.CommandDrive;
 import org.usfirst.frc.team3695.robot.commands.CommandKillCompressor;
 import org.usfirst.frc.team3695.robot.commands.CommandRotateToTarget;
 import org.usfirst.frc.team3695.robot.commands.CommandShooter;
+import org.usfirst.frc.team3695.robot.enumeration.Autonomous;
 import org.usfirst.frc.team3695.robot.subsystems.SubsystemAscend;
 import org.usfirst.frc.team3695.robot.subsystems.SubsystemCompressor;
 import org.usfirst.frc.team3695.robot.subsystems.SubsystemDrive;
@@ -18,6 +18,7 @@ import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.command.Scheduler;
 import edu.wpi.first.wpilibj.livewindow.LiveWindow;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 /**
  * Team 3695 Main Robot Function
@@ -44,7 +45,7 @@ public class Robot extends IterativeRobot {
 	Command commandTarget = new CommandRotateToTarget(camPipeline);
 	
 	//Choosers
-	SendableChooser<Command> chooser = new SendableChooser<>();
+	SendableChooser<Autonomous> autoChooser = new SendableChooser<>();
 
 	/**
 	 * This function is run when the robot is first started up and should be
@@ -57,10 +58,11 @@ public class Robot extends IterativeRobot {
 		
 		new Vision().start();
 		
-		//Chooser init
-		//chooser.addDefault("Default Auto", new ExampleCommand());
-		//chooser.addObject("My Auto", new MyAutoCommand());
-		//SmartDashboard.putData("Auto mode", chooser);
+		// autoChooser setup
+		SmartDashboard.putData("Auto mode", autoChooser); // TODO add AutonomousPosition enum
+		autoChooser.addDefault("Center", Autonomous.CENTER);
+		autoChooser.addObject("Left", Autonomous.LEFT);
+		autoChooser.addObject("Right", Autonomous.RIGHT);
 	}
 
 	/**

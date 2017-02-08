@@ -33,4 +33,3 @@ public class SubsystemShooter extends Subsystem {
     		spin(0.0);
     }
 }
-
