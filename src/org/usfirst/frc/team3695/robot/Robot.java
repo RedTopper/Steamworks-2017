@@ -10,6 +10,8 @@ import org.usfirst.frc.team3695.robot.subsystems.SubsystemCompressor;
 import org.usfirst.frc.team3695.robot.subsystems.SubsystemDrive;
 import org.usfirst.frc.team3695.robot.subsystems.SubsystemFlaps;
 import org.usfirst.frc.team3695.robot.subsystems.SubsystemShooter;
+import org.usfirst.frc.team3695.robot.vision.Camera;
+import org.usfirst.frc.team3695.robot.vision.Video;
 import org.usfirst.frc.team3695.robot.vision.Vision;
 
 import edu.wpi.first.wpilibj.IterativeRobot;
@@ -17,6 +19,7 @@ import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.command.Scheduler;
 import edu.wpi.first.wpilibj.livewindow.LiveWindow;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 /**
  * Team 3695 Main Robot Function
@@ -25,7 +28,12 @@ import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
  */
 public class Robot extends IterativeRobot {
 
+	//Output and Input
 	public static OI oi;
+	
+	//Vars
+	private Camera lastCam = Camera.FRONT;
+	private Vision visionThread = new Vision();
 	
 	//Subsystems
 	public static SubsystemDrive subsystemDrive = new SubsystemDrive();
@@ -41,7 +49,7 @@ public class Robot extends IterativeRobot {
 	Command commanderShoot = new CommandShooter();
 	
 	//Choosers
-	SendableChooser<Command> chooser = new SendableChooser<>();
+	SendableChooser<Camera> chooserCamera = new SendableChooser<>();
 
 	/**
 	 * This function is run when the robot is first started up and should be
@@ -49,15 +57,14 @@ public class Robot extends IterativeRobot {
 	 */
 	@Override
 	public void robotInit() {
-		
 		oi = new OI();
 		
-		new Vision().start();
+		visionThread.start();
 		
 		//Chooser init
-		//chooser.addDefault("Default Auto", new ExampleCommand());
-		//chooser.addObject("My Auto", new MyAutoCommand());
-		//SmartDashboard.putData("Auto mode", chooser);
+		chooserCamera.addDefault(Camera.FRONT.usb.getName(), Camera.FRONT);
+		chooserCamera.addObject(Camera.REAR.usb.getName(), Camera.REAR);
+		SmartDashboard.putData("Camera", chooserCamera);
 	}
 
 	/**
@@ -71,15 +78,18 @@ public class Robot extends IterativeRobot {
 
 	public void disabledPeriodic() {
 		Scheduler.getInstance().run();
+		Camera cam = chooserCamera.getSelected();
+		if (cam != null && cam != lastCam) {
+			visionThread.setCamera(cam, Video.ROBOT);
+			lastCam = cam;
+		}
 	}
 
 	/**
 	 * Initializes autonomous control with a selection on the driver dash
 	 */
 	public void autonomousInit() {
-		//autonomousCommand = chooser.getSelected();
-		//if (autonomousCommand != null)
-		//	autonomousCommand.start();
+
 	}
 
 	/**

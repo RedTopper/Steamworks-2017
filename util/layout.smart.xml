@@ -1,42 +1,22 @@
 <xml version="1.0">
 <dashboard>
-	<widget field="System Information:" type="String" class="edu.wpi.first.smartdashboard.gui.elements.TextBox">
-		<location x="-97" y="452"/>
-		<width>815</width>
+	<widget field="Camera" type="String Chooser" class="edu.wpi.first.smartdashboard.gui.elements.Chooser">
+		<location x="771" y="679"/>
 	</widget>
-	<widget field="Catapult Completely Down" type="Boolean" class="edu.wpi.first.smartdashboard.gui.elements.BooleanBox">
-		<location x="451" y="112"/>
-		<width>268</width>
-		<height>42</height>
-	</widget>
-	<widget field="System Pressure" type="Number" class="edu.wpi.first.smartdashboard.gui.elements.SimpleDial">
-		<location x="304" y="301"/>
-		<property name="Upper Limit" value="120.0"/>
+	<static-widget class="edu.wpi.first.smartdashboard.gui.elements.CameraServerViewer">
+		<location x="901" y="1"/>
+		<width>999</width>
+		<height>750</height>
+		<property name="Camera Choice" value="Stream"/>
+	</static-widget>
+	<widget field="Disable Compressor" type="Command" class="edu.wpi.first.smartdashboard.gui.elements.Command">
+		<location x="3" y="5"/>
 	</widget>
 	<static-widget class="edu.wpi.first.smartdashboard.gui.elements.RobotPreferences">
-		<location x="0" y="208"/>
-		<width>304</width>
+		<location x="580" y="2"/>
+		<width>316</width>
 		<height>240</height>
 	</static-widget>
-	<static-widget class="edu.wpi.first.smartdashboard.gui.elements.Label">
-		<location x="384" y="18"/>
-		<height>14</height>
-		<property name="Text" value="...then do this..."/>
-	</static-widget>
-	<static-widget class="edu.wpi.first.smartdashboard.gui.elements.WebcamViewerExtension">
-		<location x="720" y="0"/>
-		<width>640</width>
-		<height>480</height>
-	</static-widget>
-	<widget field="Drive Mode" type="String Chooser" class="edu.wpi.first.smartdashboard.gui.elements.Chooser">
-		<location x="-1" y="144"/>
-	</widget>
-	<widget field="Do Flash" type="Command" class="edu.wpi.first.smartdashboard.gui.elements.Command">
-		<location x="2" y="2"/>
-	</widget>
-	<widget field="Scheduler" type="Scheduler" class="edu.wpi.first.smartdashboard.gui.elements.Scheduler">
-		<location x="3" y="54"/>
-	</widget>
 </dashboard>
 <live-window>
 </live-window>
