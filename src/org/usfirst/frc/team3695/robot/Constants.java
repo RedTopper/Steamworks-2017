@@ -51,7 +51,7 @@ public class Constants {
 			CLOSE_GEAR_FEEDER_FLAPS = 4;
 	
 	public static final double 
-			SHOOTER_SPEED = 0.85;
+			SHOOTER_SPEED = 0.43;
 	
 	/**
 	 * Limit the Ascender speed so it does not destroy the gearbox. :)

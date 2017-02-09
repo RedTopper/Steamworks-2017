@@ -49,7 +49,7 @@ public class Robot extends IterativeRobot {
 	Command commandDrive = new CommandDrive();
 	Command commandAscend = new CommandAscend();
 	Command commandShoot = new CommandShooter();
-	Command commandTarget = new CommandRotateToTarget(camPipeline);
+	//Command commandTarget = new CommandRotateToTarget(camPipeline);
 	
 	//Choosers
 	SendableChooser<Camera> chooserCamera = new SendableChooser<>();
@@ -83,7 +83,7 @@ public class Robot extends IterativeRobot {
 		Scheduler.getInstance().run();
 		Camera cam = chooserCamera.getSelected();
 		if (cam != null && cam != lastCam) {
-			visionThread.setCamera(cam, Video.ROBOT);
+			visionThread.setCamera(cam, Video.RAW);
 			lastCam = cam;
 		}
 	}
