@@ -13,6 +13,9 @@ import edu.wpi.first.wpilibj.command.Subsystem;
  */
 public class SubsystemShooter extends Subsystem {
 	CANTalon shooterMotor;
+	private int ghettoCounter = 0;
+	private int ghettoTime = 20;
+	private boolean ghettoState = true;
 	
 	public SubsystemShooter(){
 		shooterMotor = new CANTalon(Constants.SHOOTER_MOTOR);
@@ -29,6 +32,13 @@ public class SubsystemShooter extends Subsystem {
     public void spin(Joystick joy){
     	if (joy.getRawButton(1))
     		spin(Constants.SHOOTER_SPEED);
+    	else if (joy.getRawButton(2))
+    		if (ghettoCounter % ghettoTime == 0){
+    			spin((ghettoState ? 1.0 : -1.0));
+    			ghettoState = !ghettoState;
+    			ghettoCounter = 1;
+    		} else
+    			ghettoCounter++;
     	else
     		spin(0.0);
     }
