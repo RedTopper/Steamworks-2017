@@ -48,7 +48,9 @@ public class Constants {
 	public static final int 
 			CLOSE_GEAR_FLAPS = 0,
 			OPEN_GEAR_FLAPS = 1,
-			CLOSE_GEAR_FEEDER_FLAPS = 4;
+			CLOSE_GEAR_FEEDER_FLAPS = 4,
+			OPEN_BALL_HOPPER = 6,
+			CLOSE_BALL_HOPPER = 7;
 	
 	public static final double 
 			SHOOTER_SPEED = 0.85;

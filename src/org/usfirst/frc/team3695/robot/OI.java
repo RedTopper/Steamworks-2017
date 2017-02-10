@@ -1,6 +1,7 @@
 package org.usfirst.frc.team3695.robot;
 
 import org.usfirst.frc.team3695.robot.commands.CommandKillCompressor;
+import org.usfirst.frc.team3695.robot.commands.CommandOpenBallHopper;
 import org.usfirst.frc.team3695.robot.commands.CommandFlaps;
 
 import edu.wpi.first.wpilibj.buttons.Button;
@@ -27,5 +28,10 @@ public class OI {
 		openFlap.whenPressed(new CommandFlaps(true));
 		closeFlap.whenPressed(new CommandFlaps(false));
 		
+		/**
+		 * Ball Loading
+		 */
+		Button openGear = new JoystickButton(Controller.OP_JOY(), 3);
+		openGear.whenPressed(new CommandOpenBallHopper());
 	}
 }

@@ -7,6 +7,7 @@ import org.usfirst.frc.team3695.robot.commands.CommandKillCompressor;
 import org.usfirst.frc.team3695.robot.commands.CommandRotateToTarget;
 import org.usfirst.frc.team3695.robot.commands.CommandShooter;
 import org.usfirst.frc.team3695.robot.subsystems.SubsystemAscend;
+import org.usfirst.frc.team3695.robot.subsystems.SubsystemBallHopper;
 import org.usfirst.frc.team3695.robot.subsystems.SubsystemCompressor;
 import org.usfirst.frc.team3695.robot.subsystems.SubsystemDrive;
 import org.usfirst.frc.team3695.robot.subsystems.SubsystemFlaps;
@@ -43,6 +44,7 @@ public class Robot extends IterativeRobot {
 	public static SubsystemFlaps subsystemFlaps = new SubsystemFlaps();
 	public static SubsystemAscend subsystemAscend = new SubsystemAscend();
 	public static SubsystemShooter subsystemShooter = new SubsystemShooter();
+	public static SubsystemBallHopper subsystemBallHopper = new SubsystemBallHopper();
 	
 	//Commands
 	Command commandComp = new CommandKillCompressor();
