@@ -149,6 +149,11 @@ public class Vision extends Thread {
 				continue;
 			}
 			
+			if(!camera.usb.isConnected()) {
+				warn("USB Camera " + camera.usb.getName() + " is disconnected!", "Check the connection to the camera, then try again.");
+				output.putFrame(warn);
+			}
+			
 			//Grab the frame
 			long time = camera.sink.grabFrame(source);
 			
