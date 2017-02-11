@@ -15,6 +15,8 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 public class OI {
 	
 	public OI(){
+		
+		
 		/**
 		 * To Compress, or Not To Compress. It is now an option.
 		 */
