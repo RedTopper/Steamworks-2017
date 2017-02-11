@@ -1,17 +1,18 @@
 # Naming Standards
-*camelCase
-	-Methods
-	-Variables
-*BumpyCase
-	-Classes
-*CAPS_LOCK
-	-Static Variables
-	-Enumeration Values
-*lowercase
-	-Folder Names
+* camelCase
+ - Methods
+ - Variables
+* BumpyCase
+ - Classes
+* CAPS_LOCK
+ - Static Variables
+ - Enumeration Values
+* lowercase
+ - Folder Names
 	
 # Recurring Structure
-*[Competition Name]-[year]
+```
+[Competition Name]-[year]
 	-src
 		-org
 			-usfirst
@@ -33,9 +34,9 @@
 								-Concept.md
 							-layout.smart.xml
 	-README.md
-							
+```						
 # Formalities
--Use tabs to offset, not spaces
--Add documentation for your static variables and methods
--Add commits as frequently as is necessary to clearly convey changes made
--Avoid conflicts by fetching from upstream before making pull requests
+* Use tabs to offset, not spaces
+* Add documentation for your static variables and methods
+* Add commits as frequently as is necessary to clearly convey changes made
+* Avoid conflicts by fetching from upstream before making pull requests
