@@ -30,14 +30,20 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
  *
  */
 public class Robot extends IterativeRobot {
-
+	//Choosers
+	SendableChooser<Autonomous> autoChooser = new SendableChooser<>();
+	SendableChooser<Camera> chooserCamera = new SendableChooser<>();
+	
+	//Commands
+	Command commandComp = new CommandKillCompressor();
+	Command commandDrive = new CommandDrive();
+	Command commandAscend = new CommandAscend();
+	Command commandShoot = new CommandShooter();
+	//Command commandTarget = new CommandRotateToTarget(camPipeline);
+	
 	//Output and Input
 	public static OI oi;
 	public static Grip camPipeline = new Grip();
-	
-	//Vars
-	private Camera lastCam = Camera.FRONT;
-	private Vision visionThread = new Vision();
 	
 	//Subsystems
 	public static SubsystemDrive subsystemDrive = new SubsystemDrive();
@@ -47,16 +53,9 @@ public class Robot extends IterativeRobot {
 	public static SubsystemShooter subsystemShooter = new SubsystemShooter();
 	public static SubsystemBallHopper subsystemBallHopper = new SubsystemBallHopper();
 	
-	//Commands
-	Command commandComp = new CommandKillCompressor();
-	Command commandDrive = new CommandDrive();
-	Command commandAscend = new CommandAscend();
-	Command commandShoot = new CommandShooter();
-	//Command commandTarget = new CommandRotateToTarget(camPipeline);
-	
-	//Choosers
-	SendableChooser<Autonomous> autoChooser = new SendableChooser<>();
-	SendableChooser<Camera> chooserCamera = new SendableChooser<>();
+	//Vars
+	private Camera lastCam = Camera.FRONT;
+	private Vision visionThread = new Vision();
 
 	/**
 	 * This function is run when the robot is first started up and should be
