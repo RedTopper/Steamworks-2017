@@ -13,7 +13,6 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
  * interface to the commands and command groups that allow control of the robot.
  */
 public class OI {
-	
 	public OI(){
 		/**
 		 * To Compress, or Not To Compress. It is now an option.
