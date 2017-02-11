@@ -6,6 +6,7 @@ import org.usfirst.frc.team3695.robot.commands.CommandDrive;
 import org.usfirst.frc.team3695.robot.commands.CommandKillCompressor;
 import org.usfirst.frc.team3695.robot.commands.CommandRotateToTarget;
 import org.usfirst.frc.team3695.robot.commands.CommandShooter;
+import org.usfirst.frc.team3695.robot.enumeration.Autonomous;
 import org.usfirst.frc.team3695.robot.subsystems.SubsystemAscend;
 import org.usfirst.frc.team3695.robot.subsystems.SubsystemBallHopper;
 import org.usfirst.frc.team3695.robot.subsystems.SubsystemCompressor;
@@ -54,6 +55,7 @@ public class Robot extends IterativeRobot {
 	//Command commandTarget = new CommandRotateToTarget(camPipeline);
 	
 	//Choosers
+	SendableChooser<Autonomous> autoChooser = new SendableChooser<>();
 	SendableChooser<Camera> chooserCamera = new SendableChooser<>();
 
 	/**
@@ -65,6 +67,11 @@ public class Robot extends IterativeRobot {
 		oi = new OI();
 		
 		visionThread.start();
+		
+		//AutoChooser init
+		SmartDashboard.putData("Auto mode", autoChooser);
+		autoChooser.addDefault("Center", Autonomous.CENTER);
+		autoChooser.addObject("Left", Autonomous.LEFT);
 		
 		//Chooser init
 		chooserCamera.addDefault(Camera.FRONT.usb.getName(), Camera.FRONT);
