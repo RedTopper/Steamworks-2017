@@ -20,7 +20,6 @@ public class CommandAscend extends Command {
 
     protected void execute() {
     	Robot.subsystemAscend.climb(Controller.OP_JOY());
-    	Robot.subsystemBallHopper.closeHopper();
     }
 
     protected boolean isFinished() {
