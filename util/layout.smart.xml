@@ -1,7 +1,13 @@
 <xml version="1.0">
 <dashboard>
+	<widget field="Video Mode" type="String Chooser" class="edu.wpi.first.smartdashboard.gui.elements.Chooser">
+		<location x="769" y="245"/>
+	</widget>
+	<widget field="Auto mode" type="String Chooser" class="edu.wpi.first.smartdashboard.gui.elements.Chooser">
+		<location x="0" y="41"/>
+	</widget>
 	<widget field="Camera" type="String Chooser" class="edu.wpi.first.smartdashboard.gui.elements.Chooser">
-		<location x="771" y="679"/>
+		<location x="770" y="388"/>
 	</widget>
 	<static-widget class="edu.wpi.first.smartdashboard.gui.elements.CameraServerViewer">
 		<location x="901" y="1"/>
