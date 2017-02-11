@@ -67,12 +67,13 @@ public class Robot extends IterativeRobot {
 		
 		visionThread.start();
 		
-		//AutoChooser init
+		//Autonomous Chooser init
 		SmartDashboard.putData("Auto mode", autoChooser);
 		autoChooser.addDefault("Center", Autonomous.CENTER);
 		autoChooser.addObject("Left", Autonomous.LEFT);
+		autoChooser.addObject("Right", Autonomous.RIGHT);
 		
-		//Chooser init
+		//Camera Chooser init
 		chooserCamera.addDefault(Camera.FRONT.usb.getName(), Camera.FRONT);
 		chooserCamera.addObject(Camera.REAR.usb.getName(), Camera.REAR);
 		SmartDashboard.putData("Camera", chooserCamera);
