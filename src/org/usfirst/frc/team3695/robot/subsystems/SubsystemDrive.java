@@ -27,11 +27,19 @@ public class SubsystemDrive extends Subsystem {
      * Initialize Needed Drivetrain Variables
      */
     public SubsystemDrive(){
+    	//Master Talons
     	left1 = new CANTalon(Constants.LEFT_MOTOR);
-    	left2 = new CANTalon(Constants.OTHER_LEFT_MOTOR);
     	right1 = new CANTalon(Constants.RIGHT_MOTOR);
+    	//Slave Talons
+    	left2 = new CANTalon(Constants.OTHER_LEFT_MOTOR);
     	right2 = new CANTalon(Constants.OTHER_RIGHT_MOTOR);
-    	roboDrive = new RobotDrive(left1,left2,right1,right2);
+    	//Train the Slaves
+    	left2.changeControlMode(CANTalon.TalonControlMode.Follower);
+    	left2.set(left1.getDeviceID());
+    	right2.changeControlMode(CANTalon.TalonControlMode.Follower);
+    	right2.set(right1.getDeviceID());
+    	//Robot Drive Train
+    	roboDrive = new RobotDrive(left1,right1);
     }
     
     public void tankDrive(double left, double right) {
