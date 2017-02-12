@@ -16,20 +16,10 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 public class OI {
 	public OI(){
 		/**
-		 * Speed Gauge
+		 * Ball Loading
 		 */
-		SmartDashboard.putNumber("Speed", (((Controller.DRIVE_JOY().getRawAxis(1) + (Controller.DRIVE_JOY().getRawAxis(2) - Controller.DRIVE_JOY().getRawAxis(3)))+
-											(Controller.DRIVE_JOY().getRawAxis(5) + (Controller.DRIVE_JOY().getRawAxis(2) - Controller.DRIVE_JOY().getRawAxis(3))))/2));
-		
-		/**
-		 * Vroom vroom
-		 */
-		SmartDashboard.putData("Intimidate", new CommandIntimidate());
-		
-		/**
-		 * To Compress, or Not To Compress. It is now an option.
-		 */
-		SmartDashboard.putData("Disable Compressor", new CommandKillCompressor());
+		Button openGear = new JoystickButton(Controller.OP_JOY(), 3);
+		openGear.whenPressed(new CommandOpenBallHopper(true));
 		
 		/**
 		 * Gear Flapping
@@ -40,9 +30,19 @@ public class OI {
 		closeFlap.whenPressed(new CommandFlaps(false));
 		
 		/**
-		 * Ball Loading
+		 * Speed Gauge
 		 */
-		Button openGear = new JoystickButton(Controller.OP_JOY(), 3);
-		openGear.whenPressed(new CommandOpenBallHopper(true));
+		SmartDashboard.putNumber("Speed", (((Controller.DRIVE_JOY().getRawAxis(1) + (Controller.DRIVE_JOY().getRawAxis(2) - Controller.DRIVE_JOY().getRawAxis(3)))+
+											(Controller.DRIVE_JOY().getRawAxis(5) + (Controller.DRIVE_JOY().getRawAxis(2) - Controller.DRIVE_JOY().getRawAxis(3))))/2));
+		
+		/**
+		 * To Compress, or Not To Compress. It is now an option.
+		 */
+		SmartDashboard.putData("Disable Compressor", new CommandKillCompressor());
+		
+		/**
+		 * Vroom vroom
+		 */
+		SmartDashboard.putData("Intimidate", new CommandIntimidate());
 	}
 }
