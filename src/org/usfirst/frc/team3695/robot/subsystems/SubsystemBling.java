@@ -33,21 +33,21 @@ public class SubsystemBling extends Subsystem {
 			if (mode == 0) {
 				// short pulse
 				for (int i = 1; i <= 100; i++) { shooterMotor.set(((i/10)^2)/100); Thread.sleep(7); }
-				for (int i = 100; i > 0; i++) { shooterMotor.set(((i/10)^2)/100); Thread.sleep(4); }
+				for (int i = 100; i > 0; i--) { shooterMotor.set(((i/10)^2)/100); Thread.sleep(4); }
 			}
 			else if (mode == 1) {
 				// long pulse
 				for (int i = 1; i <= 100; i++) { shooterMotor.set(((i/10)^2)/100); Thread.sleep(5); }
 				Thread.sleep(500);
-				for (int i = 100; i > 0; i++) { shooterMotor.set(((i/10)^2)/100); Thread.sleep(5); }
+				for (int i = 100; i > 0; i--) { shooterMotor.set(((i/10)^2)/100); Thread.sleep(5); }
 			}
 			else {
 				// double short pulse
 				for (int i = 1; i <= 100; i++) { shooterMotor.set(((i/10)^2)/100); Thread.sleep(3); }
-				for (int i = 100; i > 0; i++) { shooterMotor.set(((i/10)^2)/100); Thread.sleep(2); }
+				for (int i = 100; i > 0; i--) { shooterMotor.set(((i/10)^2)/100); Thread.sleep(2); }
 				
 				for (int i = 1; i <= 100; i++) { shooterMotor.set(((i/10)^2)/100); Thread.sleep(4); }
-				for (int i = 100; i > 0; i++) { shooterMotor.set(((i/10)^2)/100); Thread.sleep(2); }
+				for (int i = 100; i > 0; i--) { shooterMotor.set(((i/10)^2)/100); Thread.sleep(2); }
 			}
 		}
 	}
