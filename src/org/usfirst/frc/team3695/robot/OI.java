@@ -1,8 +1,9 @@
 package org.usfirst.frc.team3695.robot;
 
+import org.usfirst.frc.team3695.robot.commands.CommandFlaps;
+import org.usfirst.frc.team3695.robot.commands.CommandIntimidate;
 import org.usfirst.frc.team3695.robot.commands.CommandKillCompressor;
 import org.usfirst.frc.team3695.robot.commands.CommandOpenBallHopper;
-import org.usfirst.frc.team3695.robot.commands.CommandFlaps;
 
 import edu.wpi.first.wpilibj.buttons.Button;
 import edu.wpi.first.wpilibj.buttons.JoystickButton;
@@ -14,6 +15,11 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
  */
 public class OI {
 	public OI(){
+		/**
+		 * Vroom vroom
+		 */
+		SmartDashboard.putData("Intimidate", new CommandIntimidate());
+		
 		/**
 		 * To Compress, or Not To Compress. It is now an option.
 		 */

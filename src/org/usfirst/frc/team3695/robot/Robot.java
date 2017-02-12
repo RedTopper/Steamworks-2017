@@ -8,6 +8,7 @@ import org.usfirst.frc.team3695.robot.commands.CommandShooter;
 import org.usfirst.frc.team3695.robot.enumeration.Autonomous;
 import org.usfirst.frc.team3695.robot.subsystems.SubsystemAscend;
 import org.usfirst.frc.team3695.robot.subsystems.SubsystemBallHopper;
+import org.usfirst.frc.team3695.robot.subsystems.SubsystemBling;
 import org.usfirst.frc.team3695.robot.subsystems.SubsystemCompressor;
 import org.usfirst.frc.team3695.robot.subsystems.SubsystemDrive;
 import org.usfirst.frc.team3695.robot.subsystems.SubsystemFlaps;
@@ -46,12 +47,14 @@ public class Robot extends IterativeRobot {
 	public static Grip camPipeline = new Grip();
 	
 	//Subsystems
-	public static SubsystemDrive subsystemDrive = new SubsystemDrive();
-	public static SubsystemCompressor subsystemCompressor = new SubsystemCompressor();
-	public static SubsystemFlaps subsystemFlaps = new SubsystemFlaps();
+	
 	public static SubsystemAscend subsystemAscend = new SubsystemAscend();
-	public static SubsystemShooter subsystemShooter = new SubsystemShooter();
 	public static SubsystemBallHopper subsystemBallHopper = new SubsystemBallHopper();
+	public static SubsystemBling subsystemBling = new SubsystemBling();
+	public static SubsystemCompressor subsystemCompressor = new SubsystemCompressor();
+	public static SubsystemDrive subsystemDrive = new SubsystemDrive();
+	public static SubsystemFlaps subsystemFlaps = new SubsystemFlaps();
+	public static SubsystemShooter subsystemShooter = new SubsystemShooter();
 	
 	//Vars
 	private Camera lastCam = Camera.FRONT;
