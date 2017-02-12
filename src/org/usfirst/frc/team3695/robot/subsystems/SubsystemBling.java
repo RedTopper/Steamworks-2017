@@ -5,9 +5,12 @@ import com.ctre.CANTalon;
 import java.util.Random;
 
 import org.usfirst.frc.team3695.robot.Constants;
+import org.usfirst.frc.team3695.robot.commands.CommandIntimidate;
 
-public class SubsystemBling {
-	boolean intimidation;
+import edu.wpi.first.wpilibj.command.Subsystem;
+
+public class SubsystemBling extends Subsystem {
+	public boolean intimidation;
 	CANTalon shooterMotor;
 	
 	public SubsystemBling() {
@@ -22,6 +25,7 @@ public class SubsystemBling {
 	 * Replaces freshman.out.print("ROBOT!");
 	 */
 	public void intimidate() throws InterruptedException {
+		intimidation = true;
 		Random interval = new Random();
 		while (intimidation) {
 			Thread.sleep(interval.nextInt(1000));
@@ -47,4 +51,12 @@ public class SubsystemBling {
 			}
 		}
 	}
+	
+	public void stopIntimidating() {
+		intimidation = false;
+	}
+	
+	public void initDefaultCommand() {
+        setDefaultCommand(new CommandIntimidate());
+    }
 }
