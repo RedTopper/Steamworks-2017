@@ -4,6 +4,7 @@ import org.usfirst.frc.team3695.robot.commands.CommandFlaps;
 import org.usfirst.frc.team3695.robot.commands.CommandIntimidate;
 import org.usfirst.frc.team3695.robot.commands.CommandKillCompressor;
 import org.usfirst.frc.team3695.robot.commands.CommandOpenBallHopper;
+import org.usfirst.frc.team3695.robot.Robot;
 
 import edu.wpi.first.wpilibj.buttons.Button;
 import edu.wpi.first.wpilibj.buttons.JoystickButton;
@@ -30,6 +31,11 @@ public class OI {
 		closeFlap.whenPressed(new CommandFlaps(false));
 		
 		/**
+		 * Open/Closed Funnel
+		 */
+		SmartDashboard.putBoolean("Funnel is Open", Robot.subsystemFlaps.getOpen());
+		
+		/**
 		 * Speed Gauge
 		 */
 		SmartDashboard.putNumber("Speed", (((Controller.DRIVE_JOY().getRawAxis(1) + (Controller.DRIVE_JOY().getRawAxis(2) - Controller.DRIVE_JOY().getRawAxis(3)))+
@@ -41,7 +47,7 @@ public class OI {
 		SmartDashboard.putData("Disable Compressor", new CommandKillCompressor());
 		
 		/**
-		 * Vroom vroom
+		 * Vroom Vroom
 		 */
 		SmartDashboard.putData("Intimidate", new CommandIntimidate());
 	}
