@@ -31,6 +31,6 @@ public class OI {
 		 * Ball Loading
 		 */
 		Button openGear = new JoystickButton(Controller.OP_JOY(), 3);
-		openGear.whenPressed(new CommandOpenBallHopper());
+		openGear.whenPressed(new CommandOpenBallHopper(true));
 	}
 }

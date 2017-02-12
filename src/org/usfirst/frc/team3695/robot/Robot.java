@@ -4,7 +4,6 @@ package org.usfirst.frc.team3695.robot;
 import org.usfirst.frc.team3695.robot.commands.CommandAscend;
 import org.usfirst.frc.team3695.robot.commands.CommandDrive;
 import org.usfirst.frc.team3695.robot.commands.CommandKillCompressor;
-import org.usfirst.frc.team3695.robot.commands.CommandRotateToTarget;
 import org.usfirst.frc.team3695.robot.commands.CommandShooter;
 import org.usfirst.frc.team3695.robot.enumeration.Autonomous;
 import org.usfirst.frc.team3695.robot.subsystems.SubsystemAscend;
@@ -33,6 +32,7 @@ public class Robot extends IterativeRobot {
 	//Choosers
 	SendableChooser<Autonomous> autoChooser = new SendableChooser<>();
 	SendableChooser<Camera> chooserCamera = new SendableChooser<>();
+	SendableChooser<Video> chooserVideo = new SendableChooser<>();
 	
 	//Commands
 	Command commandComp = new CommandKillCompressor();
@@ -55,6 +55,7 @@ public class Robot extends IterativeRobot {
 	
 	//Vars
 	private Camera lastCam = Camera.FRONT;
+	private Video lastVideo = Video.RAW;
 	private Vision visionThread = new Vision();
 
 	/**
@@ -77,6 +78,14 @@ public class Robot extends IterativeRobot {
 		chooserCamera.addDefault(Camera.FRONT.usb.getName(), Camera.FRONT);
 		chooserCamera.addObject(Camera.REAR.usb.getName(), Camera.REAR);
 		SmartDashboard.putData("Camera", chooserCamera);
+		
+		//Video mode chooser (ex to view GRIP)
+		chooserVideo.addDefault("Raw", Video.RAW);
+		chooserVideo.addObject("Low Exposure", Video.LOW_EXPOSURE);
+		chooserVideo.addObject("Threshhold", Video.THRESHHOLD);
+		chooserVideo.addObject("Blur", Video.BLUR);
+		chooserVideo.addObject("Erode", Video.ERODE);
+		SmartDashboard.putData("Video Mode", chooserVideo);
 	}
 
 	/**
@@ -91,9 +100,11 @@ public class Robot extends IterativeRobot {
 	public void disabledPeriodic() {
 		Scheduler.getInstance().run();
 		Camera cam = chooserCamera.getSelected();
-		if (cam != null && cam != lastCam) {
-			visionThread.setCamera(cam, Video.RAW);
+		Video video = chooserVideo.getSelected();
+		if (cam != null && (cam != lastCam || video != lastVideo)) {
+			visionThread.setCamera(cam, video);
 			lastCam = cam;
+			lastVideo = video;
 		}
 	}
 

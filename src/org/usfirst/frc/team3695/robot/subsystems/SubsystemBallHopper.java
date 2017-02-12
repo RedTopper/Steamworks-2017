@@ -9,41 +9,38 @@ import edu.wpi.first.wpilibj.command.Subsystem;
  *
  */
 public class SubsystemBallHopper extends Subsystem {
-	Solenoid openHopper;
-	Solenoid closeHopper;
-	boolean isOpen = false;
+	private Solenoid openFlaps;
+	private Solenoid closeFlaps;
+	private boolean open; //Current State of FLaps. True = Open, False = closed
 	
 	public SubsystemBallHopper(){
-		openHopper = new Solenoid(Constants.OPEN_BALL_HOPPER);
-		closeHopper = new Solenoid(Constants.CLOSE_BALL_HOPPER);
+		openFlaps = new Solenoid(Constants.OPEN_BALL_HOPPER);
+		closeFlaps = new Solenoid(Constants.CLOSE_BALL_HOPPER);
+		open = false;
 	}
-	
-	public void closeHopper(){
-		openHopper.set(false);
-		closeHopper.set(true);
-		isOpen = false;
-	}
-	
-	public void openHopper(){
-		openHopper.set(true);
-		closeHopper.set(false);
-		isOpen = true;
-	}
-	
-	public void setState(boolean open){
-		if (open)
-			openHopper();
-		else
-			closeHopper();
-	}
-	
-	public void toggle(){
-		setState(!isOpen);
-	}
-	
+
     public void initDefaultCommand() {
         // Set the default command for a subsystem here.
         //setDefaultCommand(new MySpecialCommand());
+    }
+    
+    public void openFlaps(){
+    	openFlaps.set(true);
+    	closeFlaps.set(false);
+    	open = true;
+    }
+    
+    public void closeFlaps(){
+    	openFlaps.set(false);
+    	closeFlaps.set(true);
+    	open = false;
+    }
+    
+    public void toggleFlaps(){
+    	if (open)
+    		closeFlaps();
+    	else
+    		openFlaps();
     }
 }
 

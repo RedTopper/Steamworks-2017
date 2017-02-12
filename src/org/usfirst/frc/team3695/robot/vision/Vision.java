@@ -73,13 +73,15 @@ public class Vision extends Thread {
 
 	/**
 	 * Sets a no feed message.
+	 * @param output 
 	 * @param name The name of the device that has no feed.
 	 * @param debug A message to show to the user for debug info.
 	 */
-	private void warn(String name, String debug) {
+	private void warn(CvSource output, String name, String debug) {
 		warn.setTo(BLACK);
 		Imgproc.putText(warn, name, new Point(0,22), Core.FONT_HERSHEY_PLAIN, 1.0, WHITE);
 		Imgproc.putText(warn, debug, new Point(0, 40), Core.FONT_HERSHEY_PLAIN, 1.0, RED);
+		output.putFrame(warn);
 	}
 	
 	/**
@@ -117,25 +119,19 @@ public class Vision extends Thread {
 		Mat result;
 		
 		Logger.out("Starting video...");
-		setCamera(Camera.FRONT, Video.ERODE);
+		setCamera(Camera.FRONT, Video.RAW);
 		
 		Logger.out("Starting server...");
 		CvSource output = CameraServer.getInstance().putVideo(SERVER_NAME, CAM_WIDTH, CAM_HEIGHT);
-		
 		Logger.out("Startup complete!");
 		
 		while(!interrupted()) {
-			
 			if(cameraNext != camera || videoNext != video) {
 				if(camera != null) camera.sink.setEnabled(false);
 				timeSwitchStarted = System.currentTimeMillis();
 				
 				//Start the camera
-				if(videoNext == Video.RAW) {
-					initHuman(cameraNext);
-				} else {
-					initBot(cameraNext);
-				}
+				if(videoNext == Video.RAW) initHuman(cameraNext); else initBot(cameraNext);
 				
 				video = videoNext;
 				camera = cameraNext;
@@ -144,8 +140,12 @@ public class Vision extends Thread {
 			
 			//Show the switching image if the camera is switching
 			if(System.currentTimeMillis() < timeSwitchStarted + CAM_SWITCH_TIME) {
-				warn("Switching camera...", "Please wait!" + camera.sink.getError());
-				output.putFrame(warn);
+				warn(output, "Switching camera...", "Please wait!" + camera.sink.getError());
+				continue;
+			}
+			
+			if(!camera.usb.isConnected() || !camera.sink.isValid()) {
+				warn(output, camera.usb.getName() + " is disconnected!", "Check the connection to the camera!");
 				continue;
 			}
 			
@@ -154,13 +154,12 @@ public class Vision extends Thread {
 			
 			//If there is an error, show it
 			if(time == 0l) {
-				warn(camera.usb.getName() + ": ERROR ", "Code: " + camera.sink.getError());
-				output.putFrame(warn);
+				warn(output, camera.usb.getName() + ": ERROR ", "Code: " + camera.sink.getError());
 				continue;
 			}
 			
 			//Display raw feed if chosen.
-			if(video == Video.RAW || video == Video.ROBOT)  {
+			if(video == Video.RAW || video == Video.LOW_EXPOSURE)  {
 				Imgproc.putText(source, camera.usb.getName(), new Point(0,22), Core.FONT_HERSHEY_PLAIN, 1.0, WHITE);
 				output.putFrame(source);
 				continue;
@@ -182,9 +181,8 @@ public class Vision extends Thread {
 				result = grip.hsvThresholdOutput();
 				break;
 			default:
-				warn(video.name(), "This method is not defined.");
-				result = warn;
-				break;
+				warn(output, video.name(), "This method is not defined.");
+				continue;
 			}
 			
 			//Extra UI information.

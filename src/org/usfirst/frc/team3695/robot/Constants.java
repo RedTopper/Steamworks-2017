@@ -24,7 +24,9 @@ public class Constants {
 			RIGHT_MOTOR = 0,
 			OTHER_RIGHT_MOTOR = 1,
 			CLIMBER_MOTOR = 4,
-			SHOOTER_MOTOR = 5;
+			SHOOTER_MOTOR = 5,
+			WINDOW_MOTOR1 = 6,
+			WINDOW_MOTOR2 = 7;
 	
 	/**
 	 * Motor Inverts
@@ -33,7 +35,9 @@ public class Constants {
 			LEFT_MOTOR_INVERT = false,
 			RIGHT_MOTOR_INVERT = false,
 			SHOOTER_MOTOR_INVERT = false,
-			ASCENDER_MOTOR_INVERT = true;
+			ASCENDER_MOTOR_INVERT = true,
+			WINDOW1_INVERT = false,
+			WINDOW2_INVERT = true;
 	
 	/**
 	 * Joystick Assignments
@@ -49,8 +53,8 @@ public class Constants {
 			CLOSE_GEAR_FLAPS = 0,
 			OPEN_GEAR_FLAPS = 1,
 			CLOSE_GEAR_FEEDER_FLAPS = 4,
-			OPEN_BALL_HOPPER = 6,
-			CLOSE_BALL_HOPPER = 7;
+			OPEN_BALL_HOPPER = 7,
+			CLOSE_BALL_HOPPER = 6;
 	
 	public static final double 
 			SHOOTER_SPEED = 0.85;
@@ -60,4 +64,6 @@ public class Constants {
 	 */
 	public static final double 
 			ASCENDER_LIMIT = 0.8;
+	
+	public static final double AGITATOR_SPEED = 1.0;
 }
