@@ -46,13 +46,12 @@ public class Robot extends IterativeRobot {
 	public static Grip camPipeline = new Grip();
 	
 	//Subsystems
-	
-	public static SubsystemAscend subsystemAscend = new SubsystemAscend();
-	public static SubsystemBallHopper subsystemBallHopper = new SubsystemBallHopper();
-	public static SubsystemCompressor subsystemCompressor = new SubsystemCompressor();
 	public static SubsystemDrive subsystemDrive = new SubsystemDrive();
+	public static SubsystemCompressor subsystemCompressor = new SubsystemCompressor();
 	public static SubsystemFlaps subsystemFlaps = new SubsystemFlaps();
+	public static SubsystemAscend subsystemAscend = new SubsystemAscend();
 	public static SubsystemShooter subsystemShooter = new SubsystemShooter();
+	public static SubsystemBallHopper subsystemBallHopper = new SubsystemBallHopper();
 	
 	//Vars
 	private Camera lastCam = Camera.FRONT;
