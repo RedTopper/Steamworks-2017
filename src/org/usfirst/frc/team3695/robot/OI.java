@@ -1,9 +1,8 @@
 package org.usfirst.frc.team3695.robot;
 
-import org.usfirst.frc.team3695.robot.commands.CommandFlaps;
-import org.usfirst.frc.team3695.robot.commands.CommandIntimidate;
 import org.usfirst.frc.team3695.robot.commands.CommandKillCompressor;
 import org.usfirst.frc.team3695.robot.commands.CommandOpenBallHopper;
+import org.usfirst.frc.team3695.robot.commands.CommandFlaps;
 
 import edu.wpi.first.wpilibj.buttons.Button;
 import edu.wpi.first.wpilibj.buttons.JoystickButton;
@@ -15,17 +14,6 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
  */
 public class OI {
 	public OI(){
-		/**
-		 * Speed Gauge
-		 */
-		SmartDashboard.putNumber("Speed", (((Controller.DRIVE_JOY().getRawAxis(1) + (Controller.DRIVE_JOY().getRawAxis(2) - Controller.DRIVE_JOY().getRawAxis(3)))+
-											(Controller.DRIVE_JOY().getRawAxis(5) + (Controller.DRIVE_JOY().getRawAxis(2) - Controller.DRIVE_JOY().getRawAxis(3))))/2));
-		
-		/**
-		 * Vroom vroom
-		 */
-		SmartDashboard.putData("Intimidate", new CommandIntimidate());
-		
 		/**
 		 * To Compress, or Not To Compress. It is now an option.
 		 */
