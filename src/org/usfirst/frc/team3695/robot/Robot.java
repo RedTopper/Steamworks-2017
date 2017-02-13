@@ -84,7 +84,6 @@ public class Robot extends IterativeRobot {
 		chooserVideo.addDefault("Raw", Video.RAW);
 		chooserVideo.addObject("Low Exposure", Video.LOW_EXPOSURE);
 		chooserVideo.addObject("Threshhold", Video.THRESHHOLD);
-		chooserVideo.addObject("Erode", Video.ERODE);
 		SmartDashboard.putData("Video Mode", chooserVideo);
 	}
 

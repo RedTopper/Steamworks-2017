@@ -22,6 +22,7 @@ public class Vision extends Thread {
 			BOT_BRIGHT = 50,
 			MAN_EXPOSURE = 45,
 			MAN_BRIGHT = 45,
+			MAN_WHITE = 50,
 			CAM_FPS = 30,
 			CAM_WIDTH = 320,
 			CAM_HEIGHT = 240;
@@ -100,7 +101,7 @@ public class Vision extends Thread {
 	
 	private void initHuman(Camera cam) {
 		cam.usb.setExposureManual(MAN_EXPOSURE);
-		cam.usb.setWhiteBalanceAuto();
+		cam.usb.setWhiteBalanceManual(MAN_WHITE);
 		cam.usb.setBrightness(MAN_BRIGHT);
 		cam.usb.setResolution(CAM_WIDTH, CAM_HEIGHT);
 		cam.usb.setFPS(CAM_FPS);
@@ -131,7 +132,7 @@ public class Vision extends Thread {
 		while(!interrupted()) {
 			if(cameraNext != camera || videoNext != video) {
 				if(camera != null) camera.sink.setEnabled(false);
-				timeSwitchStarted = System.currentTimeMillis();
+				if(cameraNext != camera) timeSwitchStarted = System.currentTimeMillis();
 				
 				//Start the camera
 				if(videoNext == Video.RAW) initHuman(cameraNext); else initBot(cameraNext);
@@ -161,9 +162,10 @@ public class Vision extends Thread {
 				continue;
 			}
 			
+			Imgproc.putText(source, camera.usb.getName(), new Point(0,22), Core.FONT_HERSHEY_PLAIN, 1.0, WHITE);
+			
 			//Display raw feed if chosen.
 			if(video == Video.RAW || video == Video.LOW_EXPOSURE)  {
-				Imgproc.putText(source, camera.usb.getName(), new Point(0,22), Core.FONT_HERSHEY_PLAIN, 1.0, WHITE);
 				output.putFrame(source);
 				continue;
 			}
@@ -174,9 +176,6 @@ public class Vision extends Thread {
 				
 				//Switch to correct feed.
 				switch(video) {
-				case ERODE:
-					result = grip.cvDilateOutput();
-					break;
 				case THRESHHOLD:
 					result = grip.hslThresholdOutput();
 					break;
@@ -184,9 +183,6 @@ public class Vision extends Thread {
 					warn(output, video.name(), "This method is not defined.");
 					continue;
 				}
-				
-				//Extra UI information.
-				Imgproc.putText(result, camera.usb.getName() + ": " + camera.name(), new Point(0,22), Core.FONT_HERSHEY_PLAIN, 1.0, WHITE);
 				output.putFrame(result);
 			}
 		}
