@@ -8,7 +8,6 @@ import org.usfirst.frc.team3695.robot.Grip;
 import org.usfirst.frc.team3695.robot.Robot;
 import org.usfirst.frc.team3695.robot.vision.Vision;
 
-import edu.wpi.first.wpilibj.PIDController;
 import edu.wpi.first.wpilibj.command.Command;
 
 /**
