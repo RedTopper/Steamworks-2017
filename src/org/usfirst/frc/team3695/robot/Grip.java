@@ -38,9 +38,9 @@ public class Grip {
 	public void process(Mat source0) {
 		// Step HSL_Threshold0:
 		Mat hslThresholdInput = source0;
-		double[] hslThresholdHue = {76.07913669064747, 96.66666666666666};
-		double[] hslThresholdSaturation = {149.05575539568343, 255.0};
-		double[] hslThresholdLuminance = {61.915467625899275, 199.1919191919192};
+		double[] hslThresholdHue = {75.0, 95.0};
+		double[] hslThresholdSaturation = {115.0, 255.0};
+		double[] hslThresholdLuminance = {45.0, 100.0};
 		hslThreshold(hslThresholdInput, hslThresholdHue, hslThresholdSaturation, hslThresholdLuminance, hslThresholdOutput);
 
 		// Step Find_Contours0:
