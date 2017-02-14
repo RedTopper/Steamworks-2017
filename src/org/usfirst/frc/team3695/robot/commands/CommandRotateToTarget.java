@@ -6,9 +6,9 @@ import org.opencv.core.Rect;
 import org.opencv.imgproc.Imgproc;
 import org.usfirst.frc.team3695.robot.Grip;
 import org.usfirst.frc.team3695.robot.Robot;
+import org.usfirst.frc.team3695.robot.util.Logger;
 import org.usfirst.frc.team3695.robot.vision.Vision;
 
-import edu.wpi.first.wpilibj.PIDController;
 import edu.wpi.first.wpilibj.command.Command;
 
 /**
@@ -30,18 +30,18 @@ public class CommandRotateToTarget extends Command {
 	private static final int CENTER_THRESHOLD = 10;
 	private static final int NEAR_THRESHOLD = 100;
 	
-	private static final int SEARCH_TIMEOUT = 120;
+	private static final int SEARCH_TIMEOUT = 1200;
 	
 	private static final int LEFT = -1;
 	private static final int STILL = 0;
 	private static final int RIGHT = 1;
 	
 	private boolean doneRotating = false;
-	private boolean success = false;
 	private Grip cameraPipeline;
 	private int timeOutCounter = 0;
 	
     public CommandRotateToTarget(Grip pipeline) {
+    	requires(Robot.subsystemDrive);
     	cameraPipeline = pipeline;
     }
     
@@ -51,7 +51,8 @@ public class CommandRotateToTarget extends Command {
     }
 
     protected void initialize() {
-    	requires(Robot.subsystemDrive);
+    	doneRotating = false;
+    	timeOutCounter = 0;
     }
 
     protected void execute() {
@@ -64,9 +65,10 @@ public class CommandRotateToTarget extends Command {
     		if (numConvexHulls < 2) { 
     			timeOutCounter++;
     			if (timeOutCounter > SEARCH_TIMEOUT) { 
+    				Logger.err("Search timed out");
     				cancel(); // We couldn't find anything :(
     			} else { // Keep spinning around until we spot them.
-    				setTurn(LEFT,0.5);
+    				setTurn(LEFT,0.4);
     			}
     		} else {
     			// Reset the timeout counter in case we need to check again.

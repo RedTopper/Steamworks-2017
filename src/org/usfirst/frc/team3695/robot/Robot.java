@@ -1,4 +1,3 @@
-
 package org.usfirst.frc.team3695.robot;
 
 import org.usfirst.frc.team3695.robot.commands.CommandAscend;
@@ -39,25 +38,23 @@ public class Robot extends IterativeRobot {
 	Command commandDrive = new CommandDrive();
 	Command commandAscend = new CommandAscend();
 	Command commandShoot = new CommandShooter();
-	//Command commandTarget = new CommandRotateToTarget(camPipeline);
 	
 	//Output and Input
 	public static OI oi;
 	public static Grip camPipeline = new Grip();
 	
 	//Subsystems
-	
-	public static SubsystemAscend subsystemAscend = new SubsystemAscend();
-	public static SubsystemBallHopper subsystemBallHopper = new SubsystemBallHopper();
-	public static SubsystemCompressor subsystemCompressor = new SubsystemCompressor();
 	public static SubsystemDrive subsystemDrive = new SubsystemDrive();
+	public static SubsystemCompressor subsystemCompressor = new SubsystemCompressor();
 	public static SubsystemFlaps subsystemFlaps = new SubsystemFlaps();
+	public static SubsystemAscend subsystemAscend = new SubsystemAscend();
 	public static SubsystemShooter subsystemShooter = new SubsystemShooter();
+	public static SubsystemBallHopper subsystemBallHopper = new SubsystemBallHopper();
 	
 	//Vars
 	private Camera lastCam = Camera.FRONT;
 	private Video lastVideo = Video.RAW;
-	private Vision visionThread = new Vision();
+	private Vision visionThread;
 
 	/**
 	 * This function is run when the robot is first started up and should be
@@ -65,6 +62,8 @@ public class Robot extends IterativeRobot {
 	 */
 	@Override
 	public void robotInit() {
+		visionThread = new Vision(camPipeline);
+		
 		oi = new OI();
 		
 		visionThread.start();
@@ -84,8 +83,6 @@ public class Robot extends IterativeRobot {
 		chooserVideo.addDefault("Raw", Video.RAW);
 		chooserVideo.addObject("Low Exposure", Video.LOW_EXPOSURE);
 		chooserVideo.addObject("Threshhold", Video.THRESHHOLD);
-		chooserVideo.addObject("Blur", Video.BLUR);
-		chooserVideo.addObject("Erode", Video.ERODE);
 		SmartDashboard.putData("Video Mode", chooserVideo);
 	}
 

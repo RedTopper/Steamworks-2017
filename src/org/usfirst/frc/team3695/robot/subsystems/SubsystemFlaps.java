@@ -29,14 +29,14 @@ public class SubsystemFlaps extends Subsystem {
     public void openFlaps(){
     	openFlaps.set(true);
     	closeFlaps.set(false);
-    	loadingFlap.set(true);
+    	loadingFlap.set(false);
     	open = true;
     }
     
     public void closeFlaps(){
     	openFlaps.set(false);
     	closeFlaps.set(true);
-    	loadingFlap.set(false);
+    	loadingFlap.set(true);
     	open = false;
     }
     
@@ -46,9 +46,4 @@ public class SubsystemFlaps extends Subsystem {
     	else
     		openFlaps();
     }
-    
-    public boolean getOpen() {
-    	return open;
-    }
 }
-
