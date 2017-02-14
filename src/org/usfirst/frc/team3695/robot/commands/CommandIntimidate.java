@@ -2,7 +2,6 @@ package org.usfirst.frc.team3695.robot.commands;
 
 import java.util.Random;
 
-import org.usfirst.frc.team3695.robot.commands.CommandShootTime;
 import org.usfirst.frc.team3695.robot.Robot;
 
 import edu.wpi.first.wpilibj.command.Command;
@@ -18,11 +17,13 @@ public class CommandIntimidate extends Command {
 	
 	boolean ascending;
 	boolean isRunning;
+	double root;
 	int mode;
 		// -1 = waiting
 		//  0 = short pulse
 		//  1 = long pulse
 		//  2 = double short pulse
+	int pulseID;
 	int runCount;
 	long currentTime;
 	long initAverage;
@@ -46,87 +47,53 @@ public class CommandIntimidate extends Command {
     	if (initCount < 3) { initAverage += System.currentTimeMillis() - initAverage; initCount++; }
     	else if (initCount == 3) { initAverage /= 3; }
     	else {
-    		currentTime = (System.currentTimeMillis() - startTime) / initAverage;
-    		
+    		currentTime = (System.currentTimeMillis() - startTime) / initAverage;    		
     		if(isRunning) {
     			switch (mode) {
 	    			case -1: // waiting
-	    				if (runInitTime == -1) {runInitTime = System.currentTimeMillis() + 1;}
-	    				
+	    				if (runInitTime == -1) {runInitTime = System.currentTimeMillis() - 1;}
+	    				root = (double) ((currentTime - runInitTime) / initAverage);
+	    				if (root >= 100) { isRunning = false; }
 	    				break;
 	    			case 0: // short pulse
-	    				if (runInitTime == -1) {runInitTime = System.currentTimeMillis() + 1;}
-	    				
-	    				if (Math.pow((currentTime - runInitTime) / initAverage, 2) / 100 <= 1) {
-	    					double root = (double) ((currentTime - runInitTime) / initAverage);
+	    				if (runInitTime == -1) {runInitTime = System.currentTimeMillis() - 1;}
+	    				root = (double) ((currentTime - runInitTime) / initAverage);
+	    				if (Math.pow(root, 2) / 100 <= 1) {
 	    					Robot.subsystemShooter.spin(Math.pow(root/10, 2)/100);
-	    				}
-	    				
+	    				} else { Robot.subsystemShooter.spin(0); isRunning = false; }
 	    				break;
 	    			case 1: // long pulse
-	    				if (runInitTime == -1) {runInitTime = System.currentTimeMillis() + 1;}
-	    				
-	    				if (Math.pow((currentTime - runInitTime) / initAverage, 2) / 100 <= 2) {
-	    					double root = (double) ((currentTime - runInitTime) / initAverage);
+	    				if (runInitTime == -1) {runInitTime = System.currentTimeMillis() - 1;}
+	    				root = (double) ((currentTime - runInitTime) / initAverage);
+	    				if (Math.pow(root, 2) / 100 <= 2) {
 	    					Robot.subsystemShooter.spin(Math.pow(root/10, 2)/200);
-	    				}
-	    				
+	    				} else { Robot.subsystemShooter.spin(0); isRunning = false; } // probably won't work as planned, might need debugging on the 2/200 part
 	    				break;
 	    			case 2: // double pulse
-	    				if (runInitTime == -1) {runInitTime = System.currentTimeMillis() + 1;}
+	    				if (runInitTime == -1) {runInitTime = System.currentTimeMillis() - 1; pulseID = 0;}
+	    				root = (double) ((currentTime - runInitTime) / initAverage);
+	    				if (Math.pow(root, 2) / 100 <= 1) {
+	    					Robot.subsystemShooter.spin(Math.pow(root/10, 2)/100);
+	    				} else { 
+	    					if (pulseID == 0) {
+	    						pulseID++;
+	    						runInitTime = System.currentTimeMillis() - 1;
+	    					} else { Robot.subsystemShooter.spin(0); isRunning = false; }
+	    				}
 	    				break;
     			}
     		}
     		else {
     			if (mode == -1) {
     				int mode = interval.nextInt(3);
+    				runInitTime = -1;
+    				isRunning = true;
     			} else {
-    				
+    				int mode = -1;
+    				runInitTime = -1;
+    				isRunning = true;
     			}
-    		}
-    		
-    		
-	    	
-	    	
-	    	///////////////////////////////////////////////////////// old code
-    		new CommandShootTime(interval.nextInt(1000), 0);
-			switch (mode) {
-				case 0: // short pulse
-					for (int i = 1; i <= 100; i++) { 
-						double speed = Math.pow(((double)i)/10, 2)/100;
-						new CommandShootTime(7, speed);}
-					for (int i = 100; i > 0; i--) { 
-						double speed = Math.pow(((double)i)/10, 2)/100;
-						new CommandShootTime(4, speed);}
-					Robot.subsystemShooter.spin(0);
-					break;
-				case 1: // long pulse
-					for (int i = 1; i <= 100; i++) { 
-						double speed = Math.pow(((double)i)/10, 2)/100;
-						new CommandShootTime(5, speed);}
-					new CommandShootTime(500, 1);
-					for (int i = 100; i > 0; i--) { 
-						double speed = Math.pow(((double)i)/10, 2)/100;
-						new CommandShootTime(5, speed);}
-					Robot.subsystemShooter.spin(0);
-					break;
-				case 2: // double short pulse
-					for (int i = 1; i <= 100; i++) { 
-						double speed = Math.pow(((double)i)/10, 2)/100;
-						new CommandShootTime(3, speed);}
-					for (int i = 100; i > 0; i--) { 
-						double speed = Math.pow(((double)i)/10, 2)/100;
-						new CommandShootTime(2, speed);}
-					for (int i = 1; i <= 100; i++) { 
-						double speed = Math.pow(((double)i)/10, 2)/100;
-						new CommandShootTime(4, speed);}
-					for (int i = 100; i > 0; i--) { 
-						double speed = Math.pow(((double)i)/10, 2)/100;
-						new CommandShootTime(2, speed);}
-					Robot.subsystemShooter.spin(0);
-					break;
-			}
-			//////////////////////////////////////
+    		}	
 		}
     }
 
