@@ -12,7 +12,7 @@ public class CommandAscend extends Command {
 
     public CommandAscend() {
     	requires(Robot.subsystemAscend);
-    	requires(Robot.subsystemBallHopper);
+    	//requires(Robot.subsystemBallHopper);
     }
 
     protected void initialize() {
