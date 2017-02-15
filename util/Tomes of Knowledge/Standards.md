@@ -12,28 +12,28 @@
 	
 # Recurring Structure
 ```
-[Competition Name]-[year]
-	-src
-		-org
-			-usfirst
-				-frc
-					-team3695
-						-robot
-							-commands
-							-enumeration
-							-subsystems
-							-util
-							-Constants.java
-							-Controller.java
-							-OI.java
-							-Robot.java
-						-util
-							-Tomes of Knowledge
-								-Standards.md
-								-Competition.md
-								-Concept.md
-							-layout.smart.xml
-	-README.md
+* [Competition Name]-[year]
+	- src
+		- org
+			- usfirst
+				- frc
+					- team3695
+						- robot
+							- commands
+							- enumeration
+							- subsystems
+							- util
+							- Constants.java
+							- Controller.java
+							- OI.java
+							- Robot.java
+						- util
+							- Tomes of Knowledge
+								- Standards.md
+								- Competition.md
+								- Concept.md
+							- layout.smart.xml
+	- README.md
 ```						
 # Formalities
 * Use tabs to offset, not spaces
