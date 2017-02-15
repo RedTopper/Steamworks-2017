@@ -47,4 +47,3 @@ public class SubsystemFlaps extends Subsystem {
     		openFlaps();
     }
 }
-

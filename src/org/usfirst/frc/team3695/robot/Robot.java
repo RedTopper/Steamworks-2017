@@ -1,4 +1,3 @@
-
 package org.usfirst.frc.team3695.robot;
 
 import org.usfirst.frc.team3695.robot.commands.CommandAscend;
