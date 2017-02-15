@@ -21,24 +21,24 @@ public class CommandRotateToTarget extends Command {
 	 * A constant description for the screen center
 	 * In an ideal case, the camera center view should align w/ this.
 	 */
-	private static final int SCREEN_CENTER = Vision.CAM_WIDTH / 2;
+	private static final int SCREEN_CENTER = Vision.CAM_WIDTH / 4;
 	
 	/**
 	 * Determines the +/- threshold in camera pixels, where the robot's rotation is seen as close enough to the center.
 	 * Depending on how fast the robot will be turning to face the target, we may need to tweak this for accuracy.
 	 */
 	private static final int CENTER_THRESHOLD = 10;
-	private static final int NEAR_THRESHOLD = 100;
 	
 	private static final int SEARCH_TIMEOUT = 1200;
 	
-	private static final int LEFT = -1;
-	private static final int STILL = 0;
-	private static final int RIGHT = 1;
+	private static final int LEFT  = -1;
+	private static final int STILL =  0;
+	private static final int RIGHT =  1;
 	
 	private boolean doneRotating = false;
 	private Grip cameraPipeline;
 	private int timeOutCounter = 0;
+	private int debugLastRotNeeded = 0;
 	
     public CommandRotateToTarget(Grip pipeline) {
     	requires(Robot.subsystemDrive);
@@ -53,6 +53,7 @@ public class CommandRotateToTarget extends Command {
     protected void initialize() {
     	doneRotating = false;
     	timeOutCounter = 0;
+    	Logger.out("Started rotator");
     }
 
     protected void execute() {
@@ -64,6 +65,9 @@ public class CommandRotateToTarget extends Command {
     		// We need at least two pieces of reflective tape visible.
     		if (numConvexHulls < 2) { 
     			timeOutCounter++;
+    			if (timeOutCounter % 100 == 0) {
+    				Logger.out("timeOutCounter is at: " + timeOutCounter);
+    			}
     			if (timeOutCounter > SEARCH_TIMEOUT) { 
     				Logger.err("Search timed out");
     				cancel(); // We couldn't find anything :(
@@ -82,18 +86,23 @@ public class CommandRotateToTarget extends Command {
 	    		int x1 = rect1.x + (rect1.width / 2);
 	    		int targetCenter = (x0 + x1) / 2;
 	    		
-	    		int rotNeeded = Math.abs(targetCenter - SCREEN_CENTER);
-	    		if (rotNeeded <= CENTER_THRESHOLD) {
+	    		int rotNeeded = targetCenter - SCREEN_CENTER;
+	    		int absRotNeeded = Math.abs(rotNeeded);
+	    		if (absRotNeeded != debugLastRotNeeded)
+	    		{
+	    			debugLastRotNeeded = rotNeeded;
+	    			Logger.out("ROT NEEDED CHANGED: " + rotNeeded + " X: " + targetCenter);
+	    		}
+	    		if (absRotNeeded <= CENTER_THRESHOLD) {
 	    			doneRotating = true;
 	    		}
 	    		else {
 	    			// As it gets within a near threshold of the center, the speed will reduce.
 	    			// This might be a good substitute for PID? We'll see.
-	    			double speed = Math.max(0.1, Math.min(1, (double)(rotNeeded / NEAR_THRESHOLD)));
-	    			if (targetCenter < SCREEN_CENTER) {
-	    				setTurn(LEFT,speed);
+	    			if (rotNeeded > SCREEN_CENTER) {
+	    				setTurn(LEFT,0.35);
 	    			} else {
-	    				setTurn(RIGHT, -speed);
+	    				setTurn(RIGHT,0.35);
 	    			}
 	    		}
     		}
@@ -105,6 +114,7 @@ public class CommandRotateToTarget extends Command {
     }
     
     protected void stop() {
+    	Logger.out("Autonomous Rotator is done");
     	setTurn(STILL,0);
     }
 

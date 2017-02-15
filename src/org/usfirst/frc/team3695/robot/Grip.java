@@ -44,6 +44,7 @@ public class Grip {
 		hslThreshold(hslThresholdInput, hslThresholdHue, hslThresholdSaturation, hslThresholdLuminance, hslThresholdOutput);
 
 		// Step Find_Contours0:
+		if(hslThresholdOutput != null) hslThresholdOutput.release(); //free
 		Mat findContoursInput = hslThresholdOutput.clone();
 		boolean findContoursExternalOnly = false;
 		findContours(findContoursInput, findContoursExternalOnly, findContoursOutput);

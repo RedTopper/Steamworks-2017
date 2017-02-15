@@ -178,6 +178,7 @@ public class Vision extends Thread {
 				switch(video) {
 				case THRESHHOLD:
 					result = grip.hslThresholdOutput();
+					Imgproc.drawMarker(result, new Point(100,10), new Scalar(50,100,150));
 					break;
 				default:
 					warn(output, video.name(), "This method is not defined.");

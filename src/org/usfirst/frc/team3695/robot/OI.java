@@ -1,10 +1,8 @@
 package org.usfirst.frc.team3695.robot;
 
-import org.usfirst.frc.team3695.robot.commands.CommandKillCompressor;
-import org.usfirst.frc.team3695.robot.commands.CommandOpenBallHopper;
-import org.usfirst.frc.team3695.robot.commands.CommandRotateToTarget;
-import org.usfirst.frc.team3695.robot.commands.CommandToggleBallHopper;
 import org.usfirst.frc.team3695.robot.commands.CommandFlaps;
+import org.usfirst.frc.team3695.robot.commands.CommandKillCompressor;
+import org.usfirst.frc.team3695.robot.commands.CommandRotateToTarget;
 
 import edu.wpi.first.wpilibj.buttons.Button;
 import edu.wpi.first.wpilibj.buttons.JoystickButton;

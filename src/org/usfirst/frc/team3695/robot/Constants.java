@@ -57,7 +57,7 @@ public class Constants {
 			CLOSE_BALL_HOPPER = 6;
 	
 	public static final double 
-			SHOOTER_SPEED = 0.85;
+			SHOOTER_SPEED = 1.00;
 	
 	/**
 	 * Limit the Ascender speed so it does not destroy the gearbox. :)
