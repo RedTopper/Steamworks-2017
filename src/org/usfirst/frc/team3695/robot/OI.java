@@ -5,7 +5,9 @@ import org.usfirst.frc.team3695.robot.commands.CommandIntimidate;
 import org.usfirst.frc.team3695.robot.commands.CommandKillCompressor;
 import org.usfirst.frc.team3695.robot.commands.CommandOpenBallHopper;
 import org.usfirst.frc.team3695.robot.commands.CommandRotate;
+import org.usfirst.frc.team3695.robot.enumeration.Xbox;
 
+import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.buttons.Button;
 import edu.wpi.first.wpilibj.buttons.JoystickButton;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
@@ -15,19 +17,22 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
  * interface to the commands and command groups that allow control of the robot.
  */
 public class OI {
+	
+	private static final Joystick DRIVER = new Joystick(0);
+	private static final Joystick OPERATOR = new Joystick(1);
 	public OI(){
 		
 		/**
 		 * Ball Loading
 		 */
-		Button openGear = new JoystickButton(Controller.OP_JOY(), 3);
+		Button openGear = new JoystickButton(OPERATOR, Xbox.X);
 		openGear.whenPressed(new CommandOpenBallHopper(true));
 		
 		/**
 		 * Gear Flapping
 		 */
-		Button openFlap = new JoystickButton(Controller.OP_JOY(), Controller.OP_OPEN_GEAR);
-		Button closeFlap = new JoystickButton(Controller.OP_JOY(), Controller.OP_RELEASE_GEAR);
+		Button openFlap = new JoystickButton(OPERATOR, Xbox.RB);
+		Button closeFlap = new JoystickButton(OPERATOR, Xbox.LB);
 		openFlap.whenPressed(new CommandFlaps(true));
 		closeFlap.whenPressed(new CommandFlaps(false));
 		

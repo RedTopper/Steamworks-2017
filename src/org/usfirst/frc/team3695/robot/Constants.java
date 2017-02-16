@@ -3,13 +3,6 @@ package org.usfirst.frc.team3695.robot;
 public class Constants {
 	
 	/**
-	 * Resolution of all roborio streaming cameras.
-	 */
-	public static final int 
-			CAM_WIDTH = 640,
-			CAM_HEIGHT = 480;
-	
-	/**
 	 * Non Boosting Drive Speed
 	 */
 	public static final double 
@@ -38,13 +31,6 @@ public class Constants {
 			ASCENDER_MOTOR_INVERT = true,
 			WINDOW1_INVERT = false,
 			WINDOW2_INVERT = true;
-	
-	/**
-	 * Joystick Assignments
-	 */
-	public static final int 
-			DRIVER_STICK = 0,
-			OPERATOR_STICK = 1;
 	
 	/**
 	 * PCM Ports
