@@ -46,4 +46,8 @@ public class SubsystemFlaps extends Subsystem {
     	else
     		openFlaps();
     }
+    
+    public boolean getOpen() {
+    	return open;
+    }
 }

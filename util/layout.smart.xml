@@ -1,13 +1,34 @@
 <xml version="1.0">
 <dashboard>
-	<widget field="Video Mode" type="String Chooser" class="edu.wpi.first.smartdashboard.gui.elements.Chooser">
-		<location x="769" y="245"/>
+	<widget field="PIDCount" type="Number" class="edu.wpi.first.smartdashboard.gui.elements.TextBox">
+		<location x="0" y="82"/>
 	</widget>
-	<widget field="Auto mode" type="String Chooser" class="edu.wpi.first.smartdashboard.gui.elements.Chooser">
-		<location x="0" y="41"/>
+	<widget field="PID" type="Number" class="edu.wpi.first.smartdashboard.gui.elements.TextBox">
+		<location x="0" y="59"/>
+	</widget>
+	<widget field="PIDVision Position" type="Number" class="edu.wpi.first.smartdashboard.gui.elements.TextBox">
+		<location x="0" y="36"/>
+	</widget>
+	<widget field="AutoCamera" type="PIDCommand" class="edu.wpi.first.smartdashboard.gui.elements.Command">
+		<location x="0" y="176"/>
 	</widget>
 	<widget field="Camera" type="String Chooser" class="edu.wpi.first.smartdashboard.gui.elements.Chooser">
-		<location x="770" y="388"/>
+		<location x="63" y="401"/>
+	</widget>
+	<widget field="Disable Compressor" type="Command" class="edu.wpi.first.smartdashboard.gui.elements.Command">
+		<location x="295" y="203"/>
+	</widget>
+	<widget field="Auto mode" type="String Chooser" class="edu.wpi.first.smartdashboard.gui.elements.Chooser">
+		<location x="99" y="309"/>
+	</widget>
+	<widget field="Video Mode" type="String Chooser" class="edu.wpi.first.smartdashboard.gui.elements.Chooser">
+		<location x="211" y="282"/>
+	</widget>
+	<widget field="Funnel is Open" type="Boolean" class="edu.wpi.first.smartdashboard.gui.elements.TextBox">
+		<location x="366" y="136"/>
+	</widget>
+	<widget field="Intimidate" type="Command" class="edu.wpi.first.smartdashboard.gui.elements.Command">
+		<location x="0" y="0"/>
 	</widget>
 	<static-widget class="edu.wpi.first.smartdashboard.gui.elements.CameraServerViewer">
 		<location x="901" y="1"/>
@@ -15,9 +36,6 @@
 		<height>750</height>
 		<property name="Camera Choice" value="Stream"/>
 	</static-widget>
-	<widget field="Disable Compressor" type="Command" class="edu.wpi.first.smartdashboard.gui.elements.Command">
-		<location x="3" y="5"/>
-	</widget>
 	<static-widget class="edu.wpi.first.smartdashboard.gui.elements.RobotPreferences">
 		<location x="580" y="2"/>
 		<width>316</width>

@@ -3,6 +3,7 @@ package org.usfirst.frc.team3695.robot.commands;
 import java.util.Random;
 
 import org.usfirst.frc.team3695.robot.Robot;
+import org.usfirst.frc.team3695.robot.enumeration.Vroom;
 
 import edu.wpi.first.wpilibj.command.Command;
 //TODO add descending code
@@ -18,11 +19,7 @@ public class CommandIntimidate extends Command {
 	boolean ascending;
 	boolean isRunning;
 	double root;
-	int mode;
-		// -1 = waiting
-		//  0 = short pulse
-		//  1 = long pulse
-		//  2 = double short pulse
+	Vroom vroom;
 	int pulseID;
 	int runCount;
 	long currentTime;
@@ -33,7 +30,7 @@ public class CommandIntimidate extends Command {
 	Random interval;
 
     public CommandIntimidate() {
-    	requires(Robot.subsystemShooter);
+    	requires(Robot.SUB_SHOOTER);
     }
 
     protected void initialize() {
@@ -49,47 +46,46 @@ public class CommandIntimidate extends Command {
     	else {
     		currentTime = (System.currentTimeMillis() - startTime) / initAverage;    		
     		if(isRunning) {
-    			switch (mode) {
-	    			case -1: // waiting
+    			switch (vroom) {
+	    			case WAITING: // waiting
 	    				if (runInitTime == -1) {runInitTime = System.currentTimeMillis() - 1;}
 	    				root = (double) ((currentTime - runInitTime) / initAverage);
 	    				if (root >= 100) { isRunning = false; }
 	    				break;
-	    			case 0: // short pulse
+	    			case SHORT: // short pulse
 	    				if (runInitTime == -1) {runInitTime = System.currentTimeMillis() - 1;}
 	    				root = (double) ((currentTime - runInitTime) / initAverage);
 	    				if (Math.pow(root, 2) / 100 <= 1) {
-	    					Robot.subsystemShooter.spin(Math.pow(root/10, 2)/100);
-	    				} else { Robot.subsystemShooter.spin(0); isRunning = false; }
+	    					Robot.SUB_SHOOTER.spin(Math.pow(root/10, 2)/100);
+	    				} else { Robot.SUB_SHOOTER.spin(0); isRunning = false; }
 	    				break;
-	    			case 1: // long pulse
+	    			case LONG: // long pulse
 	    				if (runInitTime == -1) {runInitTime = System.currentTimeMillis() - 1;}
 	    				root = (double) ((currentTime - runInitTime) / initAverage);
 	    				if (Math.pow(root, 2) / 100 <= 2) {
-	    					Robot.subsystemShooter.spin(Math.pow(root/10, 2)/200);
-	    				} else { Robot.subsystemShooter.spin(0); isRunning = false; } // probably won't work as planned, might need debugging on the 2/200 part
+	    					Robot.SUB_SHOOTER.spin(Math.pow(root/10, 2)/200);
+	    				} else { Robot.SUB_SHOOTER.spin(0); isRunning = false; } // probably won't work as planned, might need debugging on the 2/200 part
 	    				break;
-	    			case 2: // double pulse
+	    			case DOUBLE: // double pulse
 	    				if (runInitTime == -1) {runInitTime = System.currentTimeMillis() - 1; pulseID = 0;}
 	    				root = (double) ((currentTime - runInitTime) / initAverage);
 	    				if (Math.pow(root, 2) / 100 <= 1) {
-	    					Robot.subsystemShooter.spin(Math.pow(root/10, 2)/100);
+	    					Robot.SUB_SHOOTER.spin(Math.pow(root/10, 2)/100);
 	    				} else { 
 	    					if (pulseID == 0) {
 	    						pulseID++;
 	    						runInitTime = System.currentTimeMillis() - 1;
-	    					} else { Robot.subsystemShooter.spin(0); isRunning = false; }
+	    					} else { Robot.SUB_SHOOTER.spin(0); isRunning = false; }
 	    				}
 	    				break;
     			}
-    		}
-    		else {
-    			if (mode == -1) {
-    				int mode = interval.nextInt(3);
+    		} else {
+    			if (vroom == Vroom.WAITING) {
+    				vroom = Vroom.values()[(int) (Math.random() * (double)(Vroom.values().length - 1)) + 1];
     				runInitTime = -1;
     				isRunning = true;
     			} else {
-    				int mode = -1;
+    				vroom = Vroom.WAITING;
     				runInitTime = -1;
     				isRunning = true;
     			}

@@ -11,14 +11,14 @@ import edu.wpi.first.wpilibj.command.Command;
 public class CommandShooter extends Command {
 
     public CommandShooter() {
-        requires(Robot.subsystemShooter);
+        requires(Robot.SUB_SHOOTER);
     }
 
     protected void initialize() {
     }
 
     protected void execute() {
-    	Robot.subsystemShooter.spin(Controller.OP_JOY());
+    	Robot.SUB_SHOOTER.spin(Controller.OP_JOY());
     }
 
     protected boolean isFinished() {

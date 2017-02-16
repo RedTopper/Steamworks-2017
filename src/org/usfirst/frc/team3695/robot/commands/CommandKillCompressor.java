@@ -10,11 +10,11 @@ import edu.wpi.first.wpilibj.command.Command;
 public class CommandKillCompressor extends Command {
 
     public CommandKillCompressor() {
-        requires(Robot.subsystemCompressor);
+        requires(Robot.SUB_COMPRESSOR);
     }
 
     protected void initialize() {
-    	Robot.subsystemCompressor.setState(false);
+    	Robot.SUB_COMPRESSOR.setState(false);
     }
 
     protected void execute() {
@@ -25,7 +25,7 @@ public class CommandKillCompressor extends Command {
     }
 
     protected void end() {
-    	Robot.subsystemCompressor.setState(true);
+    	Robot.SUB_COMPRESSOR.setState(true);
     }
 
     protected void interrupted() {

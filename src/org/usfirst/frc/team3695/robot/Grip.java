@@ -36,6 +36,7 @@ public class Grip {
 	 * This is the primary method that runs the entire pipeline and updates the outputs.
 	 */
 	public void process(Mat source0) {
+		
 		// Step HSL_Threshold0:
 		Mat hslThresholdInput = source0;
 		double[] hslThresholdHue = {75.0, 95.0};
@@ -47,7 +48,8 @@ public class Grip {
 		Mat findContoursInput = hslThresholdOutput.clone();
 		boolean findContoursExternalOnly = false;
 		findContours(findContoursInput, findContoursExternalOnly, findContoursOutput);
-
+		findContoursInput.release();
+		
 		// Step Filter_Contours0:
 		ArrayList<MatOfPoint> filterContoursContours = findContoursOutput;
 		double filterContoursMinArea = 10.0;
