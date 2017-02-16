@@ -1,0 +1,35 @@
+<html>
+  <head>
+    <title>3695 RasPi</title>
+  </head>
+  <body>
+    <h1>3695 Raspberry Pi Video Stream</h1>
+    <img src="{{ url_for('video_feed') }}" id= Stream>
+	<button onclick="front_cam()" id= demo2>Back Cam</button>
+	<button onclick="switch_cam_state()" id= Record>Recording</button>
+	
+	<h2> How To Run </h2>
+	<p> Make sure that the camera is recording at the start of the match, and is not recording at the end of the match </p>
+	<p> If there is no stream, connect to ip:5000. Make sure no path is specified. </p>
+	<script>
+	function back_cam() {
+		document.getElementById("demo2").innerHTML = "Back Cam";
+		document.getElementById("Stream").src = "";
+		document.getElementById("demo2").onclick = function() {front_cam()};
+		document.getElementById("Stream").src = "{{ url_for('video_feed') }}";
+	}
+	function front_cam() {
+		document.getElementById("demo2").innerHTML = "Front Cam";
+		document.getElementById("Stream").src = "";
+		document.getElementById("demo2").onclick = function() {back_cam()};
+		document.getElementById("Stream").src = "{{ url_for('front_feed') }}";
+	}
+	
+	function switch_cam_state() {
+		document.getElementById("Stream").src = "";
+		window.location.href = '/camera_recording_process_change';
+	}
+	</script>
+	
+  </body>
+</html>
