@@ -27,7 +27,7 @@ public class SubsystemAscend extends Subsystem {
 		if (Math.abs(joy.getRawAxis(3) - joy.getRawAxis(2)) > 0.5 && !isSafe)
 			isSafe = true;
 		if (joy.getRawButton(3) && isSafe){
-			Robot.subsystemBallHopper.toggleFlaps();
+			Robot.SUB_BALL_HOPPER.toggleFlaps();
 			isSafe = false;
 		}
 			

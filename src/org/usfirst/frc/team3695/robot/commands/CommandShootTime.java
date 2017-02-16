@@ -22,7 +22,7 @@ public class CommandShootTime {
 	}
 
 	protected void execute() {
-		Robot.subsystemShooter.spin(power);
+		Robot.SUB_SHOOTER.spin(power);
 	}
 
 	protected boolean isFinished() {
@@ -31,7 +31,7 @@ public class CommandShootTime {
 	}
 
 	protected void end() {
-		Robot.subsystemShooter.spin(0);
+		Robot.SUB_SHOOTER.spin(0);
 	}
 
 	protected void interrupted() {

@@ -1,7 +1,6 @@
 package org.usfirst.frc.team3695.robot.commands;
 
 import org.usfirst.frc.team3695.robot.Robot;
-import org.usfirst.frc.team3695.robot.util.Logger;
 
 import edu.wpi.first.wpilibj.command.Command;
 
@@ -15,10 +14,9 @@ public class CommandOpenBallHopper extends Command {
 	 * 
 	 */
     public CommandOpenBallHopper(boolean isOpening) {
-        // Use requires() here to declare subsystem dependencies
-        //requires(Robot.subsystemFlaps);
+        requires(Robot.SUB_FLAPS);
         this.opening = isOpening;
-        complete = false;
+        this.complete = false;
     }
 
     // Called just before this Command runs the first time
@@ -30,11 +28,11 @@ public class CommandOpenBallHopper extends Command {
     protected void execute() {
     	if (!complete)
     		if (opening){
-    			Robot.subsystemBallHopper.openFlaps();
+    			Robot.SUB_BALL_HOPPER.openFlaps();
     			//Robot.subsystemFlaps.toggleFlaps();
     			complete = true;
     		} else {
-    			Robot.subsystemBallHopper.closeFlaps();
+    			Robot.SUB_BALL_HOPPER.closeFlaps();
     			//Robot.subsystemFlaps.toggleFlaps();
     			complete = true;
     		}

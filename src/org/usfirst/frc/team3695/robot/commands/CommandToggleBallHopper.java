@@ -1,7 +1,6 @@
 package org.usfirst.frc.team3695.robot.commands;
 
 import org.usfirst.frc.team3695.robot.Robot;
-import org.usfirst.frc.team3695.robot.util.Logger;
 
 import edu.wpi.first.wpilibj.command.Command;
 
@@ -27,7 +26,7 @@ public class CommandToggleBallHopper extends Command {
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
     	if (!complete)
-    		Robot.subsystemBallHopper.toggleFlaps();
+    		Robot.SUB_BALL_HOPPER.toggleFlaps();
     }
 
     protected boolean isFinished() {

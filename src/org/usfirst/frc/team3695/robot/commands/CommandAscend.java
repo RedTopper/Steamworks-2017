@@ -11,7 +11,7 @@ import edu.wpi.first.wpilibj.command.Command;
 public class CommandAscend extends Command {
 
     public CommandAscend() {
-    	requires(Robot.subsystemAscend);
+    	requires(Robot.SUB_ASCEND);
     	//requires(Robot.subsystemBallHopper);
     }
 
@@ -19,7 +19,7 @@ public class CommandAscend extends Command {
     }
 
     protected void execute() {
-    	Robot.subsystemAscend.climb(Controller.OP_JOY());
+    	Robot.SUB_ASCEND.climb(Controller.OP_JOY());
     }
 
     protected boolean isFinished() {

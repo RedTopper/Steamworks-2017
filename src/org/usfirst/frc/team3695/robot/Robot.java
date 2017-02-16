@@ -5,18 +5,17 @@ import org.usfirst.frc.team3695.robot.commands.CommandDrive;
 import org.usfirst.frc.team3695.robot.commands.CommandKillCompressor;
 import org.usfirst.frc.team3695.robot.commands.CommandShooter;
 import org.usfirst.frc.team3695.robot.enumeration.Autonomous;
+import org.usfirst.frc.team3695.robot.enumeration.Camera;
+import org.usfirst.frc.team3695.robot.enumeration.Video;
 import org.usfirst.frc.team3695.robot.subsystems.SubsystemAscend;
 import org.usfirst.frc.team3695.robot.subsystems.SubsystemBallHopper;
 import org.usfirst.frc.team3695.robot.subsystems.SubsystemCompressor;
 import org.usfirst.frc.team3695.robot.subsystems.SubsystemDrive;
 import org.usfirst.frc.team3695.robot.subsystems.SubsystemFlaps;
 import org.usfirst.frc.team3695.robot.subsystems.SubsystemShooter;
-import org.usfirst.frc.team3695.robot.vision.Camera;
-import org.usfirst.frc.team3695.robot.vision.Video;
 import org.usfirst.frc.team3695.robot.vision.Vision;
 
 import edu.wpi.first.wpilibj.IterativeRobot;
-import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.command.Scheduler;
 import edu.wpi.first.wpilibj.livewindow.LiveWindow;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
@@ -33,28 +32,29 @@ public class Robot extends IterativeRobot {
 	SendableChooser<Camera> chooserCamera = new SendableChooser<>();
 	SendableChooser<Video> chooserVideo = new SendableChooser<>();
 	
-	//Commands
-	Command commandComp = new CommandKillCompressor();
-	Command commandDrive = new CommandDrive();
-	Command commandAscend = new CommandAscend();
-	Command commandShoot = new CommandShooter();
+	//Subsystems
+	public static final SubsystemDrive SUB_DRIVE = new SubsystemDrive();
+	public static final SubsystemCompressor SUB_COMPRESSOR = new SubsystemCompressor();
+	public static final SubsystemFlaps SUB_FLAPS = new SubsystemFlaps();
+	public static final SubsystemAscend SUB_ASCEND = new SubsystemAscend();
+	public static final SubsystemShooter SUB_SHOOTER = new SubsystemShooter();
+	public static final SubsystemBallHopper SUB_BALL_HOPPER = new SubsystemBallHopper();
 	
 	//Output and Input
-	public static OI oi;
-	public static Grip camPipeline = new Grip();
+	public static final Grip GRIP = new Grip();
+	public static final Vision VISION = new Vision();
 	
-	//Subsystems
-	public static SubsystemDrive subsystemDrive = new SubsystemDrive();
-	public static SubsystemCompressor subsystemCompressor = new SubsystemCompressor();
-	public static SubsystemFlaps subsystemFlaps = new SubsystemFlaps();
-	public static SubsystemAscend subsystemAscend = new SubsystemAscend();
-	public static SubsystemShooter subsystemShooter = new SubsystemShooter();
-	public static SubsystemBallHopper subsystemBallHopper = new SubsystemBallHopper();
+	static {
+		new CommandKillCompressor();
+		new CommandDrive();
+		new CommandAscend();
+		new CommandShooter();
+		VISION.start();
+	}
 	
 	//Vars
 	private Camera lastCam = Camera.FRONT;
 	private Video lastVideo = Video.RAW;
-	private Vision visionThread;
 
 	/**
 	 * This function is run when the robot is first started up and should be
@@ -62,11 +62,7 @@ public class Robot extends IterativeRobot {
 	 */
 	@Override
 	public void robotInit() {
-		visionThread = new Vision(camPipeline);
-		
-		oi = new OI();
-		
-		visionThread.start();
+		new OI();
 		
 		//Autonomous Chooser init
 		SmartDashboard.putData("Auto mode", autoChooser);
@@ -100,7 +96,7 @@ public class Robot extends IterativeRobot {
 		Camera cam = chooserCamera.getSelected();
 		Video video = chooserVideo.getSelected();
 		if (cam != null && (cam != lastCam || video != lastVideo)) {
-			visionThread.setCamera(cam, video);
+			VISION.setCamera(cam, video);
 			lastCam = cam;
 			lastVideo = video;
 		}

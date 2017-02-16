@@ -1,4 +1,4 @@
-package org.usfirst.frc.team3695.robot.vision;
+package org.usfirst.frc.team3695.robot.enumeration;
 
 import edu.wpi.cscore.CvSink;
 import edu.wpi.cscore.UsbCamera;
