@@ -11,7 +11,7 @@ import edu.wpi.first.wpilibj.command.Command;
  */
 public class CommandAscend extends Command {
 	
-	private final Joystick joy;
+	private final Joystick joy
 
     public CommandAscend(Joystick joy) {
     	requires(Robot.SUB_ASCEND);

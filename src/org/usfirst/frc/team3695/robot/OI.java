@@ -35,7 +35,7 @@ public class OI {
 		Button closeFlap = new JoystickButton(OPERATOR, Xbox.LB);
 		openFlap.whenPressed(new CommandFlaps(true));
 		closeFlap.whenPressed(new CommandFlaps(false));
-		
+
 		/**
 		 * Open/Closed Funnel
 		 */

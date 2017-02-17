@@ -20,13 +20,13 @@ public class SubsystemAscend extends Subsystem {
 		climberMotor = new CANTalon(Constants.CLIMBER_MOTOR);
 	}
 	
-	public void climb(double up, double down){
-		climberMotor.set((Constants.ASCENDER_MOTOR_INVERT ? -1.0 : 1.0 ) * (up - down) * Constants.ASCENDER_LIMIT);
+	public void climb(double direction, boolean toggleFlap){
+		climberMotor.set((Constants.ASCENDER_MOTOR_INVERT ? -1.0 : 1.0 ) * direction * Constants.ASCENDER_LIMIT);
 		//if (Math.abs(joy.getRawAxis(3) - joy.getRawAxis(2)) > 0.5)
 			//Robot.subsystemBallHopper.closeFlaps();
-		if (Math.abs(joy.getRawAxis(3) - joy.getRawAxis(2)) > 0.5 && !isSafe)
+		if (Math.abs(direction) > 0.5 && !isSafe)
 			isSafe = true;
-		if (joy.getRawButton(3) && isSafe){
+		if (toggleFlap && isSafe){
 			Robot.SUB_BALL_HOPPER.toggleFlaps();
 			isSafe = false;
 		}
