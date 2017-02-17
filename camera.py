@@ -12,9 +12,9 @@ class Camera(object):
         self.video = cv2.VideoCapture(num)
 
         # Define video capture settings
-        self.video.set(3, 1280)
-        self.video.set(4, 720)
-        self.video.set(5, 10)
+        self.video.set(3, 640)
+        self.video.set(4, 480)
+        self.video.set(5, 30)
         self.video.set(6, cv2.VideoWriter_fourcc(*'MPEG'))
         
     def __del__(self):
