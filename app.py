@@ -27,7 +27,6 @@ def gen(camera):
         # Gets a frame from Camera.py
         frame = camera.get_frame()
 
-
         ##recFrame = cv2.resize(frame, (1280,720), interpolation = cv2.INTER_LINEAR)
         # Any OpenCV image editing that is on the video should go here
         ##if recording:
