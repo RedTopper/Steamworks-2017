@@ -39,8 +39,9 @@ public class SubsystemShooter extends Subsystem {
     }
     
     public void spin(Joystick joy){
-    	double spinSpeed = Util.getAndSetDouble("Shooter Speed", Constants.SHOOTER_SPEED);//Constants.SHOOTER_SPEED
-    	if (joy.getRawButton(1))
+    	double spinSpeed = Util.getAndSetDouble("Shooter Speed", Constants.SHOOTER_SPEED);
+    	boolean HOLDDABUTTON = (Util.getAndSetDouble("HOLD", 0.0) == 1.0 ? true : false);
+    	if (joy.getRawButton(1) || HOLDDABUTTON)
     		spin(spinSpeed);
     	else if (joy.getRawButton(2))
     		spin(-1.0 * spinSpeed);
