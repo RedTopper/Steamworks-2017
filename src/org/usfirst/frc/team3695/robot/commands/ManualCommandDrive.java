@@ -1,29 +1,24 @@
 package org.usfirst.frc.team3695.robot.commands;
 
-import org.usfirst.frc.team3695.robot.Controller;
+import org.usfirst.frc.team3695.robot.OI;
 import org.usfirst.frc.team3695.robot.Robot;
 
-import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.command.Command;
 
 /**
  *
  */
-public class CommandAscend extends Command {
-	
-	private final Joystick joy
+public class ManualCommandDrive extends Command {
 
-    public CommandAscend(Joystick joy) {
-    	requires(Robot.SUB_ASCEND);
-    	//requires(Robot.subsystemBallHopper);
-    	 this.joy = joy;
+    public ManualCommandDrive() {
+        requires(Robot.SUB_DRIVE);
     }
 
     protected void initialize() {
     }
 
     protected void execute() {
-    	Robot.SUB_ASCEND.climb(Controller.OP_JOY());
+    	Robot.SUB_DRIVE.dualStickDrive(OI.DRIVER);
     }
 
     protected boolean isFinished() {

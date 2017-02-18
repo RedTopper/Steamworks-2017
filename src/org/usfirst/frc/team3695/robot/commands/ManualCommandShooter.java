@@ -1,6 +1,6 @@
 package org.usfirst.frc.team3695.robot.commands;
 
-import org.usfirst.frc.team3695.robot.Controller;
+import org.usfirst.frc.team3695.robot.OI;
 import org.usfirst.frc.team3695.robot.Robot;
 
 import edu.wpi.first.wpilibj.command.Command;
@@ -8,9 +8,9 @@ import edu.wpi.first.wpilibj.command.Command;
 /**
  *
  */
-public class CommandShooter extends Command {
+public class ManualCommandShooter extends Command {
 
-    public CommandShooter() {
+    public ManualCommandShooter() {
         requires(Robot.SUB_SHOOTER);
     }
 
@@ -18,7 +18,7 @@ public class CommandShooter extends Command {
     }
 
     protected void execute() {
-    	Robot.SUB_SHOOTER.spin(Controller.OP_JOY());
+    	Robot.SUB_SHOOTER.spin(OI.OPERATOR);
     }
 
     protected boolean isFinished() {

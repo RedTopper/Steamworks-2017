@@ -18,8 +18,8 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
  */
 public class OI {
 	
-	private static final Joystick DRIVER = new Joystick(0);
-	private static final Joystick OPERATOR = new Joystick(1);
+	public static final Joystick DRIVER = new Joystick(0);
+	public static final Joystick OPERATOR = new Joystick(1);
 	public OI(){
 		
 		/**
@@ -35,7 +35,6 @@ public class OI {
 		Button closeFlap = new JoystickButton(OPERATOR, Xbox.LB);
 		openFlap.whenPressed(new CommandFlaps(true));
 		closeFlap.whenPressed(new CommandFlaps(false));
-
 		/**
 		 * Open/Closed Funnel
 		 */

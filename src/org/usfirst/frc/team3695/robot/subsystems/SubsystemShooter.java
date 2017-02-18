@@ -1,7 +1,7 @@
 package org.usfirst.frc.team3695.robot.subsystems;
 
 import org.usfirst.frc.team3695.robot.Constants;
-import org.usfirst.frc.team3695.robot.commands.CommandShooter;
+import org.usfirst.frc.team3695.robot.commands.ManualCommandShooter;
 
 import com.ctre.CANTalon;
 
@@ -23,7 +23,7 @@ public class SubsystemShooter extends Subsystem {
 	}
 	
     public void initDefaultCommand() {
-        setDefaultCommand(new CommandShooter());
+        setDefaultCommand(new ManualCommandShooter());
     }
     
     public void spin(double speed){

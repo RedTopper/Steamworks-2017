@@ -1,7 +1,5 @@
 package org.usfirst.frc.team3695.robot.enumeration;
 
-import org.usfirst.frc.team3695.robot.Constants;
-
 import edu.wpi.first.wpilibj.Joystick;
 
 public class Xbox {
