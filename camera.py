@@ -12,6 +12,7 @@ class Camera(object):
         self.video = cv2.VideoCapture(num)
 
         # Define video capture settings
+
         self.video.set(3, 640)
         self.video.set(4, 480)
         self.video.set(5, 30)
