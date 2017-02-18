@@ -1,4 +1,4 @@
-package org.usfirst.frc.team3695.robot.enumeration;
+package org.usfirst.frc.team3695.robot.util;
 
 import edu.wpi.first.wpilibj.Joystick;
 

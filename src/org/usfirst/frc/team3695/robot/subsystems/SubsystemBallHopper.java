@@ -11,7 +11,7 @@ import edu.wpi.first.wpilibj.command.Subsystem;
 public class SubsystemBallHopper extends Subsystem {
 	private Solenoid openFlaps;
 	private Solenoid closeFlaps;
-	private boolean open; //Current State of FLaps. True = Open, False = closed
+	private boolean open; //Current State of flaps. True = Open, False = closed
 	
 	public SubsystemBallHopper(){
 		openFlaps = new Solenoid(Constants.OPEN_BALL_HOPPER);
@@ -34,10 +34,7 @@ public class SubsystemBallHopper extends Subsystem {
     }
     
     public void toggleFlaps(){
-    	if (open)
-    		closeFlaps();
-    	else
-    		openFlaps();
+    	if (open) closeFlaps();	else openFlaps();
     }
 }
 

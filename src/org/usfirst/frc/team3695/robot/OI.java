@@ -1,11 +1,12 @@
 package org.usfirst.frc.team3695.robot;
 
-import org.usfirst.frc.team3695.robot.commands.CommandFlaps;
-import org.usfirst.frc.team3695.robot.commands.CommandIntimidate;
-import org.usfirst.frc.team3695.robot.commands.CommandKillCompressor;
-import org.usfirst.frc.team3695.robot.commands.CommandOpenBallHopper;
+import org.usfirst.frc.team3695.robot.commands.ButtonCommandBallHopper;
+import org.usfirst.frc.team3695.robot.commands.ButtonCommandFlaps;
+import org.usfirst.frc.team3695.robot.commands.ButtonCommandKillCompressor;
+import org.usfirst.frc.team3695.robot.commands.ButtonCommandShooter;
 import org.usfirst.frc.team3695.robot.commands.CommandRotate;
-import org.usfirst.frc.team3695.robot.enumeration.Xbox;
+import org.usfirst.frc.team3695.robot.enumeration.Direction;
+import org.usfirst.frc.team3695.robot.util.Xbox;
 
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.buttons.Button;
@@ -25,16 +26,23 @@ public class OI {
 		/**
 		 * Ball Loading
 		 */
-		Button openGear = new JoystickButton(OPERATOR, Xbox.X);
-		openGear.whenPressed(new CommandOpenBallHopper(true));
+		Button ball = new JoystickButton(OPERATOR, Xbox.X);
+		ball.toggleWhenActive(new ButtonCommandBallHopper());
 		
 		/**
 		 * Gear Flapping
 		 */
-		Button openFlap = new JoystickButton(OPERATOR, Xbox.RB);
-		Button closeFlap = new JoystickButton(OPERATOR, Xbox.LB);
-		openFlap.whenPressed(new CommandFlaps(true));
-		closeFlap.whenPressed(new CommandFlaps(false));
+		Button gear = new JoystickButton(OPERATOR, Xbox.RB);
+		gear.toggleWhenActive(new ButtonCommandFlaps());
+		
+		/**
+		 * Ball shooting
+		 */
+		Button shoot = new JoystickButton(OPERATOR, Xbox.A);
+		Button unshoot = new JoystickButton(OPERATOR, Xbox.B);
+		shoot.toggleWhenActive(new ButtonCommandShooter(Direction.FORWARD));
+		unshoot.toggleWhenActive(new ButtonCommandShooter(Direction.BACKWARD));
+		
 		/**
 		 * Open/Closed Funnel
 		 */
@@ -43,12 +51,7 @@ public class OI {
 		/**
 		 * To Compress, or Not To Compress. It is now an option.
 		 */
-		SmartDashboard.putData("Disable Compressor", new CommandKillCompressor());
-		
-		/**
-		 * Vroom Vroom
-		 */
-		SmartDashboard.putData("Intimidate", new CommandIntimidate());
+		SmartDashboard.putData("Disable Compressor", new ButtonCommandKillCompressor());
 		
 		SmartDashboard.putData("AutoCamera", new CommandRotate());
 	}

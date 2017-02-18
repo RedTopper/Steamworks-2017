@@ -1,9 +1,5 @@
 package org.usfirst.frc.team3695.robot;
 
-import org.usfirst.frc.team3695.robot.commands.ManualCommandAscend;
-import org.usfirst.frc.team3695.robot.commands.ManualCommandDrive;
-import org.usfirst.frc.team3695.robot.commands.CommandKillCompressor;
-import org.usfirst.frc.team3695.robot.commands.ManualCommandShooter;
 import org.usfirst.frc.team3695.robot.enumeration.Autonomous;
 import org.usfirst.frc.team3695.robot.enumeration.Camera;
 import org.usfirst.frc.team3695.robot.enumeration.Video;

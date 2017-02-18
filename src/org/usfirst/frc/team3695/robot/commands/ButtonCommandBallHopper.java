@@ -5,27 +5,26 @@ import org.usfirst.frc.team3695.robot.Robot;
 import edu.wpi.first.wpilibj.command.Command;
 
 /**
- * Code that kills Pnuematics until interruption
+ *
  */
-public class CommandKillCompressor extends Command {
+public class ButtonCommandBallHopper extends Command {
 
-    public CommandKillCompressor() {
-        requires(Robot.SUB_COMPRESSOR);
+    public ButtonCommandBallHopper() {
+        requires(Robot.SUB_BALL_HOPPER);
     }
 
     protected void initialize() {
-    	Robot.SUB_COMPRESSOR.setState(false);
+    	Robot.SUB_BALL_HOPPER.openFlaps();
     }
 
-    protected void execute() {
-    }
+    protected void execute() {}
 
     protected boolean isFinished() {
         return false;
     }
 
     protected void end() {
-    	Robot.SUB_COMPRESSOR.setState(true);
+    	Robot.SUB_BALL_HOPPER.closeFlaps();
     }
 
     protected void interrupted() {

@@ -21,10 +21,7 @@ public class SubsystemFlaps extends Subsystem {
 		loadingFlap = new Solenoid(Constants.CLOSE_GEAR_FEEDER_FLAPS);
 	}
 
-    public void initDefaultCommand() {
-        // Set the default command for a subsystem here.
-        //setDefaultCommand(new MySpecialCommand());
-    }
+    public void initDefaultCommand() {}
     
     public void openFlaps(){
     	openFlaps.set(true);
@@ -41,10 +38,7 @@ public class SubsystemFlaps extends Subsystem {
     }
     
     public void toggleFlaps(){
-    	if (open)
-    		closeFlaps();
-    	else
-    		openFlaps();
+    	if (open) closeFlaps();	else openFlaps();
     }
     
     public boolean getOpen() {

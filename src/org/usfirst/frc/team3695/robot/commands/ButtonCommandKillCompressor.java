@@ -1,33 +1,33 @@
 package org.usfirst.frc.team3695.robot.commands;
 
-import org.usfirst.frc.team3695.robot.OI;
 import org.usfirst.frc.team3695.robot.Robot;
 
 import edu.wpi.first.wpilibj.command.Command;
 
 /**
- *
+ * Code that kills compressor until interruption
  */
-public class ManualCommandAscend extends Command {
-	
-    public ManualCommandAscend() {
-    	requires(Robot.SUB_ASCEND);
+public class ButtonCommandKillCompressor extends Command {
+
+    public ButtonCommandKillCompressor() {
+        requires(Robot.SUB_COMPRESSOR);
     }
 
     protected void initialize() {
+    	Robot.SUB_COMPRESSOR.setState(false);
     }
 
-    protected void execute() {
-    	Robot.SUB_ASCEND.climb(OI.OPERATOR);
-    }
+    protected void execute() {}
 
     protected boolean isFinished() {
         return false;
     }
 
     protected void end() {
+    	Robot.SUB_COMPRESSOR.setState(true);
     }
 
     protected void interrupted() {
+    	end();
     }
 }

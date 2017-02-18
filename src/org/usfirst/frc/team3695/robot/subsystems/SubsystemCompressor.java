@@ -27,10 +27,7 @@ public class SubsystemCompressor extends Subsystem {
      * @param state - State to change to
      */
     public void setState(boolean state){
-		if (state)
-			comp.start();
-		else
-			comp.stop();
+		if (state) comp.start(); else comp.stop();
     }
     
    /**
