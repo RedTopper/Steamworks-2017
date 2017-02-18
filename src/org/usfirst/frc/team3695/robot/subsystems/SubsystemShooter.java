@@ -2,6 +2,7 @@ package org.usfirst.frc.team3695.robot.subsystems;
 
 import org.usfirst.frc.team3695.robot.Constants;
 import org.usfirst.frc.team3695.robot.commands.CommandShooter;
+import org.usfirst.frc.team3695.robot.util.Util;
 
 import com.ctre.CANTalon;
 
@@ -38,10 +39,12 @@ public class SubsystemShooter extends Subsystem {
     }
     
     public void spin(Joystick joy){
-    	if (joy.getRawButton(1))
-    		spin(Constants.SHOOTER_SPEED);
+    	double spinSpeed = Util.getAndSetDouble("Shooter Speed", Constants.SHOOTER_SPEED);
+    	boolean HOLDDABUTTON = (Util.getAndSetDouble("HOLD", 0.0) == 1.0 ? true : false);
+    	if (joy.getRawButton(1) || HOLDDABUTTON)
+    		spin(spinSpeed);
     	else if (joy.getRawButton(2))
-    		spin(-1.0 * Constants.SHOOTER_SPEED);
+    		spin(-1.0 * spinSpeed);
     	else
     		spin(0.0);
     }
