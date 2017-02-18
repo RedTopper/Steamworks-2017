@@ -1,13 +1,13 @@
 <xml version="1.0">
 <dashboard>
-	<widget field="PIDCount" type="Number" class="edu.wpi.first.smartdashboard.gui.elements.TextBox">
-		<location x="0" y="82"/>
+	<widget field="MAXIMUM SPEED" type="Number" class="edu.wpi.first.smartdashboard.gui.elements.TextBox">
+		<location x="0" y="151"/>
 	</widget>
-	<widget field="PID" type="Number" class="edu.wpi.first.smartdashboard.gui.elements.TextBox">
-		<location x="0" y="59"/>
+	<widget field="Right Vel" type="Number" class="edu.wpi.first.smartdashboard.gui.elements.TextBox">
+		<location x="0" y="128"/>
 	</widget>
-	<widget field="PIDVision Position" type="Number" class="edu.wpi.first.smartdashboard.gui.elements.TextBox">
-		<location x="0" y="36"/>
+	<widget field="Left Vel" type="Number" class="edu.wpi.first.smartdashboard.gui.elements.TextBox">
+		<location x="0" y="105"/>
 	</widget>
 	<widget field="AutoCamera" type="PIDCommand" class="edu.wpi.first.smartdashboard.gui.elements.Command">
 		<location x="0" y="176"/>
