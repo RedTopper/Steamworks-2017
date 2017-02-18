@@ -45,10 +45,12 @@ public class SubsystemDrive extends Subsystem {
     }
     
     public static final double magic2ips(double magic) {
-    	
+    	return magic * VELOCITY_SCALAR;
     }
     
-    public static final double 
+    public static final double ips2magic(double ips) {
+    	return ips * (1/VELOCITY_SCALAR);
+    }
     
     /**
      * Initialize Needed Drivetrain Variables
