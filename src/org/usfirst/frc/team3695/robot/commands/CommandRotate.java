@@ -13,15 +13,15 @@ public class CommandRotate extends PIDCommand {
 	private PIDVision vision;
 	
 	public CommandRotate() {
-		super(0.1, 0.001, 0);
+		super(0, 0, 0); //Will be set in initialize();
 		requires(Robot.SUB_DRIVE);
 		vision = new PIDVision();
 	}
 	
     protected void initialize() {
-    	double p = Util.getAndSetDouble("PID: P", 5.0);
-    	double i = Util.getAndSetDouble("PID: I", 0.01);
-    	double d = Util.getAndSetDouble("PID: D", 50.0);
+    	double p = Util.getAndSetDouble("PID: P", 0.0);
+    	double i = Util.getAndSetDouble("PID: I", 0.0);
+    	double d = Util.getAndSetDouble("PID: D", 0.0);
     	getPIDController().setPID(p, i, d);
 		setInputRange(0, Vision.CAM_WIDTH);
 		setSetpoint(Vision.CAM_WIDTH / 2);
@@ -46,13 +46,13 @@ public class CommandRotate extends PIDCommand {
 	}
 
 	protected void usePIDOutput(double output) {
-		output = output * Util.getAndSetDouble("PID: Can See Speed", 0.5);
-		double no = Util.getAndSetDouble("PID: Cant See Speed", 0.35);
+		output = output * Util.getAndSetDouble("CAM: Can See Speed", 0.5);
+		double no = Util.getAndSetDouble("CAM: Cant See Speed", 0.35);
 		SmartDashboard.putNumber("PID", output);
 		if(vision.canSee()) {
-			Robot.SUB_DRIVE.tankDrive(output, -output);
+			Robot.SUB_DRIVE.directDrive(output, -output);
 		} else {
-			Robot.SUB_DRIVE.tankDrive(no, -no);
+			Robot.SUB_DRIVE.directDrive(no, -no);
 		}
 	}
 }

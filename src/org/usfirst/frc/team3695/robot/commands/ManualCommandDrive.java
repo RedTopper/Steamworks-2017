@@ -1,6 +1,6 @@
 package org.usfirst.frc.team3695.robot.commands;
 
-import org.usfirst.frc.team3695.robot.Controller;
+import org.usfirst.frc.team3695.robot.OI;
 import org.usfirst.frc.team3695.robot.Robot;
 
 import edu.wpi.first.wpilibj.command.Command;
@@ -9,10 +9,10 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 /**
  *
  */
-public class CommandDrive extends Command {
+public class ManualCommandDrive extends Command {
 	
 
-    public CommandDrive() {
+    public ManualCommandDrive() {
         requires(Robot.SUB_DRIVE);
     }
 
@@ -20,10 +20,7 @@ public class CommandDrive extends Command {
     }
 
     protected void execute() {
-    	Robot.SUB_DRIVE.dualStickDrive(Controller.DRIVE_JOY());
-    	SmartDashboard.putNumber("Left Vel", Robot.SUB_DRIVE.getLeftVelocity());
-    	SmartDashboard.putNumber("Right Vel", Robot.SUB_DRIVE.getRightVelocity());
-    	SmartDashboard.putNumber("MAXIMUM SPEED", Robot.SUB_DRIVE.getMaxRPMS());
+    	Robot.SUB_DRIVE.dualStickDrive(OI.DRIVER);
     }
 
     protected boolean isFinished() {

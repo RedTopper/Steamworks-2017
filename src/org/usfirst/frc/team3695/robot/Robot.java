@@ -1,9 +1,5 @@
 package org.usfirst.frc.team3695.robot;
 
-import org.usfirst.frc.team3695.robot.commands.CommandAscend;
-import org.usfirst.frc.team3695.robot.commands.CommandDrive;
-import org.usfirst.frc.team3695.robot.commands.CommandKillCompressor;
-import org.usfirst.frc.team3695.robot.commands.CommandShooter;
 import org.usfirst.frc.team3695.robot.enumeration.Autonomous;
 import org.usfirst.frc.team3695.robot.enumeration.Camera;
 import org.usfirst.frc.team3695.robot.enumeration.Video;
@@ -44,14 +40,6 @@ public class Robot extends IterativeRobot {
 	public static final Grip GRIP = new Grip();
 	public static final Vision VISION = new Vision();
 	
-	static {
-		new CommandKillCompressor();
-		new CommandDrive();
-		new CommandAscend();
-		new CommandShooter();
-		VISION.start();
-	}
-	
 	//Vars
 	private Camera lastCam = Camera.FRONT;
 	private Video lastVideo = Video.RAW;
@@ -80,6 +68,8 @@ public class Robot extends IterativeRobot {
 		chooserVideo.addObject("Low Exposure", Video.LOW_EXPOSURE);
 		chooserVideo.addObject("Threshhold", Video.THRESHHOLD);
 		SmartDashboard.putData("Video Mode", chooserVideo);
+		
+		VISION.start();
 	}
 
 	/**

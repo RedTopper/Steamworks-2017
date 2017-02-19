@@ -1,6 +1,6 @@
 package org.usfirst.frc.team3695.robot.commands;
 
-import org.usfirst.frc.team3695.robot.Controller;
+import org.usfirst.frc.team3695.robot.OI;
 import org.usfirst.frc.team3695.robot.Robot;
 
 import edu.wpi.first.wpilibj.command.Command;
@@ -8,18 +8,17 @@ import edu.wpi.first.wpilibj.command.Command;
 /**
  *
  */
-public class CommandAscend extends Command {
-
-    public CommandAscend() {
+public class ManualCommandAscend extends Command {
+	
+    public ManualCommandAscend() {
     	requires(Robot.SUB_ASCEND);
-    	//requires(Robot.subsystemBallHopper);
     }
 
     protected void initialize() {
     }
 
     protected void execute() {
-    	Robot.SUB_ASCEND.climb(Controller.OP_JOY());
+    	Robot.SUB_ASCEND.climb(OI.OPERATOR);
     }
 
     protected boolean isFinished() {

@@ -3,19 +3,6 @@ package org.usfirst.frc.team3695.robot;
 public class Constants {
 	
 	/**
-	 * Resolution of all roborio streaming cameras.
-	 */
-	public static final int 
-			CAM_WIDTH = 640,
-			CAM_HEIGHT = 480;
-	
-	/**
-	 * Non Boosting Drive Speed
-	 */
-	public static final double 
-			NO_BOOST_MULTIPLIER = 0.5;
-	
-	/**
 	 * Motor PWM Ports
 	 */
 	public static final int 
@@ -40,13 +27,6 @@ public class Constants {
 			WINDOW2_INVERT = true;
 	
 	/**
-	 * Joystick Assignments
-	 */
-	public static final int 
-			DRIVER_STICK = 0,
-			OPERATOR_STICK = 1;
-	
-	/**
 	 * PCM Ports
 	 */
 	public static final int 
@@ -57,13 +37,14 @@ public class Constants {
 			CLOSE_BALL_HOPPER = 6;
 	
 	public static final double 
-			SHOOTER_SPEED = 0.80;
+			SHOOTER_LIMIT = 0.80;
 	
 	/**
-	 * Limit the Ascender speed so it does not destroy the gearbox. :)
+	 * Limit the Ascender speed so it does not destroy the gear-box. :)
 	 */
 	public static final double 
 			ASCENDER_LIMIT = 0.8;
 	
-	public static final double AGITATOR_SPEED = 1.0;
+	public static final double 
+			AGITATOR_LIMIT = 1.0;
 }
