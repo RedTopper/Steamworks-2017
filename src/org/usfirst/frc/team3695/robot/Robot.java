@@ -68,6 +68,8 @@ public class Robot extends IterativeRobot {
 		chooserVideo.addObject("Low Exposure", Video.LOW_EXPOSURE);
 		chooserVideo.addObject("Threshhold", Video.THRESHHOLD);
 		SmartDashboard.putData("Video Mode", chooserVideo);
+		
+		VISION.start();
 	}
 
 	/**

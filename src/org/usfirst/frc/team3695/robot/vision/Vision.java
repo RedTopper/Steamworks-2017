@@ -22,7 +22,7 @@ public class Vision extends Thread {
 			BOT_EXPOSURE = 0,
 			BOT_WHITE = 50,
 			BOT_BRIGHT = 50,
-			MAN_EXPOSURE = 50,
+			MAN_EXPOSURE = 35,
 			MAN_BRIGHT = 50,
 			MAN_WHITE = 50,
 			CAM_FPS = 30,
@@ -67,6 +67,13 @@ public class Vision extends Thread {
 	private final Mat warn = new Mat(CAM_HEIGHT, CAM_WIDTH, CvType.CV_8UC3);
 	
 	private long timeSwitchStarted = 0l;
+	
+	/**
+	 * Creates a vision thread in the background.
+	 */
+	public Vision() {
+		setDaemon(true);
+	}
 	
 	/**
 	 * Sets a no feed message.
@@ -142,6 +149,7 @@ public class Vision extends Thread {
 				continue;
 			}
 			
+			//Check if the camera is actually connected
 			if(!camera.usb.isConnected() || !camera.sink.isValid()) {
 				warn(output, camera.usb.getName() + " is disconnected!", "Check the connection to the camera!");
 				continue;
