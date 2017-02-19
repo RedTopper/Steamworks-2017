@@ -14,8 +14,7 @@ public class ManualCommandAscend extends Command {
     	requires(Robot.SUB_ASCEND);
     }
 
-    protected void initialize() {
-    }
+    protected void initialize() {}
 
     protected void execute() {
     	Robot.SUB_ASCEND.climb(OI.OPERATOR);
@@ -25,9 +24,7 @@ public class ManualCommandAscend extends Command {
         return false;
     }
 
-    protected void end() {
-    }
+    protected void end() {}
 
-    protected void interrupted() {
-    }
+    protected void interrupted() {}
 }

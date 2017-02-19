@@ -2,7 +2,6 @@ package org.usfirst.frc.team3695.robot.subsystems;
 
 import org.usfirst.frc.team3695.robot.Constants;
 import org.usfirst.frc.team3695.robot.enumeration.Direction;
-import org.usfirst.frc.team3695.robot.util.Util;
 
 import com.ctre.CANTalon;
 

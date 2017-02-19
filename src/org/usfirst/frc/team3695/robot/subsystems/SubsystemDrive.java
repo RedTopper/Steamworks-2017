@@ -34,7 +34,7 @@ public class SubsystemDrive extends Subsystem {
 	/**
 	 * The max speed of the robot, but in magic units
 	 */
-	public static final double MAX_MAGIC_SPEED = MAX_RPS / VELOCITY_SCALAR;
+	public static final double MAX_MAGIC_SPEED = rps2magic(MAX_RPS);
 	
 	/**
 	 * Diameter of the wheel in inches

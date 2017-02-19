@@ -4,20 +4,17 @@ import org.usfirst.frc.team3695.robot.OI;
 import org.usfirst.frc.team3695.robot.Robot;
 
 import edu.wpi.first.wpilibj.command.Command;
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 /**
  *
  */
 public class ManualCommandDrive extends Command {
 	
-
     public ManualCommandDrive() {
         requires(Robot.SUB_DRIVE);
     }
 
-    protected void initialize() {
-    }
+    protected void initialize() {}
 
     protected void execute() {
     	Robot.SUB_DRIVE.dualStickDrive(OI.DRIVER);
@@ -27,9 +24,7 @@ public class ManualCommandDrive extends Command {
         return false;
     }
 
-    protected void end() {
-    }
+    protected void end() {}
 
-    protected void interrupted() {
-    }
+    protected void interrupted() {}
 }

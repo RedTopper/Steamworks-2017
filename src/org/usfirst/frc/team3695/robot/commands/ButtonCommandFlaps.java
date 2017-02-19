@@ -5,7 +5,7 @@ import org.usfirst.frc.team3695.robot.Robot;
 import edu.wpi.first.wpilibj.command.Command;
 
 /**
- *
+ * Commands the gear flaps
  */
 public class ButtonCommandFlaps extends Command {
 	

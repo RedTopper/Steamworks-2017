@@ -40,7 +40,7 @@ public class Robot extends IterativeRobot {
 	public static final Grip GRIP = new Grip();
 	public static final Vision VISION = new Vision();
 	
-	//Vars
+	//Variables
 	private Camera lastCam = Camera.FRONT;
 	private Video lastVideo = Video.RAW;
 
