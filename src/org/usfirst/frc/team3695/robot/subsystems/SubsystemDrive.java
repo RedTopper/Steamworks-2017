@@ -115,8 +115,9 @@ public class SubsystemDrive extends Subsystem {
     }
     
     public void dualStickDrive(Joystick joy){
-    	double left = Xbox.LEFT_Y(joy);
-    	double right = Xbox.RIGHT_Y(joy);
+    	double adder = Xbox.LT(joy) - Xbox.RT(joy);
+    	double left = adder - (Xbox.LEFT_X(joy) / 2);
+    	double right = adder + (Xbox.LEFT_X(joy) / 2);
     	
     	left1.setP(Util.getAndSetDouble("PID LMOTOR: P", 0.1));
     	left1.setI(Util.getAndSetDouble("PID LMOTOR: I", 0.1));

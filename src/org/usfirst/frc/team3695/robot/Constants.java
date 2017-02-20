@@ -37,8 +37,12 @@ public class Constants {
 			OPEN_BALL_HOPPER = 7,
 			CLOSE_BALL_HOPPER = 6;
 	
+	/**
+	 * Limit Shooter to not hit ceiling
+	 */
 	public static final double 
-			SHOOTER_LIMIT = 0.8;
+			SHOOTER_LIMIT = 0.8,
+			SHOOTER_TARGET_VELOCITY_RPM = 3950.0;
 	
 	/**
 	 * Limit the Ascender speed so it does not destroy the gear-box. :)
@@ -46,6 +50,9 @@ public class Constants {
 	public static final double 
 			ASCENDER_LIMIT = 0.8;
 	
+	/**
+	 * Limit Agitators (Not Really)
+	 */
 	public static final double 
 			AGITATOR_LIMIT = 1.0;
 }
