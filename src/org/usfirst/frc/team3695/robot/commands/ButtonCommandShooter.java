@@ -21,7 +21,9 @@ public class ButtonCommandShooter extends Command {
     	Robot.SUB_SHOOTER.spin(direction);
     }
 
-    protected void execute() {}
+    protected void execute() {
+    	Robot.SUB_SHOOTER.updateServo(direction);
+    }
 
     protected boolean isFinished() {
         return false;

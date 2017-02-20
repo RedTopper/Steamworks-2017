@@ -10,11 +10,11 @@ import edu.wpi.first.wpilibj.command.Command;
 public class ButtonCommandFlaps extends Command {
 	
     public ButtonCommandFlaps() {
-        requires(Robot.SUB_FLAPS);
+        requires(Robot.SUB_GEAR_FLAPS);
     }
 
     protected void initialize() {
-    	Robot.SUB_FLAPS.openFlaps();
+    	Robot.SUB_GEAR_FLAPS.openFlaps();
     }
 
     protected void execute() {}
@@ -24,7 +24,7 @@ public class ButtonCommandFlaps extends Command {
     }
 
     protected void end() {
-    	Robot.SUB_FLAPS.closeFlaps();
+    	Robot.SUB_GEAR_FLAPS.closeFlaps();
     }
 
     protected void interrupted() {

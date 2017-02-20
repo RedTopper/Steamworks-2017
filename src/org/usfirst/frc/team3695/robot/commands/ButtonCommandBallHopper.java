@@ -10,11 +10,11 @@ import edu.wpi.first.wpilibj.command.Command;
 public class ButtonCommandBallHopper extends Command {
 
     public ButtonCommandBallHopper() {
-        requires(Robot.SUB_BALL_HOPPER);
+        requires(Robot.SUB_FUEL_FLAPS);
     }
 
     protected void initialize() {
-    	Robot.SUB_BALL_HOPPER.openFlaps();
+    	Robot.SUB_FUEL_FLAPS.openFlaps();
     }
 
     protected void execute() {}
@@ -24,7 +24,7 @@ public class ButtonCommandBallHopper extends Command {
     }
 
     protected void end() {
-    	Robot.SUB_BALL_HOPPER.closeFlaps();
+    	Robot.SUB_FUEL_FLAPS.closeFlaps();
     }
 
     protected void interrupted() {

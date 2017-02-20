@@ -13,14 +13,15 @@ public class Constants {
 			CLIMBER_MOTOR = 4,
 			SHOOTER_MOTOR = 5,
 			WINDOW_MOTOR1 = 6,
-			WINDOW_MOTOR2 = 7;
+			WINDOW_MOTOR2 = 7,
+			SERVO_PORT = 0;
 	
 	/**
 	 * Motor Inverts
 	 */
 	public static final boolean 
 			LEFT_MOTOR_INVERT = false,
-			RIGHT_MOTOR_INVERT = false,
+			RIGHT_MOTOR_INVERT = true,
 			SHOOTER_MOTOR_INVERT = false,
 			ASCENDER_MOTOR_INVERT = true,
 			WINDOW1_INVERT = false,

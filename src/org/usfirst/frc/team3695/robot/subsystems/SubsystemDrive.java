@@ -2,6 +2,7 @@ package org.usfirst.frc.team3695.robot.subsystems;
 
 import org.usfirst.frc.team3695.robot.Constants;
 import org.usfirst.frc.team3695.robot.commands.ManualCommandDrive;
+import org.usfirst.frc.team3695.robot.util.Util;
 import org.usfirst.frc.team3695.robot.util.Xbox;
 
 import com.ctre.CANTalon;
@@ -14,6 +15,9 @@ import edu.wpi.first.wpilibj.command.Subsystem;
  *
  */
 public class SubsystemDrive extends Subsystem {
+	
+	/*Writer csv;
+	long start = 0;*/
 	
 	/**
 	 * The converter ratio from Magic Velocity Units to Revolutions per Second.
@@ -29,7 +33,7 @@ public class SubsystemDrive extends Subsystem {
 	 * With an 8 in diameter wheel, and if this is set to 5, that would convert
 	 * to 40.0 * Math.PI in / second, or about 10.47 feet per second.
 	 */
-	public static final double MAX_RPS = 5;
+	public static final double MAX_RPS = 7;
 	
 	/**
 	 * The max speed of the robot, but in magic units
@@ -83,21 +87,54 @@ public class SubsystemDrive extends Subsystem {
     	//Slave Talons
     	left2 = new CANTalon(Constants.OTHER_LEFT_MOTOR);
     	right2 = new CANTalon(Constants.OTHER_RIGHT_MOTOR);
+    	
     	//Train the Masters
     	left1.setFeedbackDevice(CANTalon.FeedbackDevice.QuadEncoder);
     	right1.setFeedbackDevice(CANTalon.FeedbackDevice.QuadEncoder);
     	left1.setEncPosition(0);
     	right1.setEncPosition(0);
+    	left1.reverseSensor(true);
+    	right1.reverseSensor(true);
+    	
     	//Train the Slaves
     	left2.changeControlMode(CANTalon.TalonControlMode.Follower);
     	left2.set(left1.getDeviceID());
     	right2.changeControlMode(CANTalon.TalonControlMode.Follower);
     	right2.set(right1.getDeviceID());
+    	
+    	/*try {
+    		start = System.currentTimeMillis();
+    		csv = new BufferedWriter(new OutputStreamWriter(new FileOutputStream("/home/lvuser/output-" + start + "-" + left1.getP() + "-" + left1.getI() + "-" + left1.getD() + ".csv")));
+    		csv.write("TIME, LEFT: VBUS VOLT, LEFT: ERROR, LEFT: VEL (magic/.1s), LEFT: POS (magic), "
+    					  + "RIGT: VBUS VOLT, RIGT: ERROR, RIGT: VEL (magic/.1s), RIGT: POS (magic), "
+    					  + "TARGET: (magic/.1s), \n");
+    		csv.flush();
+		} catch (Exception e) {
+			Logger.err("SOMETHING FILE INIT RELATED HAPPENED@!@", e);
+		}*/
     }
     
     public void dualStickDrive(Joystick joy){
     	double left = Xbox.LEFT_Y(joy);
     	double right = Xbox.RIGHT_Y(joy);
+    	
+    	left1.setP(Util.getAndSetDouble("PID LMOTOR: P", 0.1));
+    	left1.setI(Util.getAndSetDouble("PID LMOTOR: I", 0.1));
+    	left1.setD(Util.getAndSetDouble("PID LMOTOR: D", 0.1));
+    	
+    	right1.setP(Util.getAndSetDouble("PID RMOTOR: P", 0.1));
+    	right1.setI(Util.getAndSetDouble("PID RMOTOR: I", 0.1));
+    	right1.setD(Util.getAndSetDouble("PID RMOTOR: D", 0.1));
+    	
+    	/*try {
+			csv.write((System.currentTimeMillis() - start) + "," + 
+					left1.getOutputCurrent() + "," + left1.getClosedLoopError() + "," + left1.getEncVelocity() + "," + left1.getEncPosition() + "," +
+					right1.getOutputCurrent() + "," + right1.getClosedLoopError() + "," + right1.getEncVelocity() + "," + right1.getEncPosition() + "," +
+					left * MAX_MAGIC_SPEED * -1.0 + "\n");
+			csv.flush();
+    	} catch (IOException e) {
+			Logger.err("SOMETHING FILE WRITE HAPPENED!!!", e);
+		}*/
     	left1.set(left * MAX_MAGIC_SPEED * (Constants.LEFT_MOTOR_INVERT ? -1.0 : 1.0));
     	right1.set(right * MAX_MAGIC_SPEED  * (Constants.RIGHT_MOTOR_INVERT ? -1.0 : 1.0));
     }

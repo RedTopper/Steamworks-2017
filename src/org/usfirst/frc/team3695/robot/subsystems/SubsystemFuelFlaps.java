@@ -8,12 +8,12 @@ import edu.wpi.first.wpilibj.command.Subsystem;
 /**
  * Opens and closes the rear flap of the robot to accept balls from the fuel hopper.
  */
-public class SubsystemBallHopper extends Subsystem {
+public class SubsystemFuelFlaps extends Subsystem {
 	private Solenoid openFlaps;
 	private Solenoid closeFlaps;
 	private boolean open; //Current State of flaps. True = Open, False = closed
 	
-	public SubsystemBallHopper(){
+	public SubsystemFuelFlaps(){
 		openFlaps = new Solenoid(Constants.OPEN_BALL_HOPPER);
 		closeFlaps = new Solenoid(Constants.CLOSE_BALL_HOPPER);
 		open = false;

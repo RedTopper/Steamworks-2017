@@ -4,10 +4,10 @@ import org.usfirst.frc.team3695.robot.enumeration.Autonomous;
 import org.usfirst.frc.team3695.robot.enumeration.Camera;
 import org.usfirst.frc.team3695.robot.enumeration.Video;
 import org.usfirst.frc.team3695.robot.subsystems.SubsystemAscend;
-import org.usfirst.frc.team3695.robot.subsystems.SubsystemBallHopper;
+import org.usfirst.frc.team3695.robot.subsystems.SubsystemFuelFlaps;
 import org.usfirst.frc.team3695.robot.subsystems.SubsystemCompressor;
 import org.usfirst.frc.team3695.robot.subsystems.SubsystemDrive;
-import org.usfirst.frc.team3695.robot.subsystems.SubsystemFlaps;
+import org.usfirst.frc.team3695.robot.subsystems.SubsystemGearFlaps;
 import org.usfirst.frc.team3695.robot.subsystems.SubsystemShooter;
 import org.usfirst.frc.team3695.robot.vision.Vision;
 
@@ -31,10 +31,10 @@ public class Robot extends IterativeRobot {
 	//Subsystems
 	public static final SubsystemDrive SUB_DRIVE = new SubsystemDrive();
 	public static final SubsystemCompressor SUB_COMPRESSOR = new SubsystemCompressor();
-	public static final SubsystemFlaps SUB_FLAPS = new SubsystemFlaps();
+	public static final SubsystemGearFlaps SUB_GEAR_FLAPS = new SubsystemGearFlaps();
+	public static final SubsystemFuelFlaps SUB_FUEL_FLAPS = new SubsystemFuelFlaps();
 	public static final SubsystemAscend SUB_ASCEND = new SubsystemAscend();
 	public static final SubsystemShooter SUB_SHOOTER = new SubsystemShooter();
-	public static final SubsystemBallHopper SUB_BALL_HOPPER = new SubsystemBallHopper();
 	
 	//Output and Input
 	public static final Grip GRIP = new Grip();

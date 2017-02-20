@@ -30,6 +30,7 @@ public class OI {
 		ball.toggleWhenActive(new ButtonCommandBallHopper());
 		
 		/**
+		 * 
 		 * Gear Flapping
 		 */
 		Button gear = new JoystickButton(OPERATOR, Xbox.RB);
@@ -40,13 +41,13 @@ public class OI {
 		 */
 		Button shoot = new JoystickButton(OPERATOR, Xbox.A);
 		Button unshoot = new JoystickButton(OPERATOR, Xbox.B);
-		shoot.toggleWhenActive(new ButtonCommandShooter(Direction.FORWARD));
-		unshoot.toggleWhenActive(new ButtonCommandShooter(Direction.BACKWARD));
+		shoot.whileHeld(new ButtonCommandShooter(Direction.FORWARD));
+		unshoot.whileHeld(new ButtonCommandShooter(Direction.BACKWARD));
 		
 		/**
 		 * Open/Closed Funnel
 		 */
-		SmartDashboard.putBoolean("Funnel is Open", Robot.SUB_FLAPS.getOpen());
+		SmartDashboard.putBoolean("Funnel is Open", Robot.SUB_GEAR_FLAPS.getOpen());
 				
 		/**
 		 * To Compress, or Not To Compress. It is now an option.
