@@ -5,11 +5,11 @@ import org.usfirst.frc.team3695.robot.Robot;
 import edu.wpi.first.wpilibj.command.Command;
 
 /**
- * Code that kills Pnuematics until interruption
+ * Code that kills compressor until interruption
  */
-public class CommandKillCompressor extends Command {
+public class ButtonCommandKillCompressor extends Command {
 
-    public CommandKillCompressor() {
+    public ButtonCommandKillCompressor() {
         requires(Robot.SUB_COMPRESSOR);
     }
 
@@ -17,8 +17,7 @@ public class CommandKillCompressor extends Command {
     	Robot.SUB_COMPRESSOR.setState(false);
     }
 
-    protected void execute() {
-    }
+    protected void execute() {}
 
     protected boolean isFinished() {
         return false;
