@@ -1,9 +1,7 @@
 /bin/
 /build/
-/.classpath
 /bin1/
 /sysProps.xml
-/.project
 /build.properties
 /build.xml
 /dist
