@@ -1,45 +1,71 @@
 <xml version="1.0">
 <dashboard>
-	<widget field="PIDCount" type="Number" class="edu.wpi.first.smartdashboard.gui.elements.TextBox">
-		<location x="0" y="82"/>
+	<widget field="SERVO" type="Boolean" class="edu.wpi.first.smartdashboard.gui.elements.TextBox">
+		<location x="0" y="138"/>
 	</widget>
-	<widget field="PID" type="Number" class="edu.wpi.first.smartdashboard.gui.elements.TextBox">
-		<location x="0" y="59"/>
+	<widget field="Current" type="Number" class="edu.wpi.first.smartdashboard.gui.elements.TextBox">
+		<location x="0" y="115"/>
 	</widget>
-	<widget field="PIDVision Position" type="Number" class="edu.wpi.first.smartdashboard.gui.elements.TextBox">
-		<location x="0" y="36"/>
+	<widget field="Encoder Vel" type="Number" class="edu.wpi.first.smartdashboard.gui.elements.TextBox">
+		<location x="0" y="92"/>
 	</widget>
-	<widget field="AutoCamera" type="PIDCommand" class="edu.wpi.first.smartdashboard.gui.elements.Command">
-		<location x="0" y="176"/>
+	<widget field="Target" type="Number" class="edu.wpi.first.smartdashboard.gui.elements.TextBox">
+		<location x="0" y="69"/>
 	</widget>
-	<widget field="Camera" type="String Chooser" class="edu.wpi.first.smartdashboard.gui.elements.Chooser">
-		<location x="63" y="401"/>
+	<widget field="Closed Loop Error" type="Number" class="edu.wpi.first.smartdashboard.gui.elements.TextBox">
+		<location x="0" y="46"/>
 	</widget>
-	<widget field="Disable Compressor" type="Command" class="edu.wpi.first.smartdashboard.gui.elements.Command">
-		<location x="295" y="203"/>
+	<widget field="Encoder Position" type="Number" class="edu.wpi.first.smartdashboard.gui.elements.TextBox">
+		<location x="0" y="23"/>
 	</widget>
-	<widget field="Auto mode" type="String Chooser" class="edu.wpi.first.smartdashboard.gui.elements.Chooser">
-		<location x="99" y="309"/>
-	</widget>
-	<widget field="Video Mode" type="String Chooser" class="edu.wpi.first.smartdashboard.gui.elements.Chooser">
-		<location x="211" y="282"/>
-	</widget>
-	<widget field="Funnel is Open" type="Boolean" class="edu.wpi.first.smartdashboard.gui.elements.TextBox">
-		<location x="366" y="136"/>
-	</widget>
-	<widget field="Intimidate" type="Command" class="edu.wpi.first.smartdashboard.gui.elements.Command">
+	<widget field="Bus Voltage" type="Number" class="edu.wpi.first.smartdashboard.gui.elements.TextBox">
 		<location x="0" y="0"/>
 	</widget>
+	<widget field="PIDVision Position" type="Number" class="edu.wpi.first.smartdashboard.gui.elements.TextBox">
+		<location x="300" y="199"/>
+	</widget>
+	<widget field="PIDCount" type="Number" class="edu.wpi.first.smartdashboard.gui.elements.TextBox">
+		<location x="300" y="176"/>
+	</widget>
+	<static-widget class="edu.wpi.first.smartdashboard.gui.elements.RobotPreferences">
+		<location x="574" y="2"/>
+		<width>316</width>
+		<height>220</height>
+	</static-widget>
+	<widget field="Target Found" type="Boolean" class="edu.wpi.first.smartdashboard.gui.elements.TextBox">
+		<location x="300" y="153"/>
+	</widget>
+	<widget field="PID" type="Number" class="edu.wpi.first.smartdashboard.gui.elements.TextBox">
+		<location x="300" y="130"/>
+	</widget>
+	<widget field="Funnel is Open" type="Boolean" class="edu.wpi.first.smartdashboard.gui.elements.TextBox">
+		<location x="300" y="107"/>
+	</widget>
+	<widget field="SERVI" type="Boolean" class="edu.wpi.first.smartdashboard.gui.elements.TextBox">
+		<location x="434" y="46"/>
+		<width>129</width>
+		<height>22</height>
+	</widget>
+	<widget field="AutoCamera" type="PIDCommand" class="edu.wpi.first.smartdashboard.gui.elements.Command">
+		<location x="407" y="71"/>
+	</widget>
+	<widget field="Camera" type="String Chooser" class="edu.wpi.first.smartdashboard.gui.elements.Chooser">
+		<location x="764" y="679"/>
+	</widget>
+	<widget field="Disable Compressor" type="Command" class="edu.wpi.first.smartdashboard.gui.elements.Command">
+		<location x="368" y="10"/>
+	</widget>
+	<widget field="Auto mode" type="String Chooser" class="edu.wpi.first.smartdashboard.gui.elements.Chooser">
+		<location x="764" y="513"/>
+	</widget>
+	<widget field="Video Mode" type="String Chooser" class="edu.wpi.first.smartdashboard.gui.elements.Chooser">
+		<location x="766" y="593"/>
+	</widget>
 	<static-widget class="edu.wpi.first.smartdashboard.gui.elements.CameraServerViewer">
-		<location x="901" y="1"/>
+		<location x="892" y="1"/>
 		<width>999</width>
 		<height>750</height>
 		<property name="Camera Choice" value="Stream"/>
-	</static-widget>
-	<static-widget class="edu.wpi.first.smartdashboard.gui.elements.RobotPreferences">
-		<location x="580" y="2"/>
-		<width>316</width>
-		<height>240</height>
 	</static-widget>
 </dashboard>
 <live-window>

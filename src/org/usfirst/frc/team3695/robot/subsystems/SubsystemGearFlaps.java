@@ -8,23 +8,20 @@ import edu.wpi.first.wpilibj.command.Subsystem;
 /**
  * Subsystem that controls the Gear Bearing Flaps
  */
-public class SubsystemFlaps extends Subsystem {
+public class SubsystemGearFlaps extends Subsystem {
 
 	private Solenoid openFlaps;
 	private Solenoid closeFlaps;
 	private Solenoid loadingFlap;
 	private boolean open; //Current State of FLaps. True = Open, False = closed
 	
-	public SubsystemFlaps(){
+	public SubsystemGearFlaps(){
 		openFlaps = new Solenoid(Constants.OPEN_GEAR_FLAPS);
 		closeFlaps = new Solenoid(Constants.CLOSE_GEAR_FLAPS);
 		loadingFlap = new Solenoid(Constants.CLOSE_GEAR_FEEDER_FLAPS);
 	}
 
-    public void initDefaultCommand() {
-        // Set the default command for a subsystem here.
-        //setDefaultCommand(new MySpecialCommand());
-    }
+    public void initDefaultCommand() {}
     
     public void openFlaps(){
     	openFlaps.set(true);
@@ -41,10 +38,7 @@ public class SubsystemFlaps extends Subsystem {
     }
     
     public void toggleFlaps(){
-    	if (open)
-    		closeFlaps();
-    	else
-    		openFlaps();
+    	if (open) closeFlaps();	else openFlaps();
     }
     
     public boolean getOpen() {

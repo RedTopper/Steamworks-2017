@@ -13,13 +13,10 @@ public class SubsystemCompressor extends Subsystem {
 	 */
     Compressor comp = new Compressor();
     
-    /**
-     * Do Nothing
-     */
     public void initDefaultCommand() {}
     
     /**
-     * @return whether or not compressor is currently runnign
+     * @return whether or not compressor is currently running
      */
     public boolean isEnabled(){
 		return comp.enabled();
@@ -30,10 +27,7 @@ public class SubsystemCompressor extends Subsystem {
      * @param state - State to change to
      */
     public void setState(boolean state){
-		if (state)
-			comp.start();
-		else
-			comp.stop();
+		if (state) comp.start(); else comp.stop();
     }
     
    /**
