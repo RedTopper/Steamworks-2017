@@ -4,6 +4,7 @@ import org.usfirst.frc.team3695.robot.enumeration.Autonomous;
 import org.usfirst.frc.team3695.robot.enumeration.Camera;
 import org.usfirst.frc.team3695.robot.enumeration.Video;
 import org.usfirst.frc.team3695.robot.subsystems.SubsystemAscend;
+import org.usfirst.frc.team3695.robot.subsystems.SubsystemBling;
 import org.usfirst.frc.team3695.robot.subsystems.SubsystemFuelFlaps;
 import org.usfirst.frc.team3695.robot.subsystems.SubsystemCompressor;
 import org.usfirst.frc.team3695.robot.subsystems.SubsystemDrive;
@@ -35,6 +36,7 @@ public class Robot extends IterativeRobot {
 	public static final SubsystemFuelFlaps SUB_FUEL_FLAPS = new SubsystemFuelFlaps();
 	public static final SubsystemAscend SUB_ASCEND = new SubsystemAscend();
 	public static final SubsystemShooter SUB_SHOOTER = new SubsystemShooter();
+	public static final SubsystemBling SUB_BLINGY = new SubsystemBling();
 	
 	//Output and Input
 	public static final Grip GRIP = new Grip();

@@ -12,6 +12,8 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 public class CommandRotate extends PIDCommand {
 	
 	private PIDVision vision;
+	private long time = Long.MAX_VALUE;
+	public static final long TIME_WAIT = 2000;
 	
 	public CommandRotate() {
 		super(1.0, 1.0, 1.0); //Will be set in initialize();
@@ -24,18 +26,24 @@ public class CommandRotate extends PIDCommand {
     	double i = Util.getAndSetDouble("PID: I", 1.0);
     	double d = Util.getAndSetDouble("PID: D", 1.0);
     	getPIDController().setPID(p, i, d);
+    	getPIDController().setPercentTolerance(5.0);
 		setInputRange(0, Vision.CAM_WIDTH);
 		setSetpoint(Vision.CAM_WIDTH / 2);
+		time = Long.MAX_VALUE;
     }
 
     protected void execute() {
     }
 
     protected boolean isFinished() {
-        return false;
+    	if(!getPIDController().onTarget()) {
+    		time = System.currentTimeMillis() + TIME_WAIT;
+    	}
+        return time < System.currentTimeMillis();
     }
 
     protected void end() {
+    	Robot.SUB_DRIVE.directDrive(0, 0);
     }
 
     protected void interrupted() {

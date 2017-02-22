@@ -80,30 +80,15 @@ public class SubsystemShooter extends Subsystem {
 				if(open) 
 					servo.setAngle(Util.getAndSetDouble("SERVO: LOW DEG", 0.0)); 
 				else 
-					servo.setAngle(Util.getAndSetDouble("SERVO: HI DEG", 20.0));
+					servo.setAngle(Util.getAndSetDouble("SERVO: HI DEG", 35.0));
 				
 				lastSwitch = System.currentTimeMillis();
 				open = !open;
 				SmartDashboard.putBoolean("SERVO", open);
 			}
 		} else {
-			servo.setAngle(Util.getAndSetDouble("SERVO: LOW DEG", 0.0));
+			servo.setAngle(Util.getAndSetDouble("SERVO: HI DEG", 0.0));
 		}
-		
-		//COLTON! Servo Motors Take Time to change Position. They Are NOT Instantaneous!
-		
-//		//servo flap (instant)
-//		if(direction == Direction.FORWARD) {
-//			if(lastSwitch + (long)Util.getAndSetDouble("SERVO: TIME", 1000.0) < System.currentTimeMillis()) {
-//				servo.setAngle(Util.getAndSetDouble("SERVO: HI DEG", 20.0));
-//				//SmartDashboard.putBoolean("SERVO_OPEN", true);
-//				servo.setAngle(Util.getAndSetDouble("SERVO: LOW DEG", 0.0)); 
-//				lastSwitch = System.currentTimeMillis();
-//				//SmartDashboard.putBoolean("SERVO_OPEN", false);
-//			} else {
-//				servo.setAngle(Util.getAndSetDouble("SERVO: LOW DEG", 0.0));
-//			} 
-//		}
 	}
 }
 

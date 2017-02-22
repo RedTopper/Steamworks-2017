@@ -33,7 +33,7 @@ public class SubsystemDrive extends Subsystem {
 	 * With an 8 in diameter wheel, and if this is set to 5, that would convert
 	 * to 40.0 * Math.PI in / second, or about 10.47 feet per second.
 	 */
-	public static final double MAX_RPS = 7;
+	public static final double MAX_RPS = 10;
 	
 	/**
 	 * The max speed of the robot, but in magic units
@@ -94,7 +94,7 @@ public class SubsystemDrive extends Subsystem {
     	left1.setEncPosition(0);
     	right1.setEncPosition(0);
     	left1.reverseSensor(true);
-    	right1.reverseSensor(true);
+    	right1.reverseSensor(false);
     	
     	//Train the Slaves
     	left2.changeControlMode(CANTalon.TalonControlMode.Follower);
@@ -119,13 +119,13 @@ public class SubsystemDrive extends Subsystem {
     	double left = adder - (Xbox.LEFT_X(joy) / 2);
     	double right = adder + (Xbox.LEFT_X(joy) / 2);
     	
-    	left1.setP(Util.getAndSetDouble("PID LMOTOR: P", 0.1));
-    	left1.setI(Util.getAndSetDouble("PID LMOTOR: I", 0.1));
-    	left1.setD(Util.getAndSetDouble("PID LMOTOR: D", 0.1));
+    	left1.setP(Util.getAndSetDouble("PID LMOTOR: P", 0.0));
+    	left1.setI(Util.getAndSetDouble("PID LMOTOR: I", 0.0));
+    	left1.setD(Util.getAndSetDouble("PID LMOTOR: D", 0.0));
     	
-    	right1.setP(Util.getAndSetDouble("PID RMOTOR: P", 0.1));
-    	right1.setI(Util.getAndSetDouble("PID RMOTOR: I", 0.1));
-    	right1.setD(Util.getAndSetDouble("PID RMOTOR: D", 0.1));
+    	right1.setP(Util.getAndSetDouble("PID RMOTOR: P", 0.0));
+    	right1.setI(Util.getAndSetDouble("PID RMOTOR: I", 0.0));
+    	right1.setD(Util.getAndSetDouble("PID RMOTOR: D", 0.0));
     	
     	/*try {
 			csv.write((System.currentTimeMillis() - start) + "," + 

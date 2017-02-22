@@ -55,4 +55,8 @@ public class Constants {
 	 */
 	public static final double 
 			AGITATOR_LIMIT = 1.0;
+	
+	public static final int RED_PWM = 1,
+							GREEN_PWM = 2,
+							BLUE_PWM = 3;
 }
