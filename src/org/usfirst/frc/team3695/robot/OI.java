@@ -1,6 +1,7 @@
 package org.usfirst.frc.team3695.robot;
 
 import org.usfirst.frc.team3695.robot.commands.ButtonCommandBallHopper;
+import org.usfirst.frc.team3695.robot.commands.ButtonCommandCamera;
 import org.usfirst.frc.team3695.robot.commands.ButtonCommandFlaps;
 import org.usfirst.frc.team3695.robot.commands.ButtonCommandKillCompressor;
 import org.usfirst.frc.team3695.robot.commands.ButtonCommandShooter;
@@ -28,6 +29,12 @@ public class OI {
 		 */
 		Button ball = new JoystickButton(OPERATOR, Xbox.X);
 		ball.toggleWhenActive(new ButtonCommandBallHopper());
+		
+		/**
+		 * Switching the camera
+		 */
+		Button cam = new JoystickButton(DRIVER, Xbox.Y);
+		cam.toggleWhenActive(new ButtonCommandCamera());
 		
 		/**
 		 * 
