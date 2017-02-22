@@ -80,7 +80,7 @@ public class SubsystemShooter extends Subsystem {
 				if(open) 
 					servo.setAngle(Util.getAndSetDouble("SERVO: LOW DEG", 0.0)); 
 				else 
-					servo.setAngle(Util.getAndSetDouble("SERVO: HI DEG", 20.0));
+					servo.setAngle(Util.getAndSetDouble("SERVO: HI DEG", 35.0));
 				
 				lastSwitch = System.currentTimeMillis();
 				open = !open;
