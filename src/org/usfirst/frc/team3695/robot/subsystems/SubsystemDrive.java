@@ -87,6 +87,7 @@ public class SubsystemDrive extends Subsystem {
     	//Slave Talons
     	left2 = new CANTalon(Constants.OTHER_LEFT_MOTOR);
     	right2 = new CANTalon(Constants.OTHER_RIGHT_MOTOR);
+    	right2.reverseOutput(Constants.COLTON_RIGHT_MOTOR_IS_BACKWARD);
     	
     	//Train the Masters
     	left1.setFeedbackDevice(CANTalon.FeedbackDevice.QuadEncoder);
