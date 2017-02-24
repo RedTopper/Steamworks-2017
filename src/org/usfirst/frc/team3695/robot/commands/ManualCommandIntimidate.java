@@ -11,35 +11,38 @@ import edu.wpi.first.wpilibj.command.Command;
 
 public class ManualCommandIntimidate extends Command {
 	Color color;
+	int count;
+	int r,g,b;
 	
-	public ManualCommandIntimidate() { requires(Robot.SUB_BLINGY); }
+	public ManualCommandIntimidate() { 
+		requires(Robot.SUB_BLINGY); 
+		r = 0; g = 0; b = 0; count = 0; 
+	}
 
 	protected void initialize() { color = Color.RED; }
 	
 	protected void execute() {
-		String currentColor = color;
 		switch (color) {
-		case RED:
-			
-			break;
-		case ORANGE:
-			
-			break;
-		case YELLOW:
-			
-			break;
-		case GREEN:
-			
-			break;
-		case BLUE:
-			
-			break;
-		case PURPLE:
-			
-			break;
-			
+			case RED:
+				
+				break;
+			case ORANGE:
+				
+				break;
+			case YELLOW:
+				
+				break;
+			case GREEN:
+				
+				break;
+			case BLUE:
+				
+				break;
+			case PURPLE:
+				
+				break;
 		}
-    	Robot.SUB_BLINGY.RGB(a,b,x);
+    	Robot.SUB_BLINGY.RGB(r,g,b);
     }
 	
 	protected boolean isFinished() {
