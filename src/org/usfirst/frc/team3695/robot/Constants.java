@@ -6,6 +6,17 @@ public class Constants {
 	 * Motor PWM Ports
 	 */
 	public static final int 
+		LEFT_MOTOR = 2,
+		OTHER_LEFT_MOTOR = 3,
+		RIGHT_MOTOR = 0,
+		OTHER_RIGHT_MOTOR = 1,
+		CLIMBER_MOTOR = 4,
+		SHOOTER_MOTOR = 5,
+		WINDOW_MOTOR1 = 6,
+		WINDOW_MOTOR2 = 7,
+		SERVO_PORT = 0;
+	/** COMP. BOT
+	public static final int 
 			LEFT_MOTOR = 2,
 			OTHER_LEFT_MOTOR = 3,
 			RIGHT_MOTOR = 0,
@@ -15,6 +26,7 @@ public class Constants {
 			WINDOW_MOTOR1 = 6,
 			WINDOW_MOTOR2 = 7,
 			SERVO_PORT = 0;
+	**/
 	
 	/**
 	 * Motor Inverts
@@ -25,7 +37,17 @@ public class Constants {
 			SHOOTER_MOTOR_INVERT = false,
 			ASCENDER_MOTOR_INVERT = true,
 			WINDOW1_INVERT = false,
+			WINDOW2_INVERT = true,
+			COLTON_RIGHT_MOTOR_IS_BACKWARD = true;
+	/** COMP BOT
+	public static final boolean 
+			LEFT_MOTOR_INVERT = false,
+			RIGHT_MOTOR_INVERT = true,
+			SHOOTER_MOTOR_INVERT = false,
+			ASCENDER_MOTOR_INVERT = true,
+			WINDOW1_INVERT = false,
 			WINDOW2_INVERT = true;
+	 */
 	
 	/**
 	 * PCM Ports
