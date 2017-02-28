@@ -1,50 +1,27 @@
 <xml version="1.0">
 <dashboard>
-	<widget field="SERVO" type="Boolean" class="edu.wpi.first.smartdashboard.gui.elements.TextBox">
-		<location x="0" y="138"/>
-	</widget>
-	<widget field="Current" type="Number" class="edu.wpi.first.smartdashboard.gui.elements.TextBox">
-		<location x="0" y="115"/>
-	</widget>
-	<widget field="Encoder Vel" type="Number" class="edu.wpi.first.smartdashboard.gui.elements.TextBox">
-		<location x="0" y="92"/>
-	</widget>
-	<widget field="Target" type="Number" class="edu.wpi.first.smartdashboard.gui.elements.TextBox">
+	<widget field="Target Found" type="Boolean" class="edu.wpi.first.smartdashboard.gui.elements.TextBox">
 		<location x="0" y="69"/>
 	</widget>
-	<widget field="Closed Loop Error" type="Number" class="edu.wpi.first.smartdashboard.gui.elements.TextBox">
+	<widget field="PID" type="Number" class="edu.wpi.first.smartdashboard.gui.elements.TextBox">
 		<location x="0" y="46"/>
 	</widget>
-	<widget field="Encoder Position" type="Number" class="edu.wpi.first.smartdashboard.gui.elements.TextBox">
+	<widget field="PIDVision Position" type="Number" class="edu.wpi.first.smartdashboard.gui.elements.TextBox">
 		<location x="0" y="23"/>
 	</widget>
-	<widget field="Bus Voltage" type="Number" class="edu.wpi.first.smartdashboard.gui.elements.TextBox">
+	<widget field="PIDCount" type="Number" class="edu.wpi.first.smartdashboard.gui.elements.TextBox">
 		<location x="0" y="0"/>
 	</widget>
-	<widget field="PIDVision Position" type="Number" class="edu.wpi.first.smartdashboard.gui.elements.TextBox">
-		<location x="300" y="199"/>
-	</widget>
-	<widget field="PIDCount" type="Number" class="edu.wpi.first.smartdashboard.gui.elements.TextBox">
-		<location x="300" y="176"/>
+	<widget field="SERVO" type="Boolean" class="edu.wpi.first.smartdashboard.gui.elements.TextBox">
+		<location x="0" y="138"/>
 	</widget>
 	<static-widget class="edu.wpi.first.smartdashboard.gui.elements.RobotPreferences">
 		<location x="574" y="2"/>
 		<width>316</width>
 		<height>220</height>
 	</static-widget>
-	<widget field="Target Found" type="Boolean" class="edu.wpi.first.smartdashboard.gui.elements.TextBox">
-		<location x="300" y="153"/>
-	</widget>
-	<widget field="PID" type="Number" class="edu.wpi.first.smartdashboard.gui.elements.TextBox">
-		<location x="300" y="130"/>
-	</widget>
 	<widget field="Funnel is Open" type="Boolean" class="edu.wpi.first.smartdashboard.gui.elements.TextBox">
 		<location x="300" y="107"/>
-	</widget>
-	<widget field="SERVI" type="Boolean" class="edu.wpi.first.smartdashboard.gui.elements.TextBox">
-		<location x="434" y="46"/>
-		<width>129</width>
-		<height>22</height>
 	</widget>
 	<widget field="AutoCamera" type="PIDCommand" class="edu.wpi.first.smartdashboard.gui.elements.Command">
 		<location x="407" y="71"/>

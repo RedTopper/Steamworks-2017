@@ -2,7 +2,7 @@ package org.usfirst.frc.team3695.robot.subsystems;
 
 import org.usfirst.frc.team3695.robot.Constants;
 import org.usfirst.frc.team3695.robot.commands.ManualCommandDrive;
-import org.usfirst.frc.team3695.robot.util.Util;
+import org.usfirst.frc.team3695.robot.util.TalonPID;
 import org.usfirst.frc.team3695.robot.util.Xbox;
 
 import com.ctre.CANTalon;
@@ -10,14 +10,43 @@ import com.ctre.CANTalon.TalonControlMode;
 
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.command.Subsystem;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 /**
- *
+ * Drive the robot
  */
 public class SubsystemDrive extends Subsystem {
 	
 	/*Writer csv;
-	long start = 0;*/
+	long start = 0;
+	
+	private void CSVCreate() {
+	    try {
+    		start = System.currentTimeMillis();
+    		csv = new BufferedWriter(new OutputStreamWriter(new FileOutputStream("/home/lvuser/output-" + start + "-" + left1.getP() + "-" + left1.getI() + "-" + left1.getD() + ".csv")));
+    		csv.write("TIME, LEFT: VBUS VOLT, LEFT: ERROR, LEFT: VEL (magic/.1s), LEFT: POS (magic), "
+    					  + "RIGT: VBUS VOLT, RIGT: ERROR, RIGT: VEL (magic/.1s), RIGT: POS (magic), "
+    					  + "TARGET: (magic/.1s), \n");
+    		csv.flush();
+		} catch (Exception e) {
+			Logger.err("SOMETHING FILE INIT RELATED HAPPENED@!@", e);
+		}
+	}
+	
+	private void CSVLog(double speed) {
+	    try {
+			csv.write((System.currentTimeMillis() - start) + "," + 
+					left1.getOutputCurrent() + "," + left1.getClosedLoopError() + "," + left1.getEncVelocity() + "," + left1.getEncPosition() + "," +
+					right1.getOutputCurrent() + "," + right1.getClosedLoopError() + "," + right1.getEncVelocity() + "," + right1.getEncPosition() + "," +
+					speed * MAX_MAGIC_SPEED * -1.0 + "\n");
+			csv.flush();
+    	} catch (IOException e) {
+			Logger.err("SOMETHING FILE WRITE HAPPENED!!!", e);
+		}
+	}*/
+	
+	double lastPosition = 0.0,
+		   distance = 0.0;
 	
 	/**
 	 * The converter ratio from Magic Velocity Units to Revolutions per Second.
@@ -25,15 +54,14 @@ public class SubsystemDrive extends Subsystem {
 	public static final double VELOCITY_SCALAR 
 			= (1.0/20.0) //Encoder ticks
 			* (1.0/2.0) //Channels
-			* (3.0/14.0) //Gear-box Ratio 
-			* 10.0; //from 1/10 of a second to 1 second;
+			* (3.0/14.0); //Gear-box Ratio 
 	
 	/**
 	 * The maximum RPM that the drivers are allowed to drive at. 
 	 * With an 8 in diameter wheel, and if this is set to 5, that would convert
 	 * to 40.0 * Math.PI in / second, or about 10.47 feet per second.
 	 */
-	public static final double MAX_RPS = 10;
+	public static final double MAX_RPS = 0.2;
 	
 	/**
 	 * The max speed of the robot, but in magic units
@@ -49,6 +77,8 @@ public class SubsystemDrive extends Subsystem {
 	private CANTalon left2;
     private CANTalon right1;
     private CANTalon right2;
+    private TalonPID leftPID;
+    private TalonPID rightPID;
 
     public void initDefaultCommand() {
     	setDefaultCommand(new ManualCommandDrive());
@@ -81,6 +111,8 @@ public class SubsystemDrive extends Subsystem {
     	//Master Talons
     	left1 = new CANTalon(Constants.LEFT_MOTOR);
     	right1 = new CANTalon(Constants.RIGHT_MOTOR);
+    	leftPID = new TalonPID(left1, "LEFT");
+    	rightPID = new TalonPID(right1, "RIGHT");
     	left1.changeControlMode(TalonControlMode.Speed);
     	right1.changeControlMode(TalonControlMode.Speed);
     	
@@ -99,51 +131,41 @@ public class SubsystemDrive extends Subsystem {
     	
     	//Train the Slaves
     	left2.changeControlMode(CANTalon.TalonControlMode.Follower);
-    	left2.set(left1.getDeviceID());
     	right2.changeControlMode(CANTalon.TalonControlMode.Follower);
+    	left2.set(left1.getDeviceID());
     	right2.set(right1.getDeviceID());
     	
-    	/*try {
-    		start = System.currentTimeMillis();
-    		csv = new BufferedWriter(new OutputStreamWriter(new FileOutputStream("/home/lvuser/output-" + start + "-" + left1.getP() + "-" + left1.getI() + "-" + left1.getD() + ".csv")));
-    		csv.write("TIME, LEFT: VBUS VOLT, LEFT: ERROR, LEFT: VEL (magic/.1s), LEFT: POS (magic), "
-    					  + "RIGT: VBUS VOLT, RIGT: ERROR, RIGT: VEL (magic/.1s), RIGT: POS (magic), "
-    					  + "TARGET: (magic/.1s), \n");
-    		csv.flush();
-		} catch (Exception e) {
-			Logger.err("SOMETHING FILE INIT RELATED HAPPENED@!@", e);
-		}*/
+    	//Logger
+    	//CSVCreate();
     }
-    
-    public void dualStickDrive(Joystick joy){
+
+	public void dualStickDrive(Joystick joy){
+		leftPID.update();
+		rightPID.update();
+		
     	double adder = Xbox.LT(joy) - Xbox.RT(joy);
     	double left = adder - (Xbox.LEFT_X(joy) / 2);
     	double right = adder + (Xbox.LEFT_X(joy) / 2);
     	
-    	left1.setP(Util.getAndSetDouble("PID LMOTOR: P", 0.0));
-    	left1.setI(Util.getAndSetDouble("PID LMOTOR: I", 0.0));
-    	left1.setD(Util.getAndSetDouble("PID LMOTOR: D", 0.0));
-    	
-    	right1.setP(Util.getAndSetDouble("PID RMOTOR: P", 0.0));
-    	right1.setI(Util.getAndSetDouble("PID RMOTOR: I", 0.0));
-    	right1.setD(Util.getAndSetDouble("PID RMOTOR: D", 0.0));
-    	
-    	/*try {
-			csv.write((System.currentTimeMillis() - start) + "," + 
-					left1.getOutputCurrent() + "," + left1.getClosedLoopError() + "," + left1.getEncVelocity() + "," + left1.getEncPosition() + "," +
-					right1.getOutputCurrent() + "," + right1.getClosedLoopError() + "," + right1.getEncVelocity() + "," + right1.getEncPosition() + "," +
-					left * MAX_MAGIC_SPEED * -1.0 + "\n");
-			csv.flush();
-    	} catch (IOException e) {
-			Logger.err("SOMETHING FILE WRITE HAPPENED!!!", e);
-		}*/
     	left1.set(left * MAX_MAGIC_SPEED * (Constants.LEFT_MOTOR_INVERT ? -1.0 : 1.0));
     	right1.set(right * MAX_MAGIC_SPEED  * (Constants.RIGHT_MOTOR_INVERT ? -1.0 : 1.0));
+    	
+    	//logCSV((left + right) / 2.0);
+    	vel();
     }
     
-    public void directDrive(double left, double right) {
+    private void vel() {
+    	double position = left1.getPosition() +  right1.getPosition() / 2.0; 
+    	distance += Math.abs(position - lastPosition);
+    	lastPosition = position;
+		SmartDashboard.putNumber("Speed", magic2ips(Math.abs((left1.getEncVelocity() + right1.getEncVelocity()) / 2.0)));
+		SmartDashboard.putNumber("Distance", magic2ips(distance));
+	}
+
+	public void directDrive(double left, double right) {
     	left1.set(left * (Constants.LEFT_MOTOR_INVERT ? -1.0 : 1.0));
     	right1.set(right  * (Constants.RIGHT_MOTOR_INVERT ? -1.0 : 1.0));
+    	vel();
     }
 }
 
