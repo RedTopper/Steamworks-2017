@@ -42,8 +42,8 @@ public class PIDVision implements PIDSource {
 		int x0 = rect0.x + (rect0.width / 2);
 		int x1 = rect1.x + (rect1.width / 2);
 		int center = (x0 + x1) / 2;
-		SmartDashboard.putNumber("PIDCount", data.size());
-		SmartDashboard.putNumber("PIDVision Position", center);
+		SmartDashboard.putNumber("Object Count", data.size());
+		SmartDashboard.putNumber("Object Position", center);
 		return center;
 	}
 	

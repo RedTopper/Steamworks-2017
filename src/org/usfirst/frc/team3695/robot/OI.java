@@ -5,6 +5,7 @@ import org.usfirst.frc.team3695.robot.commands.ButtonCommandCamera;
 import org.usfirst.frc.team3695.robot.commands.ButtonCommandFlaps;
 import org.usfirst.frc.team3695.robot.commands.ButtonCommandKillCompressor;
 import org.usfirst.frc.team3695.robot.commands.ButtonCommandShooter;
+import org.usfirst.frc.team3695.robot.commands.CommandForward;
 import org.usfirst.frc.team3695.robot.commands.CommandRotate;
 import org.usfirst.frc.team3695.robot.enumeration.Direction;
 import org.usfirst.frc.team3695.robot.util.Xbox;
@@ -62,5 +63,6 @@ public class OI {
 		SmartDashboard.putData("Disable Compressor", new ButtonCommandKillCompressor());
 		
 		SmartDashboard.putData("AutoCamera", new CommandRotate());
+		SmartDashboard.putData("AutoForward", new CommandForward());
 	}
 }

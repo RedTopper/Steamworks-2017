@@ -1,5 +1,8 @@
 package org.usfirst.frc.team3695.robot.vision;
 
+import java.util.List;
+import java.util.concurrent.CopyOnWriteArrayList;
+
 import org.opencv.core.Core;
 import org.opencv.core.CvType;
 import org.opencv.core.Mat;
@@ -9,6 +12,7 @@ import org.opencv.imgproc.Imgproc;
 import org.usfirst.frc.team3695.robot.Robot;
 import org.usfirst.frc.team3695.robot.enumeration.Camera;
 import org.usfirst.frc.team3695.robot.enumeration.Video;
+import org.usfirst.frc.team3695.robot.util.Cross;
 import org.usfirst.frc.team3695.robot.util.Logger;
 
 import edu.wpi.cscore.CvSource;
@@ -30,6 +34,7 @@ public class Vision extends Thread {
 			CAM_HEIGHT = 240;
 	
 	public static final long CAM_SWITCH_TIME = 2500;
+	private List<Cross> targets = new CopyOnWriteArrayList<>();
 	
 	/**
 	 * Color constant in OpenCV form
@@ -180,7 +185,13 @@ public class Vision extends Thread {
 				switch(video) {
 				case THRESHHOLD:
 					result = Robot.GRIP.hslThresholdOutput();
-					Imgproc.drawMarker(result, new Point(100,10), new Scalar(50,100,150));
+					for(Cross cross : targets) {
+						if(cross.enabled()) {
+							Point point = cross.getPoint();
+							Imgproc.drawMarker(result, point , new Scalar(50,100,150));
+							Imgproc.putText(result, cross.name, point, Core.FONT_HERSHEY_PLAIN, 0.5, WHITE);
+						}
+					}
 					break;
 				default:
 					warn(output, video.name(), "This method is not defined.");
@@ -189,5 +200,9 @@ public class Vision extends Thread {
 				output.putFrame(result);
 			}
 		}
+	}
+
+	public void putCrosshair(Cross cross) {
+		targets.add(cross);
 	}
 }

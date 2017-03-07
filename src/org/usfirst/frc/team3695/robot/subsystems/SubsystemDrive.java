@@ -36,8 +36,7 @@ public class SubsystemDrive extends Subsystem {
 	private CANTalon left2;
     private CANTalon right1;
     private CANTalon right2;
-    private TalonPID leftPID;
-    private TalonPID rightPID;
+    private TalonPID pid;
 
     public void initDefaultCommand() {
     	setDefaultCommand(new ManualCommandDrive());
@@ -68,8 +67,6 @@ public class SubsystemDrive extends Subsystem {
     	//Master Talons
     	left1 = new CANTalon(Constants.LEFT_MOTOR);
     	right1 = new CANTalon(Constants.RIGHT_MOTOR);
-    	leftPID = new TalonPID(left1, "LEFT");
-    	rightPID = new TalonPID(right1, "RIGHT");
     	left1.changeControlMode(TalonControlMode.Speed);
     	right1.changeControlMode(TalonControlMode.Speed);
     	
@@ -91,11 +88,12 @@ public class SubsystemDrive extends Subsystem {
     	right2.changeControlMode(CANTalon.TalonControlMode.Follower);
     	left2.set(left1.getDeviceID());
     	right2.set(right1.getDeviceID());
+    	
+    	pid = new TalonPID(left1, right1, "MOTORS");
     }
 
 	public void dualStickDrive(Joystick joy){
-		leftPID.update();
-		rightPID.update();
+		pid.update();
 		
     	double adder = Xbox.LT(joy) - Xbox.RT(joy);
     	double left = adder - (Xbox.LEFT_X(joy) / 2);

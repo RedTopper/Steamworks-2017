@@ -4,7 +4,7 @@ import edu.wpi.first.wpilibj.Joystick;
 
 public class Xbox {
 	
-	public static final double DEADZONE = 0.15;
+	public static final double DEADZONE = 0.25;
 	
 	public static final int
 			A = 1,

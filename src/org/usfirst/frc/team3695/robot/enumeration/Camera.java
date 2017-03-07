@@ -4,7 +4,7 @@ import edu.wpi.cscore.CvSink;
 import edu.wpi.cscore.UsbCamera;
 
 public enum Camera {
-	FRONT(0, "Front Camera"), REAR(1, "Rear Camera");
+	FRONT(1, "Front Camera"), REAR(0, "Rear Camera");
 	
 	public final int dev;
 	public final UsbCamera usb;

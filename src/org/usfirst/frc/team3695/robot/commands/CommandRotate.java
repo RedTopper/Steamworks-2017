@@ -4,6 +4,7 @@ import org.usfirst.frc.team3695.robot.Robot;
 import org.usfirst.frc.team3695.robot.enumeration.Camera;
 import org.usfirst.frc.team3695.robot.enumeration.Video;
 import org.usfirst.frc.team3695.robot.subsystems.SubsystemDrive;
+import org.usfirst.frc.team3695.robot.util.Cross;
 import org.usfirst.frc.team3695.robot.util.Util;
 import org.usfirst.frc.team3695.robot.vision.PIDVision;
 import org.usfirst.frc.team3695.robot.vision.Vision;
@@ -13,6 +14,8 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 public class CommandRotate extends PIDCommand {
 	
+	private final Cross object = new Cross("object", -1, (Vision.CAM_HEIGHT / 2.0) + 20.0);
+	private final Cross setpoint = new Cross("setpoint", Vision.CAM_WIDTH / 2.0, Vision.CAM_HEIGHT / 2.0);
 	private PIDVision vision;
 	private long time = Long.MAX_VALUE;
 	public static final long TIME_WAIT = 2000;
@@ -21,6 +24,8 @@ public class CommandRotate extends PIDCommand {
 		super(1.0, 1.0, 1.0); //Will be set in initialize();
 		requires(Robot.SUB_DRIVE);
 		vision = new PIDVision();
+		Robot.VISION.putCrosshair(object);
+		Robot.VISION.putCrosshair(setpoint);
 	}
 	
     protected void initialize() {
@@ -30,9 +35,11 @@ public class CommandRotate extends PIDCommand {
     	getPIDController().setPID(p, i, d);
     	getPIDController().setPercentTolerance(5.0);
 		setInputRange(0, Vision.CAM_WIDTH);
-		setSetpoint(Vision.CAM_WIDTH / 2);
+		setSetpoint(setpoint.getX());
 		time = Long.MAX_VALUE;
 		Robot.VISION.setCamera(Camera.FRONT, Video.THRESHHOLD);
+		object.setEnabled(true);
+		setpoint.setEnabled(true);
     }
 
     protected void execute() {
@@ -47,6 +54,8 @@ public class CommandRotate extends PIDCommand {
 
     protected void end() {
     	Robot.SUB_DRIVE.directDrive(0, 0);
+    	object.setEnabled(false);
+    	setpoint.setEnabled(false);
     }
 
     protected void interrupted() {
@@ -54,7 +63,9 @@ public class CommandRotate extends PIDCommand {
     }
 
 	protected double returnPIDInput() {
-		return vision.pidGet();
+		double x = vision.pidGet();
+		object.setXY(x, object.getY());
+		return x;
 	}
 
 	protected void usePIDOutput(double output) {
