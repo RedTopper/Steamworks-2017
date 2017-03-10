@@ -32,8 +32,8 @@ public class Constants {
 	 * Motor Inverts
 	 */
 	public static final boolean 
-			LEFT_MOTOR_INVERT = false,
-			RIGHT_MOTOR_INVERT = true,
+			LEFT_MOTOR_INVERT = true,
+			RIGHT_MOTOR_INVERT = false,
 			SHOOTER_MOTOR_INVERT = false,
 			ASCENDER_MOTOR_INVERT = true,
 			WINDOW1_INVERT = false,

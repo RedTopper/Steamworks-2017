@@ -173,6 +173,7 @@ public class Vision extends Thread {
 			
 			//Display raw feed if chosen.
 			if(video == Video.RAW || video == Video.LOW_EXPOSURE)  {
+				drawCross(source);
 				output.putFrame(source);
 				continue;
 			}
@@ -185,13 +186,7 @@ public class Vision extends Thread {
 				switch(video) {
 				case THRESHHOLD:
 					result = Robot.GRIP.hslThresholdOutput();
-					for(Cross cross : targets) {
-						if(cross.enabled()) {
-							Point point = cross.getPoint();
-							Imgproc.drawMarker(result, point , new Scalar(50,100,150));
-							Imgproc.putText(result, cross.name, point, Core.FONT_HERSHEY_PLAIN, 0.5, WHITE);
-						}
-					}
+					drawCross(result);
 					break;
 				default:
 					warn(output, video.name(), "This method is not defined.");
@@ -201,7 +196,17 @@ public class Vision extends Thread {
 			}
 		}
 	}
-
+	
+	private void drawCross(Mat source) {
+		for(Cross cross : targets) {
+			if(cross.enabled()) {
+				Point point = cross.getPoint();
+				Imgproc.drawMarker(source, point , new Scalar(50,100,150));
+				Imgproc.putText(source, cross.name, point, Core.FONT_HERSHEY_PLAIN, 0.5, WHITE);
+			}
+		}
+	}
+	
 	public void putCrosshair(Cross cross) {
 		targets.add(cross);
 	}

@@ -26,17 +26,27 @@ public class SubsystemDrive extends Subsystem {
 	 * to 40.0 * Math.PI in / second, or about 10.47 feet per second.
 	 */
 	public static final double MAX_RPM = 600;
+	public static final double MAX_RPM_AUTO = 5;
 	
 	/**
 	 * Diameter of the wheel in inches
 	 */
 	public static final double WHEEL_DIAM_INCHES = 8;
 	
+	/**
+	 * Alloable tolerance to be considered in range when driving a distance
+	 */
+	public static final double DISTANCE_ALLOWABLE_ERROR = in2rot(2.0);
+	
 	private CANTalon left1;
 	private CANTalon left2;
     private CANTalon right1;
     private CANTalon right2;
     private TalonPID pid;
+    private TalonControlMode lastMode = null;
+    private double lastLeftDistance = 0.0;
+    private double lastRightDistance = 0.0;
+    private double goal = 0.0;
 
     public void initDefaultCommand() {
     	setDefaultCommand(new ManualCommandDrive());
@@ -64,11 +74,10 @@ public class SubsystemDrive extends Subsystem {
      * Initialize Needed Drive-train Variables
      */
     public SubsystemDrive(){
+    	
     	//Master Talons
     	left1 = new CANTalon(Constants.LEFT_MOTOR);
     	right1 = new CANTalon(Constants.RIGHT_MOTOR);
-    	left1.changeControlMode(TalonControlMode.Speed);
-    	right1.changeControlMode(TalonControlMode.Speed);
     	
     	//Slave Talons
     	left2 = new CANTalon(Constants.OTHER_LEFT_MOTOR);
@@ -92,32 +101,87 @@ public class SubsystemDrive extends Subsystem {
     	pid = new TalonPID(left1, right1, "MOTORS");
     }
 
-	public void dualStickDrive(Joystick joy){
-		pid.update();
+	public void driveJoy(Joystick joy){
+		changeTalonMode(TalonControlMode.Speed);
 		
-    	double adder = Xbox.LT(joy) - Xbox.RT(joy);
-    	double left = adder - (Xbox.LEFT_X(joy) / 2);
-    	double right = adder + (Xbox.LEFT_X(joy) / 2);
+    	double adder = Xbox.RT(joy) - Xbox.LT(joy);
+    	double left = adder + (Xbox.LEFT_X(joy) / 2);
+    	double right = adder - (Xbox.LEFT_X(joy) / 2);
     	
-    	left1.set(left * MAX_RPM * (Constants.LEFT_MOTOR_INVERT ? -1.0 : 1.0));
-    	right1.set(right * MAX_RPM  * (Constants.RIGHT_MOTOR_INVERT ? -1.0 : 1.0));
+    	left1.set(leftify(left * MAX_RPM));
+    	right1.set(rightify(right * MAX_RPM));
     	
     	vel();
     }
     
-    private void vel() {
-    	double position = (left1.getPosition() * (Constants.LEFT_MOTOR_INVERT ? -1.0 : 1.0)
-    				   +  right1.getPosition() * (Constants.RIGHT_MOTOR_INVERT ? -1.0 : 1.0)) / 2.0; 
+    public void driveDirect(double left, double right) {
+    	changeTalonMode(TalonControlMode.Speed);
+    	
+		left1.set(leftify(left));
+		right1.set(rightify(right));
+		
+		vel();
+	}
+
+	public void driveDistance(double rotations) {
+		changeTalonMode(TalonControlMode.Position);
+		
+		lastLeftDistance = left1.getPosition();
+		lastRightDistance = right1.getPosition();
+		goal = rotations;
+		left1.set(lastLeftDistance + leftify(goal));
+		right1.set(lastRightDistance + rightify(goal));
+	}
+	
+	public boolean drivedDistance() {
+		changeTalonMode(TalonControlMode.Position);
+		
+		boolean leftInRange = 
+				left1.getPosition() > lastLeftDistance + leftify(goal) - DISTANCE_ALLOWABLE_ERROR && 
+				left1.getPosition() < lastLeftDistance + leftify(goal) + DISTANCE_ALLOWABLE_ERROR;
+		boolean rightInRange = 
+				right1.getPosition() > lastRightDistance + rightify(goal) - DISTANCE_ALLOWABLE_ERROR && 
+				right1.getPosition() < lastRightDistance + rightify(goal) + DISTANCE_ALLOWABLE_ERROR;
+				
+		vel();
+		return leftInRange && rightInRange;
+	}
+
+	private void changeTalonMode(TalonControlMode mode) {
+		pid.mode(mode);
+		pid.update();
+		if(mode != lastMode) {
+	    	left1.changeControlMode(mode);
+	    	right1.changeControlMode(mode);
+	    	if(mode == TalonControlMode.Position) {
+	    		left1.setMotionMagicCruiseVelocity(MAX_RPM_AUTO);
+	    		right1.setMotionMagicCruiseVelocity(MAX_RPM_AUTO);
+	    	} else {
+	    		left1.setMotionMagicCruiseVelocity(0);
+	    		right1.setMotionMagicCruiseVelocity(0);
+	    	}
+	    	lastMode = mode;
+		}
+	}
+
+	private void vel() {
+    	double position = leftify(left1.getPosition()) + rightify(right1.getPosition()) / 2.0; 
     	distance += Math.abs(position - lastPosition);
     	lastPosition = position;
 		SmartDashboard.putNumber("Speed", rpm2ips(Math.abs((left1.getSpeed() + right1.getSpeed()) / 2.0)));
 		SmartDashboard.putNumber("Distance", rot2in(distance));
 	}
 
-	public void directDrive(double left, double right) {
-    	left1.set(left * (Constants.LEFT_MOTOR_INVERT ? -1.0 : 1.0));
-    	right1.set(right  * (Constants.RIGHT_MOTOR_INVERT ? -1.0 : 1.0));
-    	vel();
-    }
+	public double getError() {
+		return  (leftify(left1.getError()) + rightify(right1.getError())) / 2.0;
+	}
+	
+	public static final double leftify(double left) {
+		return left * (Constants.LEFT_MOTOR_INVERT ? -1.0 : 1.0);
+	}
+	
+	public static final double rightify(double right) {
+		return right * (Constants.RIGHT_MOTOR_INVERT ? -1.0 : 1.0);
+	}
 }
 
