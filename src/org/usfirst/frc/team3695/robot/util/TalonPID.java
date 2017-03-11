@@ -4,59 +4,82 @@ import com.ctre.CANTalon;
 import com.ctre.CANTalon.TalonControlMode;
 
 public class TalonPID {
-	private final CANTalon talon1, talon2;
+	private final CANTalon[] talons;
 	private final String name;
-	private TalonControlMode mode = TalonControlMode.Speed;
+	private TalonControlMode lastMode = null;
 	
-	double p = 0.0, i = 0.0, d = 0.0;
+	/**
+	 * Contains:
+	 * [0] = P
+	 * [1] = I
+	 * [2] = D
+	 * [3] = cruise
+	 * [4] = acceleration 
+	 */
+	private double[] old = new double[5], newer = new double[5];
+	public static final int
+			P = 0,
+			I = 1,
+			D = 2,
+			CRUISE = 3,
+			ACCELERATION = 4;
 	
 	/**
 	 * Update a talon's PID only when needed so the CAN bus does not get overloaded.
-	 * @param talon The talon (master) to update from 
-	 * @param right1 
+	 * @param talons The talons (master) to update pid values.
 	 * @param name The name of the talon (readability reasons)
 	 */
-	public TalonPID(CANTalon talon1, CANTalon talon2, String name) {
-		this.talon1 = talon1;
-		this.talon2 = talon2;
+	public TalonPID(CANTalon[] talons, String name) {
+		this.talons = talons;
 		this.name = name;
 	}
 	
 	/**
 	 * Update all PID variables from smart dash if needed.
+	 * @param motionmagic 
 	 */
-	public void update() {
-		double new_p;
-		double new_i;
-		double new_d;
-		if(mode == TalonControlMode.Position) {
-			new_p = Util.getAndSetDouble("PID " + name + " POSITION: P", 0.0);
-			new_i = Util.getAndSetDouble("PID " + name + " POSITION: I", 0.0);
-			new_d = Util.getAndSetDouble("PID " + name + " POSITION: D", 0.0);
+	public void update(TalonControlMode mode) {
+		mode(mode);
+		if(mode == TalonControlMode.MotionMagic) {
+			newer[P] = Util.getAndSetDouble("PID " + name + " MOTION: P", 0.0);
+			newer[I] = Util.getAndSetDouble("PID " + name + " MOTION: I", 0.0);
+			newer[D] = Util.getAndSetDouble("PID " + name + " MOTION: D", 0.0);
+			newer[CRUISE] = Util.getAndSetDouble("CRUISE " + name + ": RPM", 0.0);
+			newer[ACCELERATION]  = Util.getAndSetDouble("ACCEL " + name + ": RPM per Second", 0.0);
+			
 		} else {
-			new_p = Util.getAndSetDouble("PID " + name + " SPEED: P", 0.0);
-			new_i = Util.getAndSetDouble("PID " + name + " SPEED: I", 0.0);
-			new_d = Util.getAndSetDouble("PID " + name + " SPEED: D", 0.0);
+			newer[P] = Util.getAndSetDouble("PID " + name + " SPEED: P", 0.0);
+			newer[I] = Util.getAndSetDouble("PID " + name + " SPEED: I", 0.0);
+			newer[D] = Util.getAndSetDouble("PID " + name + " SPEED: D", 0.0);
+			newer[CRUISE] = 0.0;
+			newer[ACCELERATION] = 0.0;
 		}
-    	
-    	if(p != new_p) {
-    		talon1.setP(new_p);
-    		talon2.setP(new_p);
-    		p = new_p;
-    	}
-    	if(i != new_i) {
-    		talon1.setI(new_i);
-    		talon2.setI(new_i);
-    		i = new_i;
-    	}
-    	if(d != new_d) {
-    		talon1.setD(new_d);
-    		talon2.setD(new_d);
-    		d = new_d;
-    	}
+		send();
+	}
+	
+	private void send() {
+		boolean different = false;
+		for(int i = 0; i < old.length; i++) {
+			if(old[i] != newer[i]) {
+				different = true;
+				break;
+			}
+		}
+		if(different) {
+			for(CANTalon talon : talons) {
+				talon.setPID(newer[P], newer[I], newer[D]);
+				talon.setMotionMagicCruiseVelocity(newer[CRUISE]);
+				talon.setMotionMagicAcceleration(newer[ACCELERATION]);
+			}
+		}
 	}
 
-	public void mode(TalonControlMode mode) {
-		this.mode = mode;
+	private void mode(TalonControlMode mode) {
+		if(mode != lastMode) {
+			for(CANTalon talon : talons) {
+				talon.changeControlMode(mode);
+			}
+	    	lastMode = mode;
+		}
 	}
 }

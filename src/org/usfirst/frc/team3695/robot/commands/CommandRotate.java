@@ -24,7 +24,7 @@ public class CommandRotate extends PIDCommand {
 	
 	
 	public CommandRotate(Autonomous auto) {
-		super(1.0, 1.0, 1.0); //Will be set in initialize();
+		super(0.0, 0.0, 0.0); //Will be set in initialize();
 		requires(Robot.SUB_DRIVE);
 		vision = new PIDVision();
 		Robot.VISION.putCrosshair(object);
@@ -33,9 +33,9 @@ public class CommandRotate extends PIDCommand {
 	}
 	
     protected void initialize() {
-    	double p = Util.getAndSetDouble("PID: P", 1.0);
-    	double i = Util.getAndSetDouble("PID: I", 1.0);
-    	double d = Util.getAndSetDouble("PID: D", 1.0);
+    	double p = Util.getAndSetDouble("PID CAMERA: P", 0.0);
+    	double i = Util.getAndSetDouble("PID CAMERA: I", 0.0);
+    	double d = Util.getAndSetDouble("PID CAMERA: D", 0.0);
     	getPIDController().setPID(p, i, d);
     	getPIDController().setPercentTolerance(5.0);
 		setInputRange(0, Vision.CAM_WIDTH);
@@ -73,8 +73,8 @@ public class CommandRotate extends PIDCommand {
 	}
 
 	protected void usePIDOutput(double output) {
-		double target = output * SubsystemDrive.ips2rpm(Util.getAndSetDouble("CAMERA: Targeting in-s", 1.0));
-		double blind = SubsystemDrive.ips2rpm(Util.getAndSetDouble("CAMERA: Blind in-s", 1.0));
+		double target = output * SubsystemDrive.ips2rpm(Util.getAndSetDouble("SPEED CAMERA: Targeting Inches", 30.0));
+		double blind = SubsystemDrive.ips2rpm(Util.getAndSetDouble("SPEED CAMERA: Blind Inches", 30.0));
 		if(auto == Autonomous.LEFT) blind *= -1;
 		
 		SmartDashboard.putNumber("PID", output);

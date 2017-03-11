@@ -34,7 +34,7 @@ public class SubsystemDrive extends Subsystem {
 	public static final double WHEEL_DIAM_INCHES = 8;
 	
 	/**
-	 * Alloable tolerance to be considered in range when driving a distance
+	 * Allowable tolerance to be considered in range when driving a distance, in rotations
 	 */
 	public static final double DISTANCE_ALLOWABLE_ERROR = in2rot(2.0);
 	
@@ -43,7 +43,6 @@ public class SubsystemDrive extends Subsystem {
     private CANTalon right1;
     private CANTalon right2;
     private TalonPID pid;
-    private TalonControlMode lastMode = null;
     private double lastLeftDistance = 0.0;
     private double lastRightDistance = 0.0;
     private double goal = 0.0;
@@ -98,11 +97,11 @@ public class SubsystemDrive extends Subsystem {
     	left2.set(left1.getDeviceID());
     	right2.set(right1.getDeviceID());
     	
-    	pid = new TalonPID(left1, right1, "MOTORS");
+    	pid = new TalonPID(new CANTalon[]{left1, right1}, "MOTORS");
     }
 
 	public void driveJoy(Joystick joy){
-		changeTalonMode(TalonControlMode.Speed);
+		pid.update(TalonControlMode.Speed);
 		
     	double adder = Xbox.RT(joy) - Xbox.LT(joy);
     	double left = adder + (Xbox.LEFT_X(joy) / 2);
@@ -111,20 +110,20 @@ public class SubsystemDrive extends Subsystem {
     	left1.set(leftify(left * MAX_RPM));
     	right1.set(rightify(right * MAX_RPM));
     	
-    	vel();
+    	log();
     }
     
     public void driveDirect(double left, double right) {
-    	changeTalonMode(TalonControlMode.Speed);
+    	pid.update(TalonControlMode.Speed);
     	
 		left1.set(leftify(left));
 		right1.set(rightify(right));
 		
-		vel();
+		log();
 	}
 
 	public void driveDistance(double rotations) {
-		changeTalonMode(TalonControlMode.Position);
+		pid.update(TalonControlMode.MotionMagic);
 		
 		lastLeftDistance = left1.getPosition();
 		lastRightDistance = right1.getPosition();
@@ -134,7 +133,7 @@ public class SubsystemDrive extends Subsystem {
 	}
 	
 	public boolean drivedDistance() {
-		changeTalonMode(TalonControlMode.Position);
+		pid.update(TalonControlMode.MotionMagic);
 		
 		boolean leftInRange = 
 				left1.getPosition() > lastLeftDistance + leftify(goal) - DISTANCE_ALLOWABLE_ERROR && 
@@ -143,28 +142,11 @@ public class SubsystemDrive extends Subsystem {
 				right1.getPosition() > lastRightDistance + rightify(goal) - DISTANCE_ALLOWABLE_ERROR && 
 				right1.getPosition() < lastRightDistance + rightify(goal) + DISTANCE_ALLOWABLE_ERROR;
 				
-		vel();
+		log();
 		return leftInRange && rightInRange;
 	}
 
-	private void changeTalonMode(TalonControlMode mode) {
-		pid.mode(mode);
-		pid.update();
-		if(mode != lastMode) {
-	    	left1.changeControlMode(mode);
-	    	right1.changeControlMode(mode);
-	    	if(mode == TalonControlMode.Position) {
-	    		left1.setMotionMagicCruiseVelocity(MAX_RPM_AUTO);
-	    		right1.setMotionMagicCruiseVelocity(MAX_RPM_AUTO);
-	    	} else {
-	    		left1.setMotionMagicCruiseVelocity(0);
-	    		right1.setMotionMagicCruiseVelocity(0);
-	    	}
-	    	lastMode = mode;
-		}
-	}
-
-	private void vel() {
+	private void log() {
     	double position = leftify(left1.getPosition()) + rightify(right1.getPosition()) / 2.0; 
     	distance += Math.abs(position - lastPosition);
     	lastPosition = position;

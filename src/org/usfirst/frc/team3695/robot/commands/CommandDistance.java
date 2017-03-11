@@ -6,7 +6,7 @@ import edu.wpi.first.wpilibj.command.Command;
 
 public class CommandDistance extends Command {
 	
-	private static final long TIME_WAIT = 1000;
+	public static final long TIME_WAIT = 1000;
 	public final double rotations;
 	private long time;
 	

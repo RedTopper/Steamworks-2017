@@ -69,6 +69,6 @@ public class OI {
 		SmartDashboard.putData("AutoCamera", new CommandRotate(Autonomous.LEFT));
 		SmartDashboard.putData("AutoForward", new CommandForward());
 		SmartDashboard.putData("ErrorForward", new CommandError());
-		SmartDashboard.putData("Drive 1 ft", new CommandDistance(SubsystemDrive.in2rot(12.0 * 10.0)));
+		SmartDashboard.putData("DriveDistance", new CommandDistance(SubsystemDrive.in2rot(12.0 * 10.0)));
 	}
 }
