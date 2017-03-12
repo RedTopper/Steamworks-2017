@@ -7,22 +7,22 @@ import edu.wpi.first.wpilibj.command.Command;
 public class CommandDistance extends Command {
 	
 	public static final long TIME_WAIT = 1000;
-	public final double rotations;
+	public final double inches;
 	private long time;
 	
-	public CommandDistance(double rotations) {
-		this.rotations = rotations;
+	public CommandDistance(double inches) {
+		this.inches = inches;
 		requires(Robot.SUB_DRIVE);
 	}
 	
     protected void initialize() {
-    	Robot.SUB_DRIVE.driveDistance(rotations);
+    	Robot.SUB_DRIVE.reset();
     }
 
     protected void execute() {}
 
     protected boolean isFinished() {
-    	if(!Robot.SUB_DRIVE.drivedDistance()) {
+    	if(!Robot.SUB_DRIVE.driveDistance(inches)) {
     		time = System.currentTimeMillis() + TIME_WAIT;
     	}
         return time < System.currentTimeMillis();

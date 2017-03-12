@@ -25,7 +25,7 @@ public class SubsystemDrive extends Subsystem {
 	 * With an 8 in diameter wheel, and if this is set to 5, that would convert
 	 * to 40.0 * Math.PI in / second, or about 10.47 feet per second.
 	 */
-	public static final double MAX_RPM = 600;
+	public static final double MAX_RPM = 200;
 	public static final double MAX_RPM_AUTO = 5;
 	
 	/**
@@ -43,8 +43,6 @@ public class SubsystemDrive extends Subsystem {
     private CANTalon right1;
     private CANTalon right2;
     private TalonPID pid;
-    private double lastLeftDistance = 0.0;
-    private double lastRightDistance = 0.0;
     private double goal = 0.0;
 
     public void initDefaultCommand() {
@@ -69,7 +67,15 @@ public class SubsystemDrive extends Subsystem {
     	return in / WHEEL_DIAM_INCHES / Math.PI;
     }
     
-    /**
+    public static final double leftify(double left) {
+		return left * (Constants.LEFT_MOTOR_INVERT ? -1.0 : 1.0);
+	}
+
+	public static final double rightify(double right) {
+		return right * (Constants.RIGHT_MOTOR_INVERT ? -1.0 : 1.0);
+	}
+
+	/**
      * Initialize Needed Drive-train Variables
      */
     public SubsystemDrive(){
@@ -122,28 +128,34 @@ public class SubsystemDrive extends Subsystem {
 		log();
 	}
 
-	public void driveDistance(double rotations) {
-		pid.update(TalonControlMode.MotionMagic);
+	public void reset() {
+		left1.setPosition(0);
+		right1.setPosition(0);
+		lastPosition = 0;
 		
-		goal = rotations;
-		lastLeftDistance = left1.getPosition();
-		lastRightDistance = right1.getPosition();
-		left1.set(lastLeftDistance + leftify(goal));
-		right1.set(lastRightDistance + rightify(goal));
+		log();
 	}
 	
-	public boolean drivedDistance() {
+	public boolean driveDistance(double inches) {
 		pid.update(TalonControlMode.MotionMagic);
 		
+		goal = in2rot(inches);
+		left1.set(leftify(goal));
+		right1.set(rightify(goal));
+		
 		boolean leftInRange = 
-				left1.getPosition() > lastLeftDistance + leftify(goal) - DISTANCE_ALLOWABLE_ERROR && 
-				left1.getPosition() < lastLeftDistance + leftify(goal) + DISTANCE_ALLOWABLE_ERROR;
+				left1.getPosition() > leftify(goal) - DISTANCE_ALLOWABLE_ERROR && 
+				left1.getPosition() < leftify(goal) + DISTANCE_ALLOWABLE_ERROR;
 		boolean rightInRange = 
-				right1.getPosition() > lastRightDistance + rightify(goal) - DISTANCE_ALLOWABLE_ERROR && 
-				right1.getPosition() < lastRightDistance + rightify(goal) + DISTANCE_ALLOWABLE_ERROR;
+				right1.getPosition() > rightify(goal) - DISTANCE_ALLOWABLE_ERROR && 
+				right1.getPosition() < rightify(goal) + DISTANCE_ALLOWABLE_ERROR;
 				
 		log();
 		return leftInRange && rightInRange;
+	}
+
+	public double getError() {
+		return  (leftify(left1.getError()) + rightify(right1.getError())) / 2.0;
 	}
 
 	private void log() {
@@ -152,18 +164,6 @@ public class SubsystemDrive extends Subsystem {
     	lastPosition = position;
 		SmartDashboard.putNumber("Speed", rpm2ips(Math.abs((leftify(left1.getSpeed()) + rightify(right1.getSpeed())) / 2.0)));
 		SmartDashboard.putNumber("Distance", rot2in(distance));
-	}
-
-	public double getError() {
-		return  (leftify(left1.getError()) + rightify(right1.getError())) / 2.0;
-	}
-	
-	public static final double leftify(double left) {
-		return left * (Constants.LEFT_MOTOR_INVERT ? -1.0 : 1.0);
-	}
-	
-	public static final double rightify(double right) {
-		return right * (Constants.RIGHT_MOTOR_INVERT ? -1.0 : 1.0);
 	}
 }
 

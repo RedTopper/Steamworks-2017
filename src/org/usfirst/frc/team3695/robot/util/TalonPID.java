@@ -1,5 +1,7 @@
 package org.usfirst.frc.team3695.robot.util;
 
+import org.usfirst.frc.team3695.robot.subsystems.SubsystemDrive;
+
 import com.ctre.CANTalon;
 import com.ctre.CANTalon.TalonControlMode;
 
@@ -44,9 +46,8 @@ public class TalonPID {
 			newer[P] = Util.getAndSetDouble("PID " + name + " MOTION: P", 0.0);
 			newer[I] = Util.getAndSetDouble("PID " + name + " MOTION: I", 0.0);
 			newer[D] = Util.getAndSetDouble("PID " + name + " MOTION: D", 0.0);
-			newer[CRUISE] = Util.getAndSetDouble("CRUISE " + name + ": RPM", 0.0);
-			newer[ACCELERATION]  = Util.getAndSetDouble("ACCEL " + name + ": RPMS", 0.0);
-			
+			newer[CRUISE] = Util.getAndSetDouble("CRUISE " + name + ": Inches", 0.0);
+			newer[ACCELERATION]  = Util.getAndSetDouble("ACCEL " + name + ": Inches", 0.0);
 		} else {
 			newer[P] = Util.getAndSetDouble("PID " + name + " SPEED: P", 0.0);
 			newer[I] = Util.getAndSetDouble("PID " + name + " SPEED: I", 0.0);
@@ -71,8 +72,9 @@ public class TalonPID {
 			}
 			for(CANTalon talon : talons) {
 				talon.setPID(newer[P], newer[I], newer[D]);
-				talon.setMotionMagicCruiseVelocity(newer[CRUISE]);
-				talon.setMotionMagicAcceleration(newer[ACCELERATION]);
+				talon.setF(0.25);
+				talon.setMotionMagicCruiseVelocity(SubsystemDrive.ips2rpm(newer[CRUISE]));
+				talon.setMotionMagicAcceleration(SubsystemDrive.ips2rpm(newer[ACCELERATION]));
 			}
 		}
 	}

@@ -7,11 +7,9 @@ import org.usfirst.frc.team3695.robot.commands.ButtonCommandKillCompressor;
 import org.usfirst.frc.team3695.robot.commands.ButtonCommandShooter;
 import org.usfirst.frc.team3695.robot.commands.CommandDistance;
 import org.usfirst.frc.team3695.robot.commands.CommandError;
-import org.usfirst.frc.team3695.robot.commands.CommandForward;
 import org.usfirst.frc.team3695.robot.commands.CommandRotate;
 import org.usfirst.frc.team3695.robot.enumeration.Autonomous;
 import org.usfirst.frc.team3695.robot.enumeration.Direction;
-import org.usfirst.frc.team3695.robot.subsystems.SubsystemDrive;
 import org.usfirst.frc.team3695.robot.util.Xbox;
 
 import edu.wpi.first.wpilibj.Joystick;
@@ -67,8 +65,7 @@ public class OI {
 		SmartDashboard.putData("Disable Compressor", new ButtonCommandKillCompressor());
 		
 		SmartDashboard.putData("AutoCamera", new CommandRotate(Autonomous.LEFT));
-		SmartDashboard.putData("AutoForward", new CommandForward());
 		SmartDashboard.putData("ErrorForward", new CommandError());
-		SmartDashboard.putData("DriveDistance", new CommandDistance(SubsystemDrive.in2rot(12.0 * 10.0)));
+		SmartDashboard.putData("DriveDistance", new CommandDistance(48.0));
 	}
 }

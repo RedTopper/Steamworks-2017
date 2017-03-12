@@ -10,9 +10,11 @@ import edu.wpi.first.wpilibj.command.Command;
 
 public class CommandError extends Command {
 	public static final long START_READ_ERROR_DELAY = 500;
+	public static final int TARGET = 300;
+	
 	private boolean finished = false;
 	private final Cross object = new Cross("current error", (Camera.WIDTH / 2.0) + 20.0, -1);
-	private final Cross setpoint = new Cross("error goal", Camera.WIDTH / 2.0, 240);
+	private final Cross setpoint = new Cross("error goal", Camera.WIDTH / 2.0, TARGET / 2);
 	long startTime = 0;
 	
 	public CommandError() {
@@ -29,11 +31,11 @@ public class CommandError extends Command {
     }
 
     protected void execute() {
-    	object.setXY(object.getX(), Math.abs(Robot.SUB_DRIVE.getError()));
-		if(startTime + START_READ_ERROR_DELAY < System.currentTimeMillis() && object.getY() > setpoint.getY()) {
+    	object.setXY(object.getX(), Math.abs(Robot.SUB_DRIVE.getError() / 2));
+		if(startTime + START_READ_ERROR_DELAY < System.currentTimeMillis() && Math.abs(Robot.SUB_DRIVE.getError()) > TARGET) {
 			finished = true;
 		} else {
-			double speed = SubsystemDrive.ips2rpm(Util.getAndSetDouble("CAMERA: forward in-s", 20.0));
+			double speed = SubsystemDrive.ips2rpm(Util.getAndSetDouble("SPEED ERROR: Forward", 20.0));
 			Robot.SUB_DRIVE.driveDirect(speed, speed);
 		}
     }

@@ -24,23 +24,20 @@ public class PIDVision implements PIDSource {
 	 * is not found, the method returns Vision.CAM_WIDTH.
 	 */
 	public double pidGet() {
-		int center;
+		int center = 0;
 		synchronized (Robot.GRIP) {
 			ArrayList<MatOfPoint> data = Robot.GRIP.convexHullsOutput();
-			switch(data.size()) {
-			case 1:
+			if(data.size() == 0) return 0;
+			if(data.size() == 1) {
 				Rect rect = Imgproc.boundingRect(data.get(0));
 				center = rect.x + (rect.width / 2);
-				break;
-			case 2:
+			}
+			if(data.size() > 1) {
 				Rect rect0 = Imgproc.boundingRect(data.get(0));
 				Rect rect1 = Imgproc.boundingRect(data.get(1));
 				int x0 = rect0.x + (rect0.width / 2);
 				int x1 = rect1.x + (rect1.width / 2);
 				center = (x0 + x1) / 2;
-				break;
-			default: 
-				return 0;
 			}
 
 			SmartDashboard.putNumber("Object Count", data.size());

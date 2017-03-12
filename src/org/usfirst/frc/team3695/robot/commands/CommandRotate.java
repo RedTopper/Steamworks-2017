@@ -14,13 +14,15 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 public class CommandRotate extends PIDCommand {
 	
+	public static final long TIME_WAIT = 2000;
+	public static final double TARGET = (Camera.WIDTH / 2.0) + 20.0;
+
 	private final Cross object = new Cross("object", -1, (Camera.HEIGHT / 2.0) + 20.0);
-	private final Cross setpoint = new Cross("setpoint", Camera.WIDTH / 2.0, Camera.HEIGHT / 2.0);
+	private final Cross setpoint = new Cross("setpoint", TARGET, Camera.HEIGHT / 2.0);
 	private final Autonomous auto;
 	private volatile boolean canSee = false;
-	private PIDVision vision;
 	private long time = Long.MAX_VALUE;
-	public static final long TIME_WAIT = 2000;
+	private PIDVision vision;
 	
 	
 	public CommandRotate(Autonomous auto) {
@@ -52,6 +54,8 @@ public class CommandRotate extends PIDCommand {
 		if(auto == Autonomous.RIGHT) blind *= -1.0;
 		SmartDashboard.putBoolean("Target Found", canSee);
 		
+		//update canSee here too, in case usePIDOutput is ever fixed.
+		canSee = vision.canSee();
 		if(canSee) {
 			getPIDController().enable();
 			object.setEnabled(true);
@@ -85,6 +89,8 @@ public class CommandRotate extends PIDCommand {
 		return x;
 	}
 
+	//Note to self: for some reason this method is called all the time, even
+	//when the PIDController is disabled. Why? No idea.
 	protected void usePIDOutput(double output) {
 		canSee = vision.canSee();
 		if(canSee) {
