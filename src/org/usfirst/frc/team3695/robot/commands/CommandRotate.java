@@ -8,16 +8,16 @@ import org.usfirst.frc.team3695.robot.subsystems.SubsystemDrive;
 import org.usfirst.frc.team3695.robot.util.Cross;
 import org.usfirst.frc.team3695.robot.util.Util;
 import org.usfirst.frc.team3695.robot.vision.PIDVision;
-import org.usfirst.frc.team3695.robot.vision.Vision;
 
 import edu.wpi.first.wpilibj.command.PIDCommand;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 public class CommandRotate extends PIDCommand {
 	
-	private final Cross object = new Cross("object", -1, (Vision.CAM_HEIGHT / 2.0) + 20.0);
-	private final Cross setpoint = new Cross("setpoint", Vision.CAM_WIDTH / 2.0, Vision.CAM_HEIGHT / 2.0);
+	private final Cross object = new Cross("object", -1, (Camera.HEIGHT / 2.0) + 20.0);
+	private final Cross setpoint = new Cross("setpoint", Camera.WIDTH / 2.0, Camera.HEIGHT / 2.0);
 	private final Autonomous auto;
+	private volatile boolean canSee = false;
 	private PIDVision vision;
 	private long time = Long.MAX_VALUE;
 	public static final long TIME_WAIT = 2000;
@@ -33,20 +33,33 @@ public class CommandRotate extends PIDCommand {
 	}
 	
     protected void initialize() {
+    	Robot.VISION.setCamera(Camera.FRONT, Video.THRESHHOLD);
     	double p = Util.getAndSetDouble("PID CAMERA: P", 0.0);
     	double i = Util.getAndSetDouble("PID CAMERA: I", 0.0);
     	double d = Util.getAndSetDouble("PID CAMERA: D", 0.0);
+    	getPIDController().reset();
     	getPIDController().setPID(p, i, d);
     	getPIDController().setPercentTolerance(5.0);
-		setInputRange(0, Vision.CAM_WIDTH);
+		setInputRange(0, Camera.WIDTH);
 		setSetpoint(setpoint.getX());
 		time = Long.MAX_VALUE;
-		Robot.VISION.setCamera(Camera.FRONT, Video.THRESHHOLD);
 		object.setEnabled(true);
 		setpoint.setEnabled(true);
     }
 
     protected void execute() {
+		double blind = SubsystemDrive.ips2rpm(Util.getAndSetDouble("SPEED CAMERA: Blind Inches", 18.0));
+		if(auto == Autonomous.RIGHT) blind *= -1.0;
+		SmartDashboard.putBoolean("Target Found", canSee);
+		
+		if(canSee) {
+			getPIDController().enable();
+			object.setEnabled(true);
+		} else {
+			getPIDController().reset();
+			object.setEnabled(false);
+			Robot.SUB_DRIVE.driveDirect(-blind, blind);
+		}
     }
 
     protected boolean isFinished() {
@@ -73,16 +86,11 @@ public class CommandRotate extends PIDCommand {
 	}
 
 	protected void usePIDOutput(double output) {
-		double target = output * SubsystemDrive.ips2rpm(Util.getAndSetDouble("SPEED CAMERA: Targeting Inches", 30.0));
-		double blind = SubsystemDrive.ips2rpm(Util.getAndSetDouble("SPEED CAMERA: Blind Inches", 30.0));
-		if(auto == Autonomous.LEFT) blind *= -1;
-		
-		SmartDashboard.putNumber("PID", output);
-		SmartDashboard.putBoolean("Target Found", vision.canSee());
-		if(vision.canSee()) {
-			Robot.SUB_DRIVE.driveDirect(target, -target);
-		} else {
-			Robot.SUB_DRIVE.driveDirect(blind, -blind);
+		canSee = vision.canSee();
+		if(canSee) {
+			double target = output * SubsystemDrive.ips2rpm(Util.getAndSetDouble("SPEED CAMERA: Targeting Inches", 30.0));
+			Robot.SUB_DRIVE.driveDirect(-target, target);
+			SmartDashboard.putNumber("PID", output);
 		}
 	}
 }

@@ -125,9 +125,9 @@ public class SubsystemDrive extends Subsystem {
 	public void driveDistance(double rotations) {
 		pid.update(TalonControlMode.MotionMagic);
 		
+		goal = rotations;
 		lastLeftDistance = left1.getPosition();
 		lastRightDistance = right1.getPosition();
-		goal = rotations;
 		left1.set(lastLeftDistance + leftify(goal));
 		right1.set(lastRightDistance + rightify(goal));
 	}
@@ -150,7 +150,7 @@ public class SubsystemDrive extends Subsystem {
     	double position = leftify(left1.getPosition()) + rightify(right1.getPosition()) / 2.0; 
     	distance += Math.abs(position - lastPosition);
     	lastPosition = position;
-		SmartDashboard.putNumber("Speed", rpm2ips(Math.abs((left1.getSpeed() + right1.getSpeed()) / 2.0)));
+		SmartDashboard.putNumber("Speed", rpm2ips(Math.abs((leftify(left1.getSpeed()) + rightify(right1.getSpeed())) / 2.0)));
 		SmartDashboard.putNumber("Distance", rot2in(distance));
 	}
 

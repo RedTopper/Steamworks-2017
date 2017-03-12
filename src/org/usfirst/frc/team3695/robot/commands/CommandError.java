@@ -1,18 +1,18 @@
 package org.usfirst.frc.team3695.robot.commands;
 
 import org.usfirst.frc.team3695.robot.Robot;
+import org.usfirst.frc.team3695.robot.enumeration.Camera;
 import org.usfirst.frc.team3695.robot.subsystems.SubsystemDrive;
 import org.usfirst.frc.team3695.robot.util.Cross;
 import org.usfirst.frc.team3695.robot.util.Util;
-import org.usfirst.frc.team3695.robot.vision.Vision;
 
 import edu.wpi.first.wpilibj.command.Command;
 
 public class CommandError extends Command {
 	public static final long START_READ_ERROR_DELAY = 500;
 	private boolean finished = false;
-	private final Cross object = new Cross("current error", (Vision.CAM_WIDTH / 2.0) + 20.0, -1);
-	private final Cross setpoint = new Cross("error goal", Vision.CAM_WIDTH / 2.0, 240);
+	private final Cross object = new Cross("current error", (Camera.WIDTH / 2.0) + 20.0, -1);
+	private final Cross setpoint = new Cross("error goal", Camera.WIDTH / 2.0, 240);
 	long startTime = 0;
 	
 	public CommandError() {

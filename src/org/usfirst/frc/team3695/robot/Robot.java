@@ -41,10 +41,6 @@ public class Robot extends IterativeRobot {
 	//Output and Input
 	public static final Grip GRIP = new Grip();
 	public static final Vision VISION = new Vision();
-	
-	//Variables
-	private Camera lastCam = Camera.FRONT;
-	private Video lastVideo = Video.RAW;
 
 	/**
 	 * This function is run when the robot is first started up and should be
@@ -54,14 +50,14 @@ public class Robot extends IterativeRobot {
 		new OI();
 		
 		//Autonomous Chooser init
-		SmartDashboard.putData("Auto mode", autoChooser);
 		autoChooser.addDefault("Center", Autonomous.CENTER);
 		autoChooser.addObject("Left", Autonomous.LEFT);
 		autoChooser.addObject("Right", Autonomous.RIGHT);
+		SmartDashboard.putData("Auto Mode", autoChooser);
 		
 		//Camera Chooser init
-		chooserCamera.addDefault(Camera.FRONT.usb.getName(), Camera.FRONT);
-		chooserCamera.addObject(Camera.REAR.usb.getName(), Camera.REAR);
+		chooserCamera.addDefault(Camera.FRONT.getUSB().getName(), Camera.FRONT);
+		chooserCamera.addObject(Camera.REAR.getUSB().getName(), Camera.REAR);
 		SmartDashboard.putData("Camera", chooserCamera);
 		
 		//Video mode chooser (ex to view GRIP)
@@ -86,10 +82,8 @@ public class Robot extends IterativeRobot {
 		Scheduler.getInstance().run();
 		Camera cam = chooserCamera.getSelected();
 		Video video = chooserVideo.getSelected();
-		if (cam != null && (cam != lastCam || video != lastVideo)) {
+		if (cam != null && video != null) {
 			VISION.setCamera(cam, video);
-			lastCam = cam;
-			lastVideo = video;
 		}
 	}
 

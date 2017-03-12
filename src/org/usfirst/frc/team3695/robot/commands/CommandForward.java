@@ -11,14 +11,13 @@ import org.usfirst.frc.team3695.robot.enumeration.Video;
 import org.usfirst.frc.team3695.robot.subsystems.SubsystemDrive;
 import org.usfirst.frc.team3695.robot.util.Cross;
 import org.usfirst.frc.team3695.robot.util.Util;
-import org.usfirst.frc.team3695.robot.vision.Vision;
 
 import edu.wpi.first.wpilibj.command.Command;
 
 public class CommandForward extends Command {
 	private boolean finished = false;
-	private final Cross object = new Cross("object", (Vision.CAM_WIDTH / 2.0) + 20.0, -1);
-	private final Cross setpoint = new Cross("minumum", Vision.CAM_WIDTH / 2.0, 10);
+	private final Cross object = new Cross("object", (Camera.WIDTH / 2.0) + 20.0, -1);
+	private final Cross setpoint = new Cross("minumum", Camera.WIDTH / 2.0, 10);
 	
 	public CommandForward() {
 		requires(Robot.SUB_DRIVE);

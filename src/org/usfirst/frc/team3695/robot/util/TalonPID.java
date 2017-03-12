@@ -45,7 +45,7 @@ public class TalonPID {
 			newer[I] = Util.getAndSetDouble("PID " + name + " MOTION: I", 0.0);
 			newer[D] = Util.getAndSetDouble("PID " + name + " MOTION: D", 0.0);
 			newer[CRUISE] = Util.getAndSetDouble("CRUISE " + name + ": RPM", 0.0);
-			newer[ACCELERATION]  = Util.getAndSetDouble("ACCEL " + name + ": RPM per Second", 0.0);
+			newer[ACCELERATION]  = Util.getAndSetDouble("ACCEL " + name + ": RPMS", 0.0);
 			
 		} else {
 			newer[P] = Util.getAndSetDouble("PID " + name + " SPEED: P", 0.0);
@@ -66,6 +66,9 @@ public class TalonPID {
 			}
 		}
 		if(different) {
+			for(int i = 0; i < old.length; i++) {
+				old[i] = newer[i];
+			}
 			for(CANTalon talon : talons) {
 				talon.setPID(newer[P], newer[I], newer[D]);
 				talon.setMotionMagicCruiseVelocity(newer[CRUISE]);

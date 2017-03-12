@@ -13,8 +13,6 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 public class PIDVision implements PIDSource {
 	
-	boolean canSee = false;
-	
 	public void setPIDSourceType(PIDSourceType pidSource) {}
 	public PIDSourceType getPIDSourceType() {
 		return PIDSourceType.kDisplacement;
@@ -26,31 +24,34 @@ public class PIDVision implements PIDSource {
 	 * is not found, the method returns Vision.CAM_WIDTH.
 	 */
 	public double pidGet() {
-		Rect rect0;
-		Rect rect1;
-		ArrayList<MatOfPoint> data;
+		int center;
 		synchronized (Robot.GRIP) {
-			data = Robot.GRIP.convexHullsOutput();
-			if(data.size() < 2) {
-				canSee = false;
+			ArrayList<MatOfPoint> data = Robot.GRIP.convexHullsOutput();
+			switch(data.size()) {
+			case 1:
+				Rect rect = Imgproc.boundingRect(data.get(0));
+				center = rect.x + (rect.width / 2);
+				break;
+			case 2:
+				Rect rect0 = Imgproc.boundingRect(data.get(0));
+				Rect rect1 = Imgproc.boundingRect(data.get(1));
+				int x0 = rect0.x + (rect0.width / 2);
+				int x1 = rect1.x + (rect1.width / 2);
+				center = (x0 + x1) / 2;
+				break;
+			default: 
 				return 0;
 			}
-			canSee = true;
-			rect0 = Imgproc.boundingRect(data.get(0));
-			rect1 = Imgproc.boundingRect(data.get(1));
+
+			SmartDashboard.putNumber("Object Count", data.size());
+			SmartDashboard.putNumber("Object Position", center);
 		}
-		int x0 = rect0.x + (rect0.width / 2);
-		int x1 = rect1.x + (rect1.width / 2);
-		int center = (x0 + x1) / 2;
-		SmartDashboard.putNumber("Object Count", data.size());
-		SmartDashboard.putNumber("Object Position", center);
 		return center;
 	}
 	
 	public boolean canSee() {
-		return canSee;
+		synchronized (Robot.GRIP) {
+			return Robot.GRIP.convexHullsOutput().size() > 0;
+		}
 	}
-	
-	
-
 }
