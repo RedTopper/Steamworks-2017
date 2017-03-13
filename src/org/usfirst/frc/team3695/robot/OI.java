@@ -64,8 +64,8 @@ public class OI {
 		 */
 		SmartDashboard.putData("Disable Compressor", new ButtonCommandKillCompressor());
 		
-		SmartDashboard.putData("AutoCamera", new CommandRotate(Autonomous.LEFT));
+		SmartDashboard.putData("AutoCamera", new CommandRotate(Autonomous.GEAR_LEFT));
 		SmartDashboard.putData("ErrorForward", new CommandError());
-		SmartDashboard.putData("DriveDistance", new CommandDistance(48.0));
+		SmartDashboard.putData("DriveDistance", new CommandDistance(12.0 * 6.0));
 	}
 }

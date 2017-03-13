@@ -10,7 +10,7 @@ import edu.wpi.first.wpilibj.command.CommandGroup;
 public class AutoRight extends CommandGroup {
 	public AutoRight() {
 		addSequential(new CommandDistance(5.0));
-		addSequential(new CommandRotate(Autonomous.LEFT));
+		addSequential(new CommandRotate(Autonomous.GEAR_LEFT));
 		addSequential(new CommandError());
 		//addSequential(new CommandGearFlaps(Piston.OPEN));
 		//addSequential(new CommandDistance(rotations));

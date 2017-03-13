@@ -31,7 +31,7 @@ public class SubsystemDrive extends Subsystem {
 	/**
 	 * Diameter of the wheel in inches
 	 */
-	public static final double WHEEL_DIAM_INCHES = 8;
+	public static final double WHEEL_DIAM_INCHES = 8.1;
 	
 	/**
 	 * Allowable tolerance to be considered in range when driving a distance, in rotations

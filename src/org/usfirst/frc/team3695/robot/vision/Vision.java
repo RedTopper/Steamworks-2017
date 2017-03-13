@@ -27,7 +27,7 @@ public class Vision extends Thread {
 			BOT_EXPOSURE = 0,
 			BOT_WHITE = 50,
 			BOT_BRIGHT = 50,
-			MAN_EXPOSURE = 35,
+			MAN_EXPOSURE = 40,
 			MAN_BRIGHT = 50,
 			MAN_WHITE = 50;
 	

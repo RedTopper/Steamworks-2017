@@ -50,9 +50,10 @@ public class Robot extends IterativeRobot {
 		new OI();
 		
 		//Autonomous Chooser init
-		autoChooser.addDefault("Center", Autonomous.CENTER);
-		autoChooser.addObject("Left", Autonomous.LEFT);
-		autoChooser.addObject("Right", Autonomous.RIGHT);
+		autoChooser.addDefault(Autonomous.NOTHING.toString(), Autonomous.NOTHING);
+		for(int i = 1; i < Autonomous.values().length; i++) {
+			autoChooser.addObject(Autonomous.values()[i].toString(), Autonomous.values()[i]);
+		}
 		SmartDashboard.putData("Auto Mode", autoChooser);
 		
 		//Camera Chooser init

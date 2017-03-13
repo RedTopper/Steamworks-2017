@@ -9,6 +9,7 @@ public class CommandDistance extends Command {
 	public static final long TIME_WAIT = 1000;
 	public final double inches;
 	private long time;
+	private boolean inRange;
 	
 	public CommandDistance(double inches) {
 		this.inches = inches;
@@ -19,10 +20,12 @@ public class CommandDistance extends Command {
     	Robot.SUB_DRIVE.reset();
     }
 
-    protected void execute() {}
+    protected void execute() {
+    	inRange = Robot.SUB_DRIVE.driveDistance(inches);
+    }
 
     protected boolean isFinished() {
-    	if(!Robot.SUB_DRIVE.driveDistance(inches)) {
+    	if(!inRange) {
     		time = System.currentTimeMillis() + TIME_WAIT;
     	}
         return time < System.currentTimeMillis();
