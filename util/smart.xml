@@ -1,0 +1,81 @@
+<xml version="1.0">
+<dashboard>
+	<static-widget class="edu.wpi.first.smartdashboard.gui.elements.Image">
+		<location x="112" y="208"/>
+		<width>368</width>
+		<height>272</height>
+		<property name="Image File" value="C:\Users\Program\Pictures\FIRST-STEAMWORKS-RGB-v.png"/>
+		<property name="Maintain Aspect Ratio" value="true"/>
+	</static-widget>
+	<widget field="Funnel is Open" type="Boolean" class="edu.wpi.first.smartdashboard.gui.elements.BooleanBox">
+		<location x="16" y="16"/>
+		<width>232</width>
+		<height>64</height>
+	</widget>
+	<widget field="Target Found" type="Boolean" class="edu.wpi.first.smartdashboard.gui.elements.BooleanBox">
+		<location x="16" y="80"/>
+		<width>226</width>
+		<height>66</height>
+	</widget>
+	<widget field="Distance" type="Number" class="edu.wpi.first.smartdashboard.gui.elements.FormattedField">
+		<location x="32" y="488"/>
+		<width>448</width>
+		<height>40</height>
+		<property name="Font Size" value="28"/>
+	</widget>
+	<widget field="Speed" type="Number" class="edu.wpi.first.smartdashboard.gui.elements.SimpleDial">
+		<location x="0" y="544"/>
+		<width>288</width>
+		<height>278</height>
+	</widget>
+	<static-widget class="edu.wpi.first.smartdashboard.gui.elements.RobotPreferences">
+		<location x="512" y="0"/>
+		<width>320</width>
+		<height>820</height>
+	</static-widget>
+	<static-widget class="edu.wpi.first.smartdashboard.gui.elements.CameraServerViewer">
+		<location x="830" y="0"/>
+		<width>1090</width>
+		<height>820</height>
+		<property name="Camera Choice" value=""/>
+	</static-widget>
+	<widget field="Auto Mode" type="String Chooser" class="edu.wpi.first.smartdashboard.gui.elements.Chooser">
+		<location x="271" y="0"/>
+	</widget>
+	<widget field="ErrorForward" type="Command" class="edu.wpi.first.smartdashboard.gui.elements.Command">
+		<location x="338" y="704"/>
+	</widget>
+	<widget field="Video Mode" type="String Chooser" class="edu.wpi.first.smartdashboard.gui.elements.Chooser">
+		<location x="399" y="544"/>
+	</widget>
+	<widget field="DriveDistance" type="Command" class="edu.wpi.first.smartdashboard.gui.elements.Command">
+		<location x="336" y="671"/>
+	</widget>
+	<widget field="Camera" type="String Chooser" class="edu.wpi.first.smartdashboard.gui.elements.Chooser">
+		<location x="288" y="544"/>
+	</widget>
+	<widget field="AutoCamera" type="PIDCommand" class="edu.wpi.first.smartdashboard.gui.elements.Command">
+		<location x="342" y="736"/>
+	</widget>
+	<widget field="Disable Compressor" type="Command" class="edu.wpi.first.smartdashboard.gui.elements.Command">
+		<location x="308" y="767"/>
+	</widget>
+	<widget field="Object Position" type="Number" class="edu.wpi.first.smartdashboard.gui.elements.TextBox">
+		<location x="16" y="192"/>
+		<width>160</width>
+	</widget>
+	<widget field="PID" type="Number" class="edu.wpi.first.smartdashboard.gui.elements.TextBox">
+		<location x="73" y="224"/>
+		<width>103</width>
+		<height>20</height>
+	</widget>
+	<widget field="Object Count" type="Number" class="edu.wpi.first.smartdashboard.gui.elements.TextBox">
+		<location x="26" y="160"/>
+		<width>150</width>
+		<height>20</height>
+	</widget>
+</dashboard>
+<live-window>
+</live-window>
+	<hidden field="Auto Selector"/>
+</xml>
