@@ -2,7 +2,7 @@ package org.usfirst.frc.team3695.robot.enumeration;
 
 public enum Autonomous {
 	NOTHING("Do Nothing"),
-	FORWARD_8_FT("Just drive 8 feet"),
+	FORWARD("Just drive 8 feet"),
 	GEAR_LEFT("Gear: Left"),
 	GEAR_CENTER("Gear: Center"),
 	GEAR_CENTER_BASELINE_LEFT("Gear: Center AND Reach LEFT baseline"),

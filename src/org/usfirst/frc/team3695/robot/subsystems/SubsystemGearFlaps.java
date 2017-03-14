@@ -4,6 +4,7 @@ import org.usfirst.frc.team3695.robot.Constants;
 
 import edu.wpi.first.wpilibj.Solenoid;
 import edu.wpi.first.wpilibj.command.Subsystem;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 /**
  * Subsystem that controls the Gear Bearing Flaps
@@ -24,6 +25,7 @@ public class SubsystemGearFlaps extends Subsystem {
     public void initDefaultCommand() {}
     
     public void openFlaps(){
+    	SmartDashboard.putBoolean("Funnel is Closed", false);
     	openFlaps.set(true);
     	closeFlaps.set(false);
     	loadingFlap.set(false);
@@ -31,6 +33,7 @@ public class SubsystemGearFlaps extends Subsystem {
     }
     
     public void closeFlaps(){
+    	SmartDashboard.putBoolean("Funnel is Closed", true);
     	openFlaps.set(false);
     	closeFlaps.set(true);
     	loadingFlap.set(true);

@@ -6,7 +6,7 @@ import org.usfirst.frc.team3695.robot.commands.ButtonCommandFlaps;
 import org.usfirst.frc.team3695.robot.commands.ButtonCommandKillCompressor;
 import org.usfirst.frc.team3695.robot.commands.ButtonCommandShooter;
 import org.usfirst.frc.team3695.robot.commands.CommandDistance;
-import org.usfirst.frc.team3695.robot.commands.CommandError;
+import org.usfirst.frc.team3695.robot.commands.CommandDriveUntilError;
 import org.usfirst.frc.team3695.robot.commands.CommandRotate;
 import org.usfirst.frc.team3695.robot.enumeration.Autonomous;
 import org.usfirst.frc.team3695.robot.enumeration.Direction;
@@ -53,11 +53,6 @@ public class OI {
 		Button unshoot = new JoystickButton(OPERATOR, Xbox.B);
 		shoot.whileHeld(new ButtonCommandShooter(Direction.FORWARD));
 		unshoot.whileHeld(new ButtonCommandShooter(Direction.BACKWARD));
-		
-		/**
-		 * Open/Closed Funnel
-		 */
-		SmartDashboard.putBoolean("Funnel is Open", Robot.SUB_GEAR_FLAPS.getOpen());
 				
 		/**
 		 * To Compress, or Not To Compress. It is now an option.
@@ -65,7 +60,7 @@ public class OI {
 		SmartDashboard.putData("Disable Compressor", new ButtonCommandKillCompressor());
 		
 		SmartDashboard.putData("AutoCamera", new CommandRotate(Autonomous.GEAR_LEFT));
-		SmartDashboard.putData("ErrorForward", new CommandError());
+		SmartDashboard.putData("ErrorForward", new CommandDriveUntilError(Direction.FORWARD));
 		SmartDashboard.putData("DriveDistance", new CommandDistance(12.0 * 6.0));
 	}
 }

@@ -1,17 +1,17 @@
 <xml version="1.0">
 <dashboard>
-	<static-widget class="edu.wpi.first.smartdashboard.gui.elements.Image">
-		<location x="112" y="208"/>
-		<width>368</width>
-		<height>272</height>
-		<property name="Image File" value="C:\Users\Program\Pictures\FIRST-STEAMWORKS-RGB-v.png"/>
-		<property name="Maintain Aspect Ratio" value="true"/>
-	</static-widget>
-	<widget field="Funnel is Open" type="Boolean" class="edu.wpi.first.smartdashboard.gui.elements.BooleanBox">
+	<widget field="Funnel is Closed" type="Boolean" class="edu.wpi.first.smartdashboard.gui.elements.BooleanBox">
 		<location x="16" y="16"/>
-		<width>232</width>
+		<width>237</width>
 		<height>64</height>
 	</widget>
+	<static-widget class="edu.wpi.first.smartdashboard.gui.elements.Image">
+		<location x="16" y="272"/>
+		<width>480</width>
+		<height>208</height>
+		<property name="Image File" value="C:\Users\Program\Pictures\headerLogo.png"/>
+		<property name="Maintain Aspect Ratio" value="true"/>
+	</static-widget>
 	<widget field="Target Found" type="Boolean" class="edu.wpi.first.smartdashboard.gui.elements.BooleanBox">
 		<location x="16" y="80"/>
 		<width>226</width>
@@ -77,5 +77,7 @@
 </dashboard>
 <live-window>
 </live-window>
+	<hidden field="Funnel is Open"/>
+	<hidden field="SERVO"/>
 	<hidden field="Auto Selector"/>
 </xml>

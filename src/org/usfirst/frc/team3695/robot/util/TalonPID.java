@@ -72,7 +72,7 @@ public class TalonPID {
 			}
 			for(CANTalon talon : talons) {
 				talon.setPID(newer[P], newer[I], newer[D]);
-				talon.setF(0.25);
+				//talon.setF(0.25);
 				talon.setMotionMagicCruiseVelocity(SubsystemDrive.ips2rpm(newer[CRUISE]));
 				talon.setMotionMagicAcceleration(SubsystemDrive.ips2rpm(newer[ACCELERATION]));
 			}

@@ -25,7 +25,7 @@ public class SubsystemDrive extends Subsystem {
 	 * With an 8 in diameter wheel, and if this is set to 5, that would convert
 	 * to 40.0 * Math.PI in / second, or about 10.47 feet per second.
 	 */
-	public static final double MAX_RPM = 200;
+	public static final double MAX_RPM = 600;
 	public static final double MAX_RPM_AUTO = 5;
 	
 	/**
