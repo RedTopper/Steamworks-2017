@@ -38,6 +38,7 @@ public class CommandGroupAuto extends CommandGroup {
 		case GEAR_CENTER_BASELINE_LEFT:
 		case GEAR_CENTER_BASELINE_RIGHT:
 		case GEAR_CENTER:
+			addSequential(new CommandRotate(auto));
 			addSequential(new CommandDriveUntilError(Direction.FORWARD));
 			addSequential(new CommandGearFlap(Flap.OPEN));
 			addSequential(new CommandWait(TIME_WAIT_FLAP));
