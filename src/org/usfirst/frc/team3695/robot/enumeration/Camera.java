@@ -5,7 +5,7 @@ import edu.wpi.cscore.UsbCamera;
 import edu.wpi.cscore.VideoMode.PixelFormat;
 
 public enum Camera {
-	FRONT(1, "Front Camera"), REAR(0, "Rear Camera");
+	FRONT(0, "Front Camera"), REAR(1, "Rear Camera");
 	
 	public static final int	WIDTH = 320;
 	public static final int	HEIGHT = 240;

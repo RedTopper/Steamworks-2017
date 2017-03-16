@@ -12,14 +12,12 @@ public class ManualCommandAscend extends Command {
 	
     public ManualCommandAscend() {
     	requires(Robot.SUB_ASCEND);
-    	requires(Robot.SUB_DRIVE);
     }
 
     protected void initialize() {}
 
     protected void execute() {
     	Robot.SUB_ASCEND.climb(OI.OPERATOR);
-    	Robot.SUB_DRIVE.driveVoltage(0, 0);
     }
 
     protected boolean isFinished() {

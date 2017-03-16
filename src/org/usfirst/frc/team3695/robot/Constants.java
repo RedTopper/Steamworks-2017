@@ -12,10 +12,10 @@ public class Constants {
 		OTHER_RIGHT_MOTOR = 1,
 		CLIMBER_MOTOR = 4,
 		SHOOTER_MOTOR = 5,
-		FEEDER_CONVEYOR_LEFT = 6,
-		FEEDER_CONVEYOR_RIGHT = 7,
-		FEEDER_ROTOR_LEFT = 8,
-		FEEDER_ROTOR_RIGHT = 9;
+		FEEDER_CONVEYOR_LEFT = 9,
+		FEEDER_CONVEYOR_RIGHT = 8,
+		FEEDER_ROTOR_LEFT = 6,
+		FEEDER_ROTOR_RIGHT = 7;
 	/** COMP. BOT
 	public static final int 
 			LEFT_MOTOR = 2,
@@ -39,19 +39,8 @@ public class Constants {
 			ASCENDER_MOTOR_INVERT = true,
 			FEEDER_CONVEYOR_LEFT_INVERT = false,
 			FEEDER_CONVEYOR_RIGHT_INVERT = false,
-			FEEDER_ROTOR_LEFT_INVERT = false,
-			FEEDER_ROTOR_RIGHT_INVERT = false,
-			COLTON_RIGHT_MOTOR_IS_BACKWARD = true;
-	/** COMP BOT
-	public static final boolean 
-			LEFT_MOTOR_INVERT = false,
-			RIGHT_MOTOR_INVERT = true,
-			SHOOTER_MOTOR_INVERT = false,
-			ASCENDER_MOTOR_INVERT = true,
-			WINDOW1_INVERT = false,
-			WINDOW2_INVERT = true;
-	 */
-	
+			FEEDER_ROTOR_LEFT_INVERT = true,
+			FEEDER_ROTOR_RIGHT_INVERT = false;	
 	/**
 	 * PCM Ports
 	 */

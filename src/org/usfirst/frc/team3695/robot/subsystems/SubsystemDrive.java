@@ -2,7 +2,6 @@ package org.usfirst.frc.team3695.robot.subsystems;
 
 import org.usfirst.frc.team3695.robot.Constants;
 import org.usfirst.frc.team3695.robot.commands.ManualCommandDrive;
-import org.usfirst.frc.team3695.robot.enumeration.Error;
 import org.usfirst.frc.team3695.robot.util.TalonPID;
 import org.usfirst.frc.team3695.robot.util.Xbox;
 
@@ -38,6 +37,12 @@ public class SubsystemDrive extends Subsystem {
 	 * Allowable tolerance to be considered in range when driving a distance, in rotations
 	 */
 	public static final double DISTANCE_ALLOWABLE_ERROR = in2rot(2.0);
+	
+	/**
+	 * Error variables
+	 */
+	public static final long START_READ_ERROR_DELAY = 500;
+	public static final int TARGET = 300;
 	
 	private CANTalon left1;
 	private CANTalon left2;
@@ -87,14 +92,13 @@ public class SubsystemDrive extends Subsystem {
     	//Slave Talons
     	left2 = new CANTalon(Constants.OTHER_LEFT_MOTOR);
     	right2 = new CANTalon(Constants.OTHER_RIGHT_MOTOR);
-    	right2.reverseOutput(Constants.COLTON_RIGHT_MOTOR_IS_BACKWARD);
     	
     	//Train the Masters
     	left1.setFeedbackDevice(CANTalon.FeedbackDevice.CtreMagEncoder_Relative);
     	right1.setFeedbackDevice(CANTalon.FeedbackDevice.CtreMagEncoder_Relative);
     	left1.setEncPosition(0);
     	right1.setEncPosition(0);
-    	left1.reverseSensor(false);
+    	left1.reverseSensor(true);
     	right1.reverseSensor(false);
     	
     	//Train the Slaves
@@ -135,15 +139,8 @@ public class SubsystemDrive extends Subsystem {
 		
 		log();
 	}
-	//Temp Colton Fix
-	public boolean driveDistance(double left, double right){
-		return driveDistance(left,right,Error.SHOULD_NOT_CHECK_ERROR);//ENUMS?
-	}
 	
-	
-	public boolean driveDistance(double leftInches, double rightInches, Error error) {
-		//if (error = Error.SHOULD_CHECK_ERROR) { }
-		
+	public boolean driveDistance(double leftInches, double rightInches) {
 		double leftGoal = in2rot(leftInches);
 		double rightGoal = in2rot(rightInches);
 		
@@ -160,6 +157,7 @@ public class SubsystemDrive extends Subsystem {
 				
 		log();
 		return leftInRange && rightInRange;
+
 	}
 	
 	public void driveVoltage(double left, double right){

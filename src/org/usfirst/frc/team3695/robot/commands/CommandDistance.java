@@ -1,6 +1,5 @@
 package org.usfirst.frc.team3695.robot.commands;
 
-import org.usfirst.frc.team3695.robot.enumeration.Error;
 import org.usfirst.frc.team3695.robot.Robot;
 
 import edu.wpi.first.wpilibj.command.Command;
@@ -22,7 +21,7 @@ public class CommandDistance extends Command {
     }
 
     protected void execute() {
-    	inRange = Robot.SUB_DRIVE.driveDistance(inches, inches, Error.SHOULD_NOT_CHECK_ERROR);
+    	inRange = Robot.SUB_DRIVE.driveDistance(inches, inches);
     }
 
     protected boolean isFinished() {

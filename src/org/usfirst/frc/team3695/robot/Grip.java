@@ -40,8 +40,8 @@ public class Grip {
 		// Step HSL_Threshold0:
 		Mat hslThresholdInput = source0;
 		double[] hslThresholdHue = {65.0, 90.0};
-		double[] hslThresholdSaturation = {55.0, 255.0};
-		double[] hslThresholdLuminance = {20.0, 100.0};
+		double[] hslThresholdSaturation = {120.0, 255.0};
+		double[] hslThresholdLuminance = {30.0, 80.0};
 		hslThreshold(hslThresholdInput, hslThresholdHue, hslThresholdSaturation, hslThresholdLuminance, hslThresholdOutput);
 
 		// Step Find_Contours0:

@@ -1,6 +1,7 @@
 package org.usfirst.frc.team3695.robot.vision;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import org.opencv.core.MatOfPoint;
 import org.opencv.core.Rect;
@@ -12,6 +13,8 @@ import edu.wpi.first.wpilibj.PIDSourceType;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 public class PIDVision implements PIDSource {
+	
+	public static final int MIN_SIZE = 25;
 	
 	public void setPIDSourceType(PIDSourceType pidSource) {}
 	public PIDSourceType getPIDSourceType() {
@@ -26,15 +29,15 @@ public class PIDVision implements PIDSource {
 	public double pidGet() {
 		int center = 0;
 		synchronized (Robot.GRIP) {
-			ArrayList<MatOfPoint> data = Robot.GRIP.convexHullsOutput();
+			List<Rect> data = getRekt();
 			if(data.size() == 0) return 0;
 			if(data.size() == 1) {
-				Rect rect = Imgproc.boundingRect(data.get(0));
+				Rect rect = data.get(0);
 				center = rect.x + (rect.width / 2);
 			}
 			if(data.size() > 1) {
-				Rect rect0 = Imgproc.boundingRect(data.get(0));
-				Rect rect1 = Imgproc.boundingRect(data.get(1));
+				Rect rect0 = data.get(0);
+				Rect rect1 = data.get(1);
 				int x0 = rect0.x + (rect0.width / 2);
 				int x1 = rect1.x + (rect1.width / 2);
 				center = (x0 + x1) / 2;
@@ -48,7 +51,21 @@ public class PIDVision implements PIDSource {
 	
 	public boolean canSee() {
 		synchronized (Robot.GRIP) {
-			return Robot.GRIP.convexHullsOutput().size() > 0;
+			return getRekt().size() > 0;
+		}
+	}
+	
+	public List<Rect> getRekt() {
+		synchronized (Robot.GRIP) {
+			List<Rect> screened = new ArrayList<>();
+			List<MatOfPoint> found = Robot.GRIP.convexHullsOutput();
+			for(MatOfPoint point : found) {
+				Rect rect = Imgproc.boundingRect(point);
+				if(rect.area() > MIN_SIZE) {
+					screened.add(rect);
+				}
+			}
+			return screened;
 		}
 	}
 }

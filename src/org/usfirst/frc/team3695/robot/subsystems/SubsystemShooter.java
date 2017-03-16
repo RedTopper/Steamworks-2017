@@ -58,7 +58,7 @@ public class SubsystemShooter extends Subsystem {
 	public void feed(Feeder f){
 		conveyor_L.set((Constants.FEEDER_CONVEYOR_LEFT_INVERT ? -1.0 : 1.0) * Constants.FEEDER_CONVEYOR_LEFT_LIMIT * (f.equals(Feeder.LEFT) ? 1.0 : 0));
 		conveyor_R.set((Constants.FEEDER_CONVEYOR_RIGHT_INVERT ? -1.0 : 1.0) * Constants.FEEDER_CONVEYOR_RIGHT_LIMIT * (f.equals(Feeder.RIGHT) ? 1.0 : 0));
-		spinner_L.set((Constants.FEEDER_CONVEYOR_LEFT_INVERT ? -1.0 : 1.0) * Constants.FEEDER_ROTOR_LIMIT * (f.equals(Feeder.LEFT) ? 1.0 : 0));
+		spinner_L.set((Constants.FEEDER_ROTOR_LEFT_INVERT ? -1.0 : 1.0) * Constants.FEEDER_ROTOR_LIMIT * (f.equals(Feeder.LEFT) ? 1.0 : 0));
 		spinner_R.set((Constants.FEEDER_ROTOR_RIGHT_INVERT ? -1.0 : 1.0) * Constants.FEEDER_ROTOR_LIMIT * (f.equals(Feeder.RIGHT) ? 1.0 : 0));
 	}
 }

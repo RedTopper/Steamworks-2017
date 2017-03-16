@@ -112,7 +112,7 @@ public class Robot extends IterativeRobot {
 	 * This function is called once to initialize operator control
 	 */
 	public void teleopInit() {
-		if (autoChooser != null)
+		if (auto != null)
 			auto.cancel();
 	}
 
