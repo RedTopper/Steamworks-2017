@@ -77,7 +77,4 @@
 </dashboard>
 <live-window>
 </live-window>
-	<hidden field="Funnel is Open"/>
-	<hidden field="SERVO"/>
-	<hidden field="Auto Selector"/>
 </xml>

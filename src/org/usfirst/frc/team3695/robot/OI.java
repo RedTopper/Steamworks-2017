@@ -10,6 +10,7 @@ import org.usfirst.frc.team3695.robot.commands.CommandDriveUntilError;
 import org.usfirst.frc.team3695.robot.commands.CommandRotate;
 import org.usfirst.frc.team3695.robot.enumeration.Autonomous;
 import org.usfirst.frc.team3695.robot.enumeration.Direction;
+import org.usfirst.frc.team3695.robot.enumeration.Feeder;
 import org.usfirst.frc.team3695.robot.util.Xbox;
 
 import edu.wpi.first.wpilibj.Joystick;
@@ -49,11 +50,14 @@ public class OI {
 		/**
 		 * Ball shooting
 		 */
-		Button shoot = new JoystickButton(OPERATOR, Xbox.A);
-		Button unshoot = new JoystickButton(OPERATOR, Xbox.B);
-		shoot.whileHeld(new ButtonCommandShooter(Direction.FORWARD));
-		unshoot.whileHeld(new ButtonCommandShooter(Direction.BACKWARD));
-				
+		Button leftShoot = new JoystickButton(OPERATOR, Xbox.LSTICK);
+		leftShoot.whileHeld(new ButtonCommandShooter(Direction.FORWARD, Feeder.LEFT));
+		Button rightShoot = new JoystickButton(OPERATOR, Xbox.RSTICK);
+		rightShoot.whileHeld(new ButtonCommandShooter(Direction.FORWARD, Feeder.RIGHT));
+		Button kill = new JoystickButton(OPERATOR, Xbox.B);
+		kill.whileHeld(new ButtonCommandShooter(Direction.BACKWARD, Feeder.NOT));
+		
+		
 		/**
 		 * To Compress, or Not To Compress. It is now an option.
 		 */

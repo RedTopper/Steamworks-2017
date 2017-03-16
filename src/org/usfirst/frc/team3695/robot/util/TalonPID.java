@@ -42,16 +42,26 @@ public class TalonPID {
 	 */
 	public void update(TalonControlMode mode) {
 		mode(mode);
-		if(mode == TalonControlMode.MotionMagic) {
+		switch(mode) {
+		case MotionMagic:
 			newer[P] = Util.getAndSetDouble("PID " + name + " MOTION: P", 0.0);
 			newer[I] = Util.getAndSetDouble("PID " + name + " MOTION: I", 0.0);
 			newer[D] = Util.getAndSetDouble("PID " + name + " MOTION: D", 0.0);
 			newer[CRUISE] = Util.getAndSetDouble("CRUISE " + name + ": Inches", 0.0);
 			newer[ACCELERATION]  = Util.getAndSetDouble("ACCEL " + name + ": Inches", 0.0);
-		} else {
+			break;
+		case Speed:
 			newer[P] = Util.getAndSetDouble("PID " + name + " SPEED: P", 0.0);
 			newer[I] = Util.getAndSetDouble("PID " + name + " SPEED: I", 0.0);
 			newer[D] = Util.getAndSetDouble("PID " + name + " SPEED: D", 0.0);
+			newer[CRUISE] = 0.0;
+			newer[ACCELERATION] = 0.0;
+			break;
+		default:
+		case PercentVbus:
+			newer[P] = 0.0;
+			newer[I] = 0.0;
+			newer[D] = 0.0;
 			newer[CRUISE] = 0.0;
 			newer[ACCELERATION] = 0.0;
 		}

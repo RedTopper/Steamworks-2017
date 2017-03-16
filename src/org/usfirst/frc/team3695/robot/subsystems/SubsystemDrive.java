@@ -135,9 +135,14 @@ public class SubsystemDrive extends Subsystem {
 		
 		log();
 	}
+	//Temp Colton Fix
+	public boolean driveDistance(double left, double right){
+		return driveDistance(left,right,Error.SHOULD_NOT_CHECK_ERROR);//ENUMS?
+	}
+	
 	
 	public boolean driveDistance(double leftInches, double rightInches, Error error) {
-		if (error = Error.SHOULD_CHECK_ERROR) { }
+		//if (error = Error.SHOULD_CHECK_ERROR) { }
 		
 		double leftGoal = in2rot(leftInches);
 		double rightGoal = in2rot(rightInches);
@@ -155,6 +160,12 @@ public class SubsystemDrive extends Subsystem {
 				
 		log();
 		return leftInRange && rightInRange;
+	}
+	
+	public void driveVoltage(double left, double right){
+		pid.update(TalonControlMode.PercentVbus);
+		left1.set(left);
+		right1.set(right);
 	}
 
 	public double getError() {
