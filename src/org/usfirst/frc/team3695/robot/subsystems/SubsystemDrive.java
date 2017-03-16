@@ -2,6 +2,7 @@ package org.usfirst.frc.team3695.robot.subsystems;
 
 import org.usfirst.frc.team3695.robot.Constants;
 import org.usfirst.frc.team3695.robot.commands.ManualCommandDrive;
+import org.usfirst.frc.team3695.robot.enumeration.Error;
 import org.usfirst.frc.team3695.robot.util.TalonPID;
 import org.usfirst.frc.team3695.robot.util.Xbox;
 
@@ -43,7 +44,6 @@ public class SubsystemDrive extends Subsystem {
     private CANTalon right1;
     private CANTalon right2;
     private TalonPID pid;
-    private double goal = 0.0;
 
     public void initDefaultCommand() {
     	setDefaultCommand(new ManualCommandDrive());
@@ -136,19 +136,22 @@ public class SubsystemDrive extends Subsystem {
 		log();
 	}
 	
-	public boolean driveDistance(double inches) {
-		pid.update(TalonControlMode.MotionMagic);
+	public boolean driveDistance(double leftInches, double rightInches, Error error) {
+		if (error = Error.SHOULD_CHECK_ERROR) { }
 		
-		goal = in2rot(inches);
-		left1.set(leftify(goal));
-		right1.set(rightify(goal));
+		double leftGoal = in2rot(leftInches);
+		double rightGoal = in2rot(rightInches);
+		
+		pid.update(TalonControlMode.MotionMagic);
+		left1.set(leftify(leftGoal));
+		right1.set(rightify(rightGoal));
 		
 		boolean leftInRange = 
-				left1.getPosition() > leftify(goal) - DISTANCE_ALLOWABLE_ERROR && 
-				left1.getPosition() < leftify(goal) + DISTANCE_ALLOWABLE_ERROR;
+				left1.getPosition() > leftify(leftGoal) - DISTANCE_ALLOWABLE_ERROR && 
+				left1.getPosition() < leftify(leftGoal) + DISTANCE_ALLOWABLE_ERROR;
 		boolean rightInRange = 
-				right1.getPosition() > rightify(goal) - DISTANCE_ALLOWABLE_ERROR && 
-				right1.getPosition() < rightify(goal) + DISTANCE_ALLOWABLE_ERROR;
+				right1.getPosition() > rightify(leftGoal) - DISTANCE_ALLOWABLE_ERROR && 
+				right1.getPosition() < rightify(leftGoal) + DISTANCE_ALLOWABLE_ERROR;
 				
 		log();
 		return leftInRange && rightInRange;

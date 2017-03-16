@@ -1,5 +1,6 @@
 package org.usfirst.frc.team3695.robot;
 
+import org.usfirst.frc.team3695.robot.auto.CommandGroupAuto;
 import org.usfirst.frc.team3695.robot.enumeration.Autonomous;
 import org.usfirst.frc.team3695.robot.enumeration.Camera;
 import org.usfirst.frc.team3695.robot.enumeration.Video;
@@ -41,6 +42,9 @@ public class Robot extends IterativeRobot {
 	//Output and Input
 	public static final Grip GRIP = new Grip();
 	public static final Vision VISION = new Vision();
+	
+	//Auto
+	private CommandGroupAuto auto;
 
 	/**
 	 * This function is run when the robot is first started up and should be
@@ -92,7 +96,9 @@ public class Robot extends IterativeRobot {
 	 * Initializes autonomous control with a selection on the driver dash
 	 */
 	public void autonomousInit() {
-
+		if(autoChooser.getSelected() != null) {
+			auto = new CommandGroupAuto(autoChooser.getSelected());
+		}
 	}
 
 	/**
@@ -106,8 +112,8 @@ public class Robot extends IterativeRobot {
 	 * This function is called once to initialize operator control
 	 */
 	public void teleopInit() {
-		//if (autonomousCommand != null)
-		//	autonomousCommand.cancel();
+		if (autoChooser != null)
+			auto.cancel();
 	}
 
 	/**
