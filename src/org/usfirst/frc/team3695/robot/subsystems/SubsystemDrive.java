@@ -17,8 +17,8 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
  */
 public class SubsystemDrive extends Subsystem {
 	
-	double lastPosition = 0.0,
-		   distance = 0.0;
+	private double lastPosition = 0.0, distance = 0.0;
+	private boolean vbusEnable = false;
 	
 	/**
 	 * The maximum RPM that the drivers are allowed to drive at. 
@@ -93,12 +93,18 @@ public class SubsystemDrive extends Subsystem {
     	left2 = new CANTalon(Constants.OTHER_LEFT_MOTOR);
     	right2 = new CANTalon(Constants.OTHER_RIGHT_MOTOR);
     	
+    	//VOLTAGE
+    	voltage(left1);   	
+    	voltage(left2);   	
+    	voltage(right1);   	
+    	voltage(right2);   	
+
     	//Train the Masters
     	left1.setFeedbackDevice(CANTalon.FeedbackDevice.CtreMagEncoder_Relative);
     	right1.setFeedbackDevice(CANTalon.FeedbackDevice.CtreMagEncoder_Relative);
     	left1.setEncPosition(0);
     	right1.setEncPosition(0);
-    	left1.reverseSensor(true);
+    	left1.reverseSensor(false);
     	right1.reverseSensor(false);
     	
     	//Train the Slaves
@@ -109,16 +115,30 @@ public class SubsystemDrive extends Subsystem {
     	
     	pid = new TalonPID(new CANTalon[]{left1, right1}, "MOTORS");
     }
+    
+    private void voltage(CANTalon talon) {
+    	talon.configNominalOutputVoltage(0f, 0f);
+    	talon.configPeakOutputVoltage(12.0f, -12.0f);
+    	talon.EnableCurrentLimit(true);
+    	talon.setCurrentLimit(30);
+    }
 
 	public void driveJoy(Joystick joy){
-		pid.update(TalonControlMode.Speed);
+		if(vbusEnable) {
+			pid.update(TalonControlMode.PercentVbus);
+		} else {
+			pid.update(TalonControlMode.Speed);
+		}
 		
     	double adder = Xbox.RT(joy) - Xbox.LT(joy);
     	double left = adder + (Xbox.LEFT_X(joy) / 2);
     	double right = adder - (Xbox.LEFT_X(joy) / 2);
     	
-    	left1.set(leftify(left * MAX_RPM));
-    	right1.set(rightify(right * MAX_RPM));
+    	double maxRpm = MAX_RPM;
+    	if(vbusEnable) maxRpm = 1.0;
+    	
+    	left1.set(leftify(left * maxRpm));
+    	right1.set(rightify(right * maxRpm));
     	
     	log();
     }
@@ -176,6 +196,10 @@ public class SubsystemDrive extends Subsystem {
     	lastPosition = position;
 		SmartDashboard.putNumber("Speed", rpm2ips(Math.abs((leftify(left1.getSpeed()) + rightify(right1.getSpeed())) / 2.0)));
 		SmartDashboard.putNumber("Distance", rot2in(distance));
+	}
+	
+	public void enableVbus(boolean vbusEnable) {
+		this.vbusEnable = vbusEnable;
 	}
 }
 

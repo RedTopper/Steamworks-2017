@@ -9,6 +9,7 @@ import org.usfirst.frc.team3695.robot.commands.CommandDistance;
 import org.usfirst.frc.team3695.robot.commands.CommandDriveUntilError;
 import org.usfirst.frc.team3695.robot.commands.CommandRotate;
 import org.usfirst.frc.team3695.robot.enumeration.Autonomous;
+import org.usfirst.frc.team3695.robot.enumeration.Camera;
 import org.usfirst.frc.team3695.robot.enumeration.Direction;
 import org.usfirst.frc.team3695.robot.enumeration.Feeder;
 import org.usfirst.frc.team3695.robot.util.Xbox;
@@ -37,8 +38,10 @@ public class OI {
 		/**
 		 * Switching the camera
 		 */
-		Button cam = new JoystickButton(DRIVER, Xbox.Y);
-		cam.toggleWhenActive(new ButtonCommandCamera());
+		for(Camera cam : Camera.values()) {
+			Button button = new JoystickButton(DRIVER, cam.button);
+			button.toggleWhenActive(new ButtonCommandCamera(cam));
+		}
 		
 		/**
 		 * 
@@ -63,7 +66,7 @@ public class OI {
 		 */
 		SmartDashboard.putData("Disable Compressor", new ButtonCommandKillCompressor());
 		
-		SmartDashboard.putData("AutoCamera", new CommandRotate(Autonomous.GEAR_LEFT));
+		SmartDashboard.putData("AutoCamera", new CommandRotate(Autonomous.GEAR_RIGHT));
 		SmartDashboard.putData("ErrorForward", new CommandDriveUntilError(Direction.FORWARD));
 		SmartDashboard.putData("DriveDistance", new CommandDistance(12.0 * 6.0));
 	}

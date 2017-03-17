@@ -13,7 +13,7 @@ import edu.wpi.first.wpilibj.command.CommandGroup;
 
 public class CommandGroupAuto extends CommandGroup {
 		
-	public static final long TIME_WAIT_FLAP = 500;
+	public static final long TIME_WAIT_FLAP = 250;
 	
 	public CommandGroupAuto(Autonomous auto) {
 				
@@ -28,19 +28,16 @@ public class CommandGroupAuto extends CommandGroup {
 			break;
 		case GEAR_LEFT: 
 		case GEAR_RIGHT:
-			addSequential(new CommandDistance(12.0 * 6.0 + 6.0));
+			addSequential(new CommandDistance(12.0 * 6.0));
 			addSequential(new CommandRotate(auto));
 			addSequential(new CommandDriveUntilError(Direction.FORWARD));
-			addSequential(new CommandWait(TIME_WAIT_FLAP));
 			addSequential(new CommandGearFlap(Flap.OPEN));
-			addSequential(new CommandWait(TIME_WAIT_FLAP));
 			addSequential(new CommandDistance(-(12.0 * 2.0)));
 			break;
 		case GEAR_CENTER:
-			addSequential(new CommandDistance(20.0));
+			addSequential(new CommandDistance(12.0 * 3.0));
 			addSequential(new CommandRotate(auto));
 			addSequential(new CommandDriveUntilError(Direction.FORWARD));
-			addSequential(new CommandWait(TIME_WAIT_FLAP));
 			addSequential(new CommandGearFlap(Flap.OPEN));
 			addSequential(new CommandWait(TIME_WAIT_FLAP));
 			addSequential(new CommandDriveUntilError(Direction.BACKWARD));

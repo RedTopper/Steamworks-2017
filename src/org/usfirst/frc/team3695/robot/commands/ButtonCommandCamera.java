@@ -4,28 +4,20 @@ import org.usfirst.frc.team3695.robot.Robot;
 import org.usfirst.frc.team3695.robot.enumeration.Camera;
 import org.usfirst.frc.team3695.robot.enumeration.Video;
 
-import edu.wpi.first.wpilibj.command.Command;
+import edu.wpi.first.wpilibj.command.InstantCommand;
 
 /**
  * Enables and disables the shooter
  */
-public class ButtonCommandCamera extends Command {
+public class ButtonCommandCamera extends InstantCommand {
+	
+	private final Camera camera;
+	
+	public ButtonCommandCamera(Camera camera) {
+		this.camera = camera;
+	}
 	
     protected void initialize() {
-    	Robot.VISION.setCamera(Camera.REAR, Video.RAW);
-    }
-
-    protected void execute() {}
-
-    protected boolean isFinished() {
-        return false;
-    }
-
-    protected void end() {
-    	Robot.VISION.setCamera(Camera.FRONT, Video.RAW);
-    }
-
-    protected void interrupted() {
-    	end();
+    	Robot.VISION.setCamera(camera, Video.RAW);
     }
 }

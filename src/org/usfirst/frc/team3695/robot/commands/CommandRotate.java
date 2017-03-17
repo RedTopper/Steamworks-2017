@@ -14,8 +14,8 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 public class CommandRotate extends PIDCommand {
 	
-	public static final long TIME_WAIT = 2000;
-	public static final double TARGET = (Camera.WIDTH / 2.0) + 20.0;
+	public static final long TIME_WAIT = 600;
+	public static final double TARGET = (Camera.WIDTH / 2.0) - 10.0;
 
 	private final Cross object = new Cross("object", -1, (Camera.HEIGHT / 2.0) + 20.0);
 	private final Cross setpoint = new Cross("setpoint", TARGET, Camera.HEIGHT / 2.0);
@@ -44,14 +44,15 @@ public class CommandRotate extends PIDCommand {
     	getPIDController().setPercentTolerance(5.0);
 		setInputRange(0, Camera.WIDTH);
 		setSetpoint(setpoint.getX());
-		time = Long.MAX_VALUE;
+		this.time = Long.MAX_VALUE;
+		this.canSee = false;
 		object.setEnabled(true);
 		setpoint.setEnabled(true);
     }
 
     protected void execute() {
 		double blind = SubsystemDrive.ips2rpm(Util.getAndSetDouble("SPEED CAMERA: Blind Inches", 18.0));
-		if(auto == Autonomous.GEAR_RIGHT || auto == Autonomous.GEAR_RIGHT_SHOOT) blind *= -1.0;
+		if(auto == Autonomous.GEAR_LEFT) blind *= -1.0;
 		SmartDashboard.putBoolean("Target Found", canSee);
 		
 		//update canSee here too, in case usePIDOutput is ever fixed.
@@ -67,7 +68,7 @@ public class CommandRotate extends PIDCommand {
     }
 
     protected boolean isFinished() {
-    	if(!getPIDController().onTarget()) {
+    	if(!getPIDController().onTarget() || !canSee) {
     		time = System.currentTimeMillis() + TIME_WAIT;
     	}
         return time < System.currentTimeMillis();

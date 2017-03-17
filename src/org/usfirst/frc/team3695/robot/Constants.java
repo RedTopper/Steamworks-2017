@@ -62,7 +62,7 @@ public class Constants {
 	 * Limit the Ascender speed so it does not destroy the gear-box. :)
 	 */
 	public static final double 
-			ASCENDER_LIMIT = 0.8;
+			ASCENDER_LIMIT = 1.0;
 	
 	/**
 	 * Limit Agitators (Not Really)

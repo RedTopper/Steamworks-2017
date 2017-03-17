@@ -98,6 +98,7 @@ public class Robot extends IterativeRobot {
 	public void autonomousInit() {
 		if(autoChooser.getSelected() != null) {
 			auto = new CommandGroupAuto(autoChooser.getSelected());
+			auto.start();
 		}
 	}
 
