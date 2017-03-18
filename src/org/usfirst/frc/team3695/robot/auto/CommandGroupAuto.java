@@ -32,6 +32,7 @@ public class CommandGroupAuto extends CommandGroup {
 			addSequential(new CommandRotate(auto));
 			addSequential(new CommandDriveUntilError(Direction.FORWARD));
 			addSequential(new CommandGearFlap(Flap.OPEN));
+			addSequential(new CommandWait(TIME_WAIT_FLAP));
 			addSequential(new CommandDistance(-(12.0 * 2.0)));
 			break;
 		case GEAR_CENTER:
