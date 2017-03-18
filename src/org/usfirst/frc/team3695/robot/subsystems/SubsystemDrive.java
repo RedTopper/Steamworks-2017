@@ -25,7 +25,7 @@ public class SubsystemDrive extends Subsystem {
 	 * With an 8 in diameter wheel, and if this is set to 5, that would convert
 	 * to 40.0 * Math.PI in / second, or about 10.47 feet per second.
 	 */
-	public static final double MAX_RPM = 600;
+	public static final double MAX_RPM = 400;
 	public static final double MAX_RPM_AUTO = 5;
 	
 	/**
@@ -95,6 +95,7 @@ public class SubsystemDrive extends Subsystem {
     	
     	//CHANGE VOLTAGE/AMPErAGE
     	enableSafety(true);
+    	enableVbus(false);
 
     	//Train the Masters
     	left1.setFeedbackDevice(CANTalon.FeedbackDevice.CtreMagEncoder_Relative);
@@ -137,7 +138,7 @@ public class SubsystemDrive extends Subsystem {
      */
 	public void enableVbus(boolean vbusEnable) {
 		this.vbusEnable = vbusEnable;
-		SmartDashboard.putBoolean("PID Enabled", vbusEnable);
+		SmartDashboard.putBoolean("PID Enabled", !vbusEnable);
 	}
 
 	/**
@@ -152,12 +153,12 @@ public class SubsystemDrive extends Subsystem {
 		}
 		
     	double adder = Xbox.RT(joy) - Xbox.LT(joy);
-    	double left = adder + (Xbox.LEFT_X(joy) / 2);
-    	double right = adder - (Xbox.LEFT_X(joy) / 2);
+    	double left = adder + (Xbox.LEFT_X(joy) / 1.333333);
+    	double right = adder - (Xbox.LEFT_X(joy) / 1.333333);
     	
     	//Quick Truncate
-    	left = (left > 1.0 ? 1.0 : left);
-    	right = (right > 1.0 ? 1.0 : right);
+    	left = (left > 1.0 ? 1.0 : (left < -1.0 ? -1.0 : left));
+    	right = (right > 1.0 ? 1.0 : (right < -1.0 ? -1.0 : right));
     	    	
     	left1.set(leftify(left * (vbusEnable ? 1.0 : MAX_RPM)));
     	right1.set(rightify(right *  (vbusEnable ? 1.0 : MAX_RPM)));
@@ -216,10 +217,11 @@ public class SubsystemDrive extends Subsystem {
 	private void amp(CANTalon talon, boolean driveSafely) {
 		talon.configNominalOutputVoltage(0f, 0f);
 		talon.configPeakOutputVoltage(12.0f, -12.0f);
-		talon.EnableCurrentLimit(true);
 		if (driveSafely){
-			talon.setCurrentLimit(30);
+			talon.EnableCurrentLimit(true);
+			talon.setCurrentLimit(35);
 		} else {
+			talon.EnableCurrentLimit(false);
 			talon.setCurrentLimit(50);
 		}
 	}

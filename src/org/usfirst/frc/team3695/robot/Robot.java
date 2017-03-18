@@ -31,13 +31,13 @@ public class Robot extends IterativeRobot {
 	SendableChooser<Video> chooserVideo = new SendableChooser<>();
 	
 	//Subsystems
-	public static final SubsystemDrive SUB_DRIVE = new SubsystemDrive();
-	public static final SubsystemCompressor SUB_COMPRESSOR = new SubsystemCompressor();
-	public static final SubsystemGearFlaps SUB_GEAR_FLAPS = new SubsystemGearFlaps();
-	public static final SubsystemFuelFlaps SUB_FUEL_FLAPS = new SubsystemFuelFlaps();
-	public static final SubsystemAscend SUB_ASCEND = new SubsystemAscend();
-	public static final SubsystemShooter SUB_SHOOTER = new SubsystemShooter();
-	public static final SubsystemBling SUB_BLINGY = new SubsystemBling();
+	public static SubsystemDrive SUB_DRIVE;
+	public static SubsystemCompressor SUB_COMPRESSOR;
+	public static SubsystemGearFlaps SUB_GEAR_FLAPS;
+	public static SubsystemFuelFlaps SUB_FUEL_FLAPS;
+	public static SubsystemAscend SUB_ASCEND;
+	public static SubsystemShooter SUB_SHOOTER;
+	public static SubsystemBling SUB_BLINGY;
 	
 	//Output and Input
 	public static final Grip GRIP = new Grip();
@@ -51,6 +51,17 @@ public class Robot extends IterativeRobot {
 	 * used for any initialization code.
 	 */
 	public void robotInit() {
+		
+		//Instantiate subsystems
+		SUB_DRIVE = new SubsystemDrive();
+		SUB_COMPRESSOR = new SubsystemCompressor();
+		SUB_GEAR_FLAPS = new SubsystemGearFlaps();
+		SUB_FUEL_FLAPS = new SubsystemFuelFlaps();
+		SUB_ASCEND = new SubsystemAscend();
+		SUB_SHOOTER = new SubsystemShooter();
+		SUB_BLINGY = new SubsystemBling();
+		
+		//Operator Interface
 		new OI();
 		
 		//Autonomous Chooser init

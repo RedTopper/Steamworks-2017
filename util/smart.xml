@@ -1,5 +1,15 @@
 <xml version="1.0">
 <dashboard>
+	<widget field="PID Enabled" type="Boolean" class="edu.wpi.first.smartdashboard.gui.elements.BooleanBox">
+		<location x="288" y="80"/>
+		<width>192</width>
+		<height>64</height>
+	</widget>
+	<widget field="Safety Enabled" type="Boolean" class="edu.wpi.first.smartdashboard.gui.elements.BooleanBox">
+		<location x="288" y="16"/>
+		<width>208</width>
+		<height>64</height>
+	</widget>
 	<widget field="Funnel is Closed" type="Boolean" class="edu.wpi.first.smartdashboard.gui.elements.BooleanBox">
 		<location x="16" y="16"/>
 		<width>237</width>
@@ -40,7 +50,7 @@
 		<property name="Camera Choice" value=""/>
 	</static-widget>
 	<widget field="Auto Mode" type="String Chooser" class="edu.wpi.first.smartdashboard.gui.elements.Chooser">
-		<location x="271" y="0"/>
+		<location x="315" y="160"/>
 	</widget>
 	<widget field="ErrorForward" type="Command" class="edu.wpi.first.smartdashboard.gui.elements.Command">
 		<location x="338" y="704"/>
@@ -76,82 +86,5 @@
 	</widget>
 </dashboard>
 <live-window>
-	<widget field="Ungrouped" type="LW Subsystem" class="edu.wpi.first.smartdashboard.livewindow.elements.LWSubsystem">
-		<widget field="Solenoid[0,4]" type="Solenoid" class="edu.wpi.first.smartdashboard.livewindow.elements.DigitalOutputController">
-			<location x="90" y="16"/>
-			<height>23</height>
-			<width>123</width>
-		</widget>
-		<widget field="CANTalon[2]" type="CANSpeedController" class="edu.wpi.first.smartdashboard.livewindow.elements.CANSpeedController">
-			<location x="6" y="39"/>
-			<height>141</height>
-			<width>293</width>
-		</widget>
-		<widget field="CANTalon[4]" type="CANSpeedController" class="edu.wpi.first.smartdashboard.livewindow.elements.CANSpeedController">
-			<location x="6" y="180"/>
-			<height>141</height>
-			<width>293</width>
-		</widget>
-		<widget field="CANTalon[5]" type="CANSpeedController" class="edu.wpi.first.smartdashboard.livewindow.elements.CANSpeedController">
-			<location x="6" y="321"/>
-			<height>141</height>
-			<width>293</width>
-		</widget>
-		<widget field="CANTalon[1]" type="CANSpeedController" class="edu.wpi.first.smartdashboard.livewindow.elements.CANSpeedController">
-			<location x="6" y="462"/>
-			<height>141</height>
-			<width>293</width>
-		</widget>
-		<widget field="CANTalon[7]" type="CANSpeedController" class="edu.wpi.first.smartdashboard.livewindow.elements.CANSpeedController">
-			<location x="6" y="603"/>
-			<height>141</height>
-			<width>293</width>
-		</widget>
-		<widget field="Solenoid[0,6]" type="Solenoid" class="edu.wpi.first.smartdashboard.livewindow.elements.DigitalOutputController">
-			<location x="90" y="744"/>
-			<height>23</height>
-			<width>123</width>
-		</widget>
-		<widget field="CANTalon[0]" type="CANSpeedController" class="edu.wpi.first.smartdashboard.livewindow.elements.CANSpeedController">
-			<location x="6" y="767"/>
-			<height>141</height>
-			<width>293</width>
-		</widget>
-		<widget field="Servo[0]" type="Servo" class="edu.wpi.first.smartdashboard.livewindow.elements.ServoController">
-			<location x="6" y="908"/>
-			<height>46</height>
-			<width>293</width>
-		</widget>
-		<widget field="Solenoid[0,0]" type="Solenoid" class="edu.wpi.first.smartdashboard.livewindow.elements.DigitalOutputController">
-			<location x="90" y="954"/>
-			<height>23</height>
-			<width>123</width>
-		</widget>
-		<widget field="Solenoid[0,7]" type="Solenoid" class="edu.wpi.first.smartdashboard.livewindow.elements.DigitalOutputController">
-			<location x="90" y="977"/>
-			<height>23</height>
-			<width>123</width>
-		</widget>
-		<widget field="CANTalon[3]" type="CANSpeedController" class="edu.wpi.first.smartdashboard.livewindow.elements.CANSpeedController">
-			<location x="6" y="1000"/>
-			<height>141</height>
-			<width>293</width>
-		</widget>
-		<widget field="Solenoid[0,1]" type="Solenoid" class="edu.wpi.first.smartdashboard.livewindow.elements.DigitalOutputController">
-			<location x="90" y="1141"/>
-			<height>23</height>
-			<width>123</width>
-		</widget>
-		<widget field="CANTalon[6]" type="CANSpeedController" class="edu.wpi.first.smartdashboard.livewindow.elements.CANSpeedController">
-			<location x="6" y="1164"/>
-			<height>141</height>
-			<width>293</width>
-		</widget>
-		<location x="0" y="0"/>
-		<width>305</width>
-		<height>1312</height>
-	</widget>
 </live-window>
-	<hidden field="Funnel is Open"/>
-	<hidden field="Auto mode"/>
 </xml>

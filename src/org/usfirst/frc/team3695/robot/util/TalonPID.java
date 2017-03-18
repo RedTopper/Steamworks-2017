@@ -64,6 +64,7 @@ public class TalonPID {
 			newer[D] = 0.0;
 			newer[CRUISE] = 0.0;
 			newer[ACCELERATION] = 0.0;
+			break;
 		}
 		send();
 	}
