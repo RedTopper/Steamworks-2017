@@ -28,7 +28,7 @@ public class CommandGroupAuto extends CommandGroup {
 			break;
 		case GEAR_LEFT: 
 		case GEAR_RIGHT:
-			addSequential(new CommandDistance(12.0 * 6.0));
+			addSequential(new CommandDistance(12.0 * 6.0 + 6.0));
 			addSequential(new CommandRotate(auto));
 			addSequential(new CommandDriveUntilError(Direction.FORWARD));
 			addSequential(new CommandGearFlap(Flap.OPEN));
