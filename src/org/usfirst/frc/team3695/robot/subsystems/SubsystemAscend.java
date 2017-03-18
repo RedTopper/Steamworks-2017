@@ -18,6 +18,10 @@ public class SubsystemAscend extends Subsystem {
 	
 	public SubsystemAscend(){
 		climberMotor = new CANTalon(Constants.CLIMBER_MOTOR);
+		climberMotor.configPeakOutputVoltage(12f, -12f);
+		climberMotor.configNominalOutputVoltage(0f, -0f);
+		climberMotor.EnableCurrentLimit(true);
+		climberMotor.setCurrentLimit(50);
 	}
 	
     public void initDefaultCommand() {
