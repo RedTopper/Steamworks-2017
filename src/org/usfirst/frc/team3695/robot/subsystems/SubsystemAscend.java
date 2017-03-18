@@ -1,7 +1,6 @@
 package org.usfirst.frc.team3695.robot.subsystems;
 
 import org.usfirst.frc.team3695.robot.Constants;
-import org.usfirst.frc.team3695.robot.Robot;
 import org.usfirst.frc.team3695.robot.commands.ManualCommandAscend;
 import org.usfirst.frc.team3695.robot.util.Xbox;
 
@@ -26,7 +25,6 @@ public class SubsystemAscend extends Subsystem {
 	
 	public void climb(Joystick joy){
 		climberMotor.set((Constants.ASCENDER_MOTOR_INVERT ? -1.0 : 1.0 ) * (Xbox.LT(joy) - Xbox.RT(joy)) * Constants.ASCENDER_LIMIT);		
-		Robot.SUB_DRIVE.enableVbus(Xbox.RT(joy) > 0.25 || Xbox.LT(joy) > 0.25);
 	}
 }
 

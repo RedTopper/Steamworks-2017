@@ -1,6 +1,7 @@
 package org.usfirst.frc.team3695.robot;
 
 import org.usfirst.frc.team3695.robot.commands.ButtonCommandBallHopper;
+import org.usfirst.frc.team3695.robot.commands.ButtonCommandBoost;
 import org.usfirst.frc.team3695.robot.commands.ButtonCommandCamera;
 import org.usfirst.frc.team3695.robot.commands.ButtonCommandFlaps;
 import org.usfirst.frc.team3695.robot.commands.ButtonCommandKillCompressor;
@@ -44,7 +45,12 @@ public class OI {
 		}
 		
 		/**
-		 * 
+		 * Sonic
+		 */
+		Button fast = new JoystickButton(DRIVER, Xbox.A);
+		fast.whileHeld(new ButtonCommandBoost());
+		
+		/**
 		 * Gear Flapping
 		 */
 		Button gear = new JoystickButton(OPERATOR, Xbox.RB);
