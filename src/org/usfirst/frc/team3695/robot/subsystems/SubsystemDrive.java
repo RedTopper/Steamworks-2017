@@ -93,11 +93,8 @@ public class SubsystemDrive extends Subsystem {
     	left2 = new CANTalon(Constants.OTHER_LEFT_MOTOR);
     	right2 = new CANTalon(Constants.OTHER_RIGHT_MOTOR);
     	
-    	//VOLTAGE
-    	voltage(left1);   	
-    	voltage(left2);   	
-    	voltage(right1);   	
-    	voltage(right2);   	
+    	//CHANGE VOLTAGE/AMPErAGE
+    	enableSafety(true);
 
     	//Train the Masters
     	left1.setFeedbackDevice(CANTalon.FeedbackDevice.CtreMagEncoder_Relative);
@@ -116,13 +113,37 @@ public class SubsystemDrive extends Subsystem {
     	pid = new TalonPID(new CANTalon[]{left1, right1}, "MOTORS");
     }
     
-    private void voltage(CANTalon talon) {
-    	talon.configNominalOutputVoltage(0f, 0f);
-    	talon.configPeakOutputVoltage(12.0f, -12.0f);
-    	talon.EnableCurrentLimit(true);
-    	talon.setCurrentLimit(30);
+    /**
+     * Enables and disables the amperage safety limit of all drive
+     * train talons.
+     * @param doSafety True to enable safety
+     * 
+     * This method should NOT be called in a loop.
+     */
+    public void enableSafety(boolean doSafety){
+   		amp(left1,doSafety);   	
+       	amp(left2,doSafety);   	
+       	amp(right1,doSafety);   	
+       	amp(right2,doSafety);
+       	SmartDashboard.putBoolean("Safety Enabled", doSafety);
     }
 
+    /**
+     * Enables and disables VBus mode.
+     * @param vbusEnable True to disable PID for joysticks only,
+     * false to use PID
+     * 
+     * This method should NOT be called in a loop.
+     */
+	public void enableVbus(boolean vbusEnable) {
+		this.vbusEnable = vbusEnable;
+		SmartDashboard.putBoolean("PID Enabled", vbusEnable);
+	}
+
+	/**
+	 * Drives, but with joysticks.
+	 * @param joy A joystick.
+	 */
 	public void driveJoy(Joystick joy){
 		if(vbusEnable) {
 			pid.update(TalonControlMode.PercentVbus);
@@ -134,11 +155,12 @@ public class SubsystemDrive extends Subsystem {
     	double left = adder + (Xbox.LEFT_X(joy) / 2);
     	double right = adder - (Xbox.LEFT_X(joy) / 2);
     	
-    	double maxRpm = MAX_RPM;
-    	if(vbusEnable) maxRpm = 1.0;
-    	
-    	left1.set(leftify(left * maxRpm));
-    	right1.set(rightify(right * maxRpm));
+    	//Quick Truncate
+    	left = (left > 1.0 ? 1.0 : left);
+    	right = (right > 1.0 ? 1.0 : right);
+    	    	
+    	left1.set(leftify(left * (vbusEnable ? 1.0 : MAX_RPM)));
+    	right1.set(rightify(right *  (vbusEnable ? 1.0 : MAX_RPM)));
     	
     	log();
     }
@@ -152,14 +174,6 @@ public class SubsystemDrive extends Subsystem {
 		log();
 	}
 
-	public void reset() {
-		left1.setPosition(0);
-		right1.setPosition(0);
-		lastPosition = 0;
-		
-		log();
-	}
-	
 	public boolean driveDistance(double leftInches, double rightInches) {
 		double leftGoal = in2rot(leftInches);
 		double rightGoal = in2rot(rightInches);
@@ -179,15 +193,35 @@ public class SubsystemDrive extends Subsystem {
 		return leftInRange && rightInRange;
 
 	}
-	
-	public void driveVoltage(double left, double right){
-		pid.update(TalonControlMode.PercentVbus);
-		left1.set(left);
-		right1.set(right);
+
+	public void reset() {
+		left1.setPosition(0);
+		right1.setPosition(0);
+		lastPosition = 0;
+		
+		log();
 	}
 
 	public double getError() {
 		return  (leftify(left1.getError()) + rightify(right1.getError())) / 2.0;
+	}
+
+	/**
+	 * Updates the voltage of a talon.
+	 * @param talon The talon to update
+	 * @param driveSafely If true, the talon will attempt to limit the
+	 * passed amperage to a reasonable value.
+	 * If it is false....
+	 */
+	private void amp(CANTalon talon, boolean driveSafely) {
+		talon.configNominalOutputVoltage(0f, 0f);
+		talon.configPeakOutputVoltage(12.0f, -12.0f);
+		talon.EnableCurrentLimit(true);
+		if (driveSafely){
+			talon.setCurrentLimit(30);
+		} else {
+			talon.setCurrentLimit(50);
+		}
 	}
 
 	private void log() {
@@ -196,10 +230,6 @@ public class SubsystemDrive extends Subsystem {
     	lastPosition = position;
 		SmartDashboard.putNumber("Speed", rpm2ips(Math.abs((leftify(left1.getSpeed()) + rightify(right1.getSpeed())) / 2.0)));
 		SmartDashboard.putNumber("Distance", rot2in(distance));
-	}
-	
-	public void enableVbus(boolean vbusEnable) {
-		this.vbusEnable = vbusEnable;
 	}
 }
 
