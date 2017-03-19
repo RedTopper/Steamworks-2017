@@ -1,7 +1,6 @@
 package org.usfirst.frc.team3695.robot.commands;
 
 import org.usfirst.frc.team3695.robot.Robot;
-import org.usfirst.frc.team3695.robot.util.Util;
 
 import edu.wpi.first.wpilibj.command.Command;
 
@@ -21,7 +20,7 @@ public class CommandBling extends Command {
 
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
-    	Robot.SUB_BLINGY.RGB((int)Util.getAndSetDouble("RED", 0.0), (int)Util.getAndSetDouble("GREEN", 0.0), (int)Util.getAndSetDouble("BLUE", 0.0));
+    	//Robot.SUB_BLINGY.RGB((int)Util.getAndSetDouble("RED", 0.0), (int)Util.getAndSetDouble("GREEN", 0.0), (int)Util.getAndSetDouble("BLUE", 0.0));
     }
 
     // Make this return true when this Command no longer needs to run execute()

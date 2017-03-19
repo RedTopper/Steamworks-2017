@@ -3,6 +3,9 @@ package org.usfirst.frc.team3695.robot.util;
 import edu.wpi.first.wpilibj.Joystick;
 
 public class Xbox {
+	
+	public static final double DEADZONE = 0.25;
+	
 	public static final int
 			A = 1,
 			B = 2,
@@ -15,10 +18,20 @@ public class Xbox {
 			LSTICK = 9,
 			RSTICK = 10;
 
-	public static double LEFT_X(Joystick joy) {return joy.getRawAxis(0);}
-	public static double LEFT_Y(Joystick joy) {return joy.getRawAxis(1);}
-	public static double RIGHT_X(Joystick joy) {return joy.getRawAxis(4);}
-	public static double RIGHT_Y(Joystick joy) {return joy.getRawAxis(5);}
+	private static double deadzone(double rawAxis) {
+		boolean positive = rawAxis > 0.0;
+		rawAxis *= (positive ? 1.0 : -1.0); //flip if needed
+		rawAxis -= DEADZONE; //clip dead zone
+		if(rawAxis < 0.0) rawAxis = 0.0; //trim if less than 0
+		rawAxis /= (1.0 - DEADZONE); //scale back to 1.0
+		rawAxis *= (positive ? 1.0 : -1.0); //flip back
+		return rawAxis;
+	}
+	
+	public static double LEFT_X(Joystick joy) {return deadzone(joy.getRawAxis(0));}
+	public static double LEFT_Y(Joystick joy) {return deadzone(joy.getRawAxis(1));}
+	public static double RIGHT_X(Joystick joy) {return deadzone(joy.getRawAxis(4));}
+	public static double RIGHT_Y(Joystick joy) {return deadzone(joy.getRawAxis(5));}
 	public static double LT(Joystick joy) {return joy.getRawAxis(2);}
 	public static double RT(Joystick joy) {return joy.getRawAxis(3);}
 }

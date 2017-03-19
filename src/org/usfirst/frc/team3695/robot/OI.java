@@ -5,8 +5,13 @@ import org.usfirst.frc.team3695.robot.commands.ButtonCommandCamera;
 import org.usfirst.frc.team3695.robot.commands.ButtonCommandFlaps;
 import org.usfirst.frc.team3695.robot.commands.ButtonCommandKillCompressor;
 import org.usfirst.frc.team3695.robot.commands.ButtonCommandShooter;
+import org.usfirst.frc.team3695.robot.commands.CommandDistance;
+import org.usfirst.frc.team3695.robot.commands.CommandDriveUntilError;
 import org.usfirst.frc.team3695.robot.commands.CommandRotate;
+import org.usfirst.frc.team3695.robot.enumeration.Autonomous;
+import org.usfirst.frc.team3695.robot.enumeration.Camera;
 import org.usfirst.frc.team3695.robot.enumeration.Direction;
+import org.usfirst.frc.team3695.robot.enumeration.Feeder;
 import org.usfirst.frc.team3695.robot.util.Xbox;
 
 import edu.wpi.first.wpilibj.Joystick;
@@ -33,8 +38,10 @@ public class OI {
 		/**
 		 * Switching the camera
 		 */
-		Button cam = new JoystickButton(DRIVER, Xbox.Y);
-		cam.toggleWhenActive(new ButtonCommandCamera());
+		for(Camera cam : Camera.values()) {
+			Button button = new JoystickButton(DRIVER, cam.button);
+			button.toggleWhenActive(new ButtonCommandCamera(cam));
+		}
 		
 		/**
 		 * 
@@ -46,21 +53,21 @@ public class OI {
 		/**
 		 * Ball shooting
 		 */
-		Button shoot = new JoystickButton(OPERATOR, Xbox.A);
-		Button unshoot = new JoystickButton(OPERATOR, Xbox.B);
-		shoot.whileHeld(new ButtonCommandShooter(Direction.FORWARD));
-		unshoot.whileHeld(new ButtonCommandShooter(Direction.BACKWARD));
+		Button leftShoot = new JoystickButton(OPERATOR, Xbox.LSTICK);
+		leftShoot.whileHeld(new ButtonCommandShooter(Direction.FORWARD, Feeder.LEFT));
+		Button rightShoot = new JoystickButton(OPERATOR, Xbox.RSTICK);
+		rightShoot.whileHeld(new ButtonCommandShooter(Direction.FORWARD, Feeder.RIGHT));
+		Button kill = new JoystickButton(OPERATOR, Xbox.B);
+		kill.whileHeld(new ButtonCommandShooter(Direction.BACKWARD, Feeder.NOT));
 		
-		/**
-		 * Open/Closed Funnel
-		 */
-		SmartDashboard.putBoolean("Funnel is Open", Robot.SUB_GEAR_FLAPS.getOpen());
-				
+		
 		/**
 		 * To Compress, or Not To Compress. It is now an option.
 		 */
 		SmartDashboard.putData("Disable Compressor", new ButtonCommandKillCompressor());
 		
-		SmartDashboard.putData("AutoCamera", new CommandRotate());
+		SmartDashboard.putData("AutoCamera", new CommandRotate(Autonomous.GEAR_RIGHT));
+		SmartDashboard.putData("ErrorForward", new CommandDriveUntilError(Direction.FORWARD));
+		SmartDashboard.putData("DriveDistance", new CommandDistance(12.0 * 6.0));
 	}
 }

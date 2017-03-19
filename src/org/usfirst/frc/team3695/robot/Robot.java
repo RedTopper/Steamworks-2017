@@ -1,5 +1,6 @@
 package org.usfirst.frc.team3695.robot;
 
+import org.usfirst.frc.team3695.robot.auto.CommandGroupAuto;
 import org.usfirst.frc.team3695.robot.enumeration.Autonomous;
 import org.usfirst.frc.team3695.robot.enumeration.Camera;
 import org.usfirst.frc.team3695.robot.enumeration.Video;
@@ -42,27 +43,26 @@ public class Robot extends IterativeRobot {
 	public static final Grip GRIP = new Grip();
 	public static final Vision VISION = new Vision();
 	
-	//Variables
-	private Camera lastCam = Camera.FRONT;
-	private Video lastVideo = Video.RAW;
+	//Auto
+	private CommandGroupAuto auto;
 
 	/**
 	 * This function is run when the robot is first started up and should be
 	 * used for any initialization code.
 	 */
-	@Override
 	public void robotInit() {
 		new OI();
 		
 		//Autonomous Chooser init
-		SmartDashboard.putData("Auto mode", autoChooser);
-		autoChooser.addDefault("Center", Autonomous.CENTER);
-		autoChooser.addObject("Left", Autonomous.LEFT);
-		autoChooser.addObject("Right", Autonomous.RIGHT);
+		autoChooser.addDefault(Autonomous.NOTHING.toString(), Autonomous.NOTHING);
+		for(int i = 1; i < Autonomous.values().length; i++) {
+			autoChooser.addObject(Autonomous.values()[i].toString(), Autonomous.values()[i]);
+		}
+		SmartDashboard.putData("Auto Mode", autoChooser);
 		
 		//Camera Chooser init
-		chooserCamera.addDefault(Camera.FRONT.usb.getName(), Camera.FRONT);
-		chooserCamera.addObject(Camera.REAR.usb.getName(), Camera.REAR);
+		chooserCamera.addDefault(Camera.FRONT.getUSB().getName(), Camera.FRONT);
+		chooserCamera.addObject(Camera.REAR.getUSB().getName(), Camera.REAR);
 		SmartDashboard.putData("Camera", chooserCamera);
 		
 		//Video mode chooser (ex to view GRIP)
@@ -87,10 +87,8 @@ public class Robot extends IterativeRobot {
 		Scheduler.getInstance().run();
 		Camera cam = chooserCamera.getSelected();
 		Video video = chooserVideo.getSelected();
-		if (cam != null && (cam != lastCam || video != lastVideo)) {
+		if (cam != null && video != null) {
 			VISION.setCamera(cam, video);
-			lastCam = cam;
-			lastVideo = video;
 		}
 	}
 
@@ -98,7 +96,10 @@ public class Robot extends IterativeRobot {
 	 * Initializes autonomous control with a selection on the driver dash
 	 */
 	public void autonomousInit() {
-
+		if(autoChooser.getSelected() != null) {
+			auto = new CommandGroupAuto(autoChooser.getSelected());
+			auto.start();
+		}
 	}
 
 	/**
@@ -112,8 +113,8 @@ public class Robot extends IterativeRobot {
 	 * This function is called once to initialize operator control
 	 */
 	public void teleopInit() {
-		//if (autonomousCommand != null)
-		//	autonomousCommand.cancel();
+		if (auto != null)
+			auto.cancel();
 	}
 
 	/**

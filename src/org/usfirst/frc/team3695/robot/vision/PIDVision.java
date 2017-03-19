@@ -1,6 +1,7 @@
 package org.usfirst.frc.team3695.robot.vision;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import org.opencv.core.MatOfPoint;
 import org.opencv.core.Rect;
@@ -13,7 +14,7 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 public class PIDVision implements PIDSource {
 	
-	boolean canSee = false;
+	public static final int MIN_SIZE = 25;
 	
 	public void setPIDSourceType(PIDSourceType pidSource) {}
 	public PIDSourceType getPIDSourceType() {
@@ -26,31 +27,45 @@ public class PIDVision implements PIDSource {
 	 * is not found, the method returns Vision.CAM_WIDTH.
 	 */
 	public double pidGet() {
-		Rect rect0;
-		Rect rect1;
-		ArrayList<MatOfPoint> data;
+		int center = 0;
 		synchronized (Robot.GRIP) {
-			data = Robot.GRIP.convexHullsOutput();
-			if(data.size() < 2) {
-				canSee = false;
-				return 0;
+			List<Rect> data = getRekt();
+			if(data.size() == 0) return 0;
+			if(data.size() == 1) {
+				Rect rect = data.get(0);
+				center = rect.x + (rect.width / 2);
 			}
-			canSee = true;
-			rect0 = Imgproc.boundingRect(data.get(0));
-			rect1 = Imgproc.boundingRect(data.get(1));
+			if(data.size() > 1) {
+				Rect rect0 = data.get(0);
+				Rect rect1 = data.get(1);
+				int x0 = rect0.x + (rect0.width / 2);
+				int x1 = rect1.x + (rect1.width / 2);
+				center = (x0 + x1) / 2;
+			}
+
+			SmartDashboard.putNumber("Object Count", data.size());
+			SmartDashboard.putNumber("Object Position", center);
 		}
-		int x0 = rect0.x + (rect0.width / 2);
-		int x1 = rect1.x + (rect1.width / 2);
-		int center = (x0 + x1) / 2;
-		SmartDashboard.putNumber("PIDCount", data.size());
-		SmartDashboard.putNumber("PIDVision Position", center);
 		return center;
 	}
 	
 	public boolean canSee() {
-		return canSee;
+		synchronized (Robot.GRIP) {
+			return getRekt().size() > 0;
+		}
 	}
 	
-	
-
+	public List<Rect> getRekt() {
+		synchronized (Robot.GRIP) {
+			List<Rect> screened = new ArrayList<>();
+			List<MatOfPoint> found = Robot.GRIP.convexHullsOutput();
+			for(MatOfPoint point : found) {
+				Rect rect = Imgproc.boundingRect(point);
+				if(rect.area() > MIN_SIZE) {
+					screened.add(rect);
+				}
+			}
+			return screened;
+		}
+	}
 }

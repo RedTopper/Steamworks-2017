@@ -2,6 +2,7 @@ package org.usfirst.frc.team3695.robot.commands;
 
 import org.usfirst.frc.team3695.robot.Robot;
 import org.usfirst.frc.team3695.robot.enumeration.Direction;
+import org.usfirst.frc.team3695.robot.enumeration.Feeder;
 
 import edu.wpi.first.wpilibj.command.Command;
 
@@ -10,20 +11,21 @@ import edu.wpi.first.wpilibj.command.Command;
  */
 public class ButtonCommandShooter extends Command {
 
-	Direction direction;
+	private final Direction direction;
+	private final Feeder feed;
 	
-    public ButtonCommandShooter(Direction direction) {
+    public ButtonCommandShooter(Direction direction, Feeder feed) {
         requires(Robot.SUB_SHOOTER);
         this.direction = direction;
+        this.feed = feed;
     }
 
     protected void initialize() {
     	Robot.SUB_SHOOTER.spin(direction);
+    	Robot.SUB_SHOOTER.feed(feed);
     }
 
-    protected void execute() {
-    	Robot.SUB_SHOOTER.updateServo(direction);
-    }
+    protected void execute() {}
 
     protected boolean isFinished() {
         return false;
@@ -31,6 +33,7 @@ public class ButtonCommandShooter extends Command {
 
     protected void end() {
     	Robot.SUB_SHOOTER.spin(Direction.NONE);
+    	Robot.SUB_SHOOTER.feed(Feeder.NOT);
     }
 
     protected void interrupted() {

@@ -6,7 +6,7 @@ import org.usfirst.frc.team3695.robot.Robot;
 import edu.wpi.first.wpilibj.command.Command;
 
 /**
- *
+ * Manually command the robot with joysticks
  */
 public class ManualCommandDrive extends Command {
 	
@@ -17,7 +17,7 @@ public class ManualCommandDrive extends Command {
     protected void initialize() {}
 
     protected void execute() {
-    	Robot.SUB_DRIVE.dualStickDrive(OI.DRIVER);
+    	Robot.SUB_DRIVE.driveJoy(OI.DRIVER);
     }
 
     protected boolean isFinished() {

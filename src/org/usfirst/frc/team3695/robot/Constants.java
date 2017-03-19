@@ -12,9 +12,10 @@ public class Constants {
 		OTHER_RIGHT_MOTOR = 1,
 		CLIMBER_MOTOR = 4,
 		SHOOTER_MOTOR = 5,
-		WINDOW_MOTOR1 = 6,
-		WINDOW_MOTOR2 = 7,
-		SERVO_PORT = 0;
+		FEEDER_CONVEYOR_LEFT = 9,
+		FEEDER_CONVEYOR_RIGHT = 8,
+		FEEDER_ROTOR_LEFT = 6,
+		FEEDER_ROTOR_RIGHT = 7;
 	/** COMP. BOT
 	public static final int 
 			LEFT_MOTOR = 2,
@@ -32,23 +33,14 @@ public class Constants {
 	 * Motor Inverts
 	 */
 	public static final boolean 
-			LEFT_MOTOR_INVERT = false,
-			RIGHT_MOTOR_INVERT = true,
+			LEFT_MOTOR_INVERT = true,
+			RIGHT_MOTOR_INVERT = false,
 			SHOOTER_MOTOR_INVERT = false,
 			ASCENDER_MOTOR_INVERT = true,
-			WINDOW1_INVERT = false,
-			WINDOW2_INVERT = true,
-			COLTON_RIGHT_MOTOR_IS_BACKWARD = true;
-	/** COMP BOT
-	public static final boolean 
-			LEFT_MOTOR_INVERT = false,
-			RIGHT_MOTOR_INVERT = true,
-			SHOOTER_MOTOR_INVERT = false,
-			ASCENDER_MOTOR_INVERT = true,
-			WINDOW1_INVERT = false,
-			WINDOW2_INVERT = true;
-	 */
-	
+			FEEDER_CONVEYOR_LEFT_INVERT = false,
+			FEEDER_CONVEYOR_RIGHT_INVERT = false,
+			FEEDER_ROTOR_LEFT_INVERT = true,
+			FEEDER_ROTOR_RIGHT_INVERT = false;	
 	/**
 	 * PCM Ports
 	 */
@@ -70,7 +62,7 @@ public class Constants {
 	 * Limit the Ascender speed so it does not destroy the gear-box. :)
 	 */
 	public static final double 
-			ASCENDER_LIMIT = 0.8;
+			ASCENDER_LIMIT = 1.0;
 	
 	/**
 	 * Limit Agitators (Not Really)
@@ -78,7 +70,17 @@ public class Constants {
 	public static final double 
 			AGITATOR_LIMIT = 1.0;
 	
+	/**
+	 * RGB LEDS
+	 */
 	public static final int RED_PWM = 1,
 							GREEN_PWM = 2,
 							BLUE_PWM = 3;
+	
+	/**
+	 * Feeder Limits (The Conveyor System iis Ghetto-Rigged using 2 different motors, one of which is supposedly faster. Will Need To Test)
+	 */
+	public static final double FEEDER_CONVEYOR_LEFT_LIMIT = 1.0,
+			FEEDER_CONVEYOR_RIGHT_LIMIT = 1.0,
+			FEEDER_ROTOR_LIMIT = 1.0;
 }

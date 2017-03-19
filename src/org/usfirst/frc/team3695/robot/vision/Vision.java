@@ -1,5 +1,8 @@
 package org.usfirst.frc.team3695.robot.vision;
 
+import java.util.List;
+import java.util.concurrent.CopyOnWriteArrayList;
+
 import org.opencv.core.Core;
 import org.opencv.core.CvType;
 import org.opencv.core.Mat;
@@ -9,12 +12,14 @@ import org.opencv.imgproc.Imgproc;
 import org.usfirst.frc.team3695.robot.Robot;
 import org.usfirst.frc.team3695.robot.enumeration.Camera;
 import org.usfirst.frc.team3695.robot.enumeration.Video;
+import org.usfirst.frc.team3695.robot.util.Cross;
 import org.usfirst.frc.team3695.robot.util.Logger;
 
 import edu.wpi.cscore.CvSource;
 import edu.wpi.first.wpilibj.CameraServer;
 
 public class Vision extends Thread {
+	
 	/**
 	 * Camera constant setup setting 
 	 */
@@ -22,14 +27,14 @@ public class Vision extends Thread {
 			BOT_EXPOSURE = 0,
 			BOT_WHITE = 50,
 			BOT_BRIGHT = 50,
-			MAN_EXPOSURE = 35,
+			MAN_EXPOSURE = 40,
 			MAN_BRIGHT = 50,
-			MAN_WHITE = 50,
-			CAM_FPS = 30,
-			CAM_WIDTH = 320,
-			CAM_HEIGHT = 240;
+			MAN_WHITE = 50;
 	
-	public static final long CAM_SWITCH_TIME = 2500;
+	/**
+	 * The time it takes, in MS, to switch the camera.
+	 */
+	public static final long SWITCH_TIME = 200;
 	
 	/**
 	 * Color constant in OpenCV form
@@ -50,6 +55,11 @@ public class Vision extends Thread {
 	private static final String SERVER_NAME = "Stream"; 
 	
 	/**
+	 * Internal list of crosses to be displayed on the video feed with a label.
+	 */
+	private List<Cross> targets = new CopyOnWriteArrayList<>();
+	
+	/**
 	 * Current camera that is showing video
 	 */
 	private Camera camera = null;
@@ -64,8 +74,12 @@ public class Vision extends Thread {
 	/**
 	 * Utility matrix for showing when there is no feed on a camera
 	 */
-	private final Mat warn = new Mat(CAM_HEIGHT, CAM_WIDTH, CvType.CV_8UC3);
+	private final Mat warn = new Mat(Camera.HEIGHT, Camera.WIDTH, CvType.CV_8UC3);
 	
+	/**
+	 * The time the camera started switching to another camera. Used to display the
+	 * "Camera switching" screen.
+	 */
 	private long timeSwitchStarted = 0l;
 	
 	/**
@@ -75,48 +89,6 @@ public class Vision extends Thread {
 		setDaemon(true);
 	}
 	
-	/**
-	 * Sets a no feed message.
-	 * @param output 
-	 * @param name The name of the device that has no feed.
-	 * @param debug A message to show to the user for debug info.
-	 */
-	private void warn(CvSource output, String name, String debug) {
-		warn.setTo(BLACK);
-		Imgproc.putText(warn, name, new Point(0,22), Core.FONT_HERSHEY_PLAIN, 1.0, WHITE);
-		Imgproc.putText(warn, debug, new Point(0, 40), Core.FONT_HERSHEY_PLAIN, 1.0, RED);
-		output.putFrame(warn);
-	}
-	
-	/**
-	 * Initialize a camera
-	 */
-	private void initBot(Camera cam) {
-		cam.usb.setExposureManual(BOT_EXPOSURE);
-		cam.usb.setWhiteBalanceManual(BOT_WHITE);
-		cam.usb.setBrightness(BOT_BRIGHT);
-		cam.usb.setResolution(CAM_WIDTH, CAM_HEIGHT);
-		cam.usb.setFPS(CAM_FPS);
-	}
-	
-	private void initHuman(Camera cam) {
-		cam.usb.setExposureManual(MAN_EXPOSURE);
-		cam.usb.setWhiteBalanceManual(MAN_WHITE);
-		cam.usb.setBrightness(MAN_BRIGHT);
-		cam.usb.setResolution(CAM_WIDTH, CAM_HEIGHT);
-		cam.usb.setFPS(CAM_FPS);
-	}
-	
-	/**
-	 * Switches the camera thread to process the sent camera.
-	 * @param cam the camera to switch the processing to.
-	 */
-	public synchronized void setCamera(Camera cam, Video video) {
-		cameraNext = cam;
-		videoNext = video;
-	}
-	
-
 	public void run() {
 		Logger.out("Starting camera thread...");
 		Mat source = new Mat();
@@ -126,48 +98,55 @@ public class Vision extends Thread {
 		setCamera(Camera.FRONT, Video.RAW);
 		
 		Logger.out("Starting server...");
-		CvSource output = CameraServer.getInstance().putVideo(SERVER_NAME, CAM_WIDTH, CAM_HEIGHT);
+		CvSource output = CameraServer.getInstance().putVideo(SERVER_NAME, Camera.WIDTH, Camera.HEIGHT);
 		
 		Logger.out("Startup complete!");
 		
 		while(!interrupted()) {
 			if(cameraNext != camera || videoNext != video) {
-				if(camera != null) camera.sink.setEnabled(false);
-				if(cameraNext != camera) timeSwitchStarted = System.currentTimeMillis();
+				
+				//switch the camera
+				if(cameraNext != camera) {
+					warn(output, "Switching camera.", "Please wait!");
+					if(camera != null) camera.getSink().setEnabled(false);
+					warn(output, "Switching camera..", "Please wait!");
+					cameraNext.getSink().setEnabled(true);
+					warn(output, "Switching camera...", "Please wait!");
+					timeSwitchStarted = System.currentTimeMillis();
+				}
 				
 				//Start the camera
 				if(videoNext == Video.RAW) initHuman(cameraNext); else initBot(cameraNext);
 				
 				video = videoNext;
 				camera = cameraNext;
-				camera.sink.setEnabled(true);
 			}
 			
 			//Show the switching image if the camera is switching
-			if(System.currentTimeMillis() < timeSwitchStarted + CAM_SWITCH_TIME) {
-				warn(output, "Switching camera...", "Please wait!" + camera.sink.getError());
+			if(System.currentTimeMillis() < timeSwitchStarted + SWITCH_TIME) {
+				warn(output, "Switching camera....", "Please wait!");
 				continue;
 			}
 			
 			//Check if the camera is actually connected
-			if(!camera.usb.isConnected() || !camera.sink.isValid()) {
-				warn(output, camera.usb.getName() + " is disconnected!", "Check the connection to the camera!");
+			if(!camera.getUSB().isConnected() || !camera.getSink().isValid()) {
+				warn(output, camera.getUSB().getName() + " is disconnected!", "Check the connection to the camera!");
 				continue;
 			}
 			
 			//Grab the frame
-			long time = camera.sink.grabFrame(source);
+			long time = camera.getSink().grabFrame(source);
 			
 			//If there is an error, show it
 			if(time == 0l) {
-				warn(output, camera.usb.getName() + ": ERROR ", "Code: " + camera.sink.getError());
+				warn(output, camera.getUSB().getName() + ": ERROR ", "Code: " + camera.getSink().getError());
 				continue;
 			}
 			
-			Imgproc.putText(source, camera.usb.getName(), new Point(0,22), Core.FONT_HERSHEY_PLAIN, 1.0, WHITE);
-			
 			//Display raw feed if chosen.
 			if(video == Video.RAW || video == Video.LOW_EXPOSURE)  {
+				drawCross(source);
+				Imgproc.putText(source, camera.getUSB().getName(), new Point(0,Camera.HEIGHT - 2), Core.FONT_HERSHEY_PLAIN, 1.0, WHITE);
 				output.putFrame(source);
 				continue;
 			}
@@ -180,13 +159,82 @@ public class Vision extends Thread {
 				switch(video) {
 				case THRESHHOLD:
 					result = Robot.GRIP.hslThresholdOutput();
-					Imgproc.drawMarker(result, new Point(100,10), new Scalar(50,100,150));
+					drawCross(result);
 					break;
 				default:
 					warn(output, video.name(), "This method is not defined.");
 					continue;
 				}
 				output.putFrame(result);
+			}
+		}
+	}
+
+	/**
+	 * Switches the camera thread to process the sent camera.
+	 * This method is thread-safe.
+	 * @param cam the camera to switch the processing to.
+	 */
+	public synchronized void setCamera(Camera cam, Video video) {
+		cameraNext = cam;
+		videoNext = video;
+	}
+
+	/**
+	 * Method used to put crosses on the robot feed.
+	 * Do not continuously use the "new" keyword for this method!
+	 * Instead, initialize a cross, then add that pointer. Simply modify
+	 * that cross to update it on the screen.
+	 * This method is thread-safe.
+	 * @param cross A pointer to a cross (don't use new here!)
+	 */
+	public synchronized void putCrosshair(Cross cross) {
+		targets.add(cross);
+	}
+
+	/**
+	 * Sets a no feed message.
+	 * @param output 
+	 * @param name The name of the device that has no feed.
+	 * @param debug A message to show to the user for debug info.
+	 */
+	private void warn(CvSource output, String name, String debug) {
+		try {Thread.sleep((long) (1000.0/30.0));} catch(InterruptedException e) {};
+		warn.setTo(BLACK);
+		Imgproc.putText(warn, name, new Point(0,22), Core.FONT_HERSHEY_PLAIN, 1.0, WHITE);
+		Imgproc.putText(warn, debug, new Point(0, 40), Core.FONT_HERSHEY_PLAIN, 1.0, RED);
+		output.putFrame(warn);
+	}
+	
+	/**
+	 * Initialize a camera
+	 */
+	private void initBot(Camera cam) {
+		cam.getUSB().setExposureManual(BOT_EXPOSURE);
+		cam.getUSB().setWhiteBalanceManual(BOT_WHITE);
+		cam.getUSB().setBrightness(BOT_BRIGHT);
+	}
+	
+	/**
+	 * Initialize the camera, but for a human instead of the robot.
+	 * @param cam The camera.
+	 */
+	private void initHuman(Camera cam) {
+		cam.getUSB().setExposureManual(MAN_EXPOSURE);
+		cam.getUSB().setWhiteBalanceManual(MAN_WHITE);
+		cam.getUSB().setBrightness(MAN_BRIGHT);
+	}
+	
+	/**
+	 * Draws all of the crosses in the cross array list to the screen.
+	 * @param source The screen matrix to draw to.
+	 */
+	private void drawCross(Mat source) {
+		for(Cross cross : targets) {
+			if(cross.enabled()) {
+				Point point = cross.getPoint();
+				Imgproc.drawMarker(source, point , new Scalar(50,100,150));
+				Imgproc.putText(source, cross.name, point, Core.FONT_HERSHEY_PLAIN, 0.5, WHITE);
 			}
 		}
 	}
