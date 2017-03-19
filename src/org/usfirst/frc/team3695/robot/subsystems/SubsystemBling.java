@@ -34,5 +34,17 @@ public class SubsystemBling extends Subsystem {
     	blueChannel.setRaw(b);
     	greenChannel.setRaw(g);
     }
+    
+    public void red(){
+    	redChannel.setRaw(255);
+    	blueChannel.setRaw(0);
+    	greenChannel.setRaw(0);
+    }
+    
+    public void blue(){
+    	redChannel.setRaw(0);
+    	blueChannel.setRaw(255);
+    	greenChannel.setRaw(0);
+    }
 }
 
