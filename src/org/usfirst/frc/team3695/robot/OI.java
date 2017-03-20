@@ -5,9 +5,12 @@ import org.usfirst.frc.team3695.robot.commands.ButtonCommandCamera;
 import org.usfirst.frc.team3695.robot.commands.ButtonCommandFlaps;
 import org.usfirst.frc.team3695.robot.commands.ButtonCommandKillCompressor;
 import org.usfirst.frc.team3695.robot.commands.ButtonCommandShooter;
+import org.usfirst.frc.team3695.robot.commands.CommandColor;
 import org.usfirst.frc.team3695.robot.commands.CommandDistance;
 import org.usfirst.frc.team3695.robot.commands.CommandDriveUntilError;
+import org.usfirst.frc.team3695.robot.commands.CommandIntimidate;
 import org.usfirst.frc.team3695.robot.commands.CommandRotate;
+import org.usfirst.frc.team3695.robot.commands.ManualCommandIntimidate;
 import org.usfirst.frc.team3695.robot.enumeration.Autonomous;
 import org.usfirst.frc.team3695.robot.enumeration.Camera;
 import org.usfirst.frc.team3695.robot.enumeration.Direction;
@@ -69,5 +72,13 @@ public class OI {
 		SmartDashboard.putData("AutoCamera", new CommandRotate(Autonomous.GEAR_RIGHT));
 		SmartDashboard.putData("ErrorForward", new CommandDriveUntilError(Direction.FORWARD));
 		SmartDashboard.putData("DriveDistance", new CommandDistance(12.0 * 6.0));
+		
+		/**
+		 * And Dean said, Let there be light: and there was light.
+		 */
+		SmartDashboard.putData("Red", new CommandColor(255, 0 ,0));
+		SmartDashboard.putData("Blue", new CommandColor(0, 0, 255));
+		SmartDashboard.putData("Intimidate (Trigger)", new ManualCommandIntimidate());
+		SmartDashboard.putData("Intimidate (Value)", new CommandIntimidate());
 	}
 }

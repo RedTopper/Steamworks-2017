@@ -52,6 +52,12 @@ public class Constants {
 			CLOSE_BALL_HOPPER = 6;
 	
 	/**
+	 * 
+	 */
+	public static final double
+			INTIMIDATION_SPEED = 0.5;
+	
+	/**
 	 * Limit Shooter to not hit ceiling
 	 */
 	public static final double 

@@ -3,23 +3,23 @@
 
 package org.usfirst.frc.team3695.robot.commands;
 
-import org.usfirst.frc.team3695.robot.util.Xbox;
+import org.usfirst.frc.team3695.robot.util.Util;
 
 import java.awt.Color;
 
-import org.usfirst.frc.team3695.robot.OI;
+import org.usfirst.frc.team3695.robot.Constants;
 import org.usfirst.frc.team3695.robot.Robot;
 
 import edu.wpi.first.wpilibj.command.Command;
 
-public class ManualCommandIntimidate extends Command {
+public class CommandIntimidate extends Command {
 	
 	public final static float SCALAR = (5f/360f);
 	
 	private Color color;
 	private float hue;
 	
-	public ManualCommandIntimidate() {
+	public CommandIntimidate() {
 		requires(Robot.SUB_BLINGY); 
 	}
 
@@ -28,7 +28,7 @@ public class ManualCommandIntimidate extends Command {
 	}
 	
 	protected void execute() {
-		hue += (int) (SCALAR * Xbox.LT(OI.OPERATOR));
+		hue += (int) (SCALAR * Util.getAndSetDouble("Intimidation Speed", Constants.INTIMIDATION_SPEED));
 		color = Color.getHSBColor(hue, 1, 0.5f);
 		Robot.SUB_BLINGY.RGB(color.getRed(), color.getGreen(), color.getBlue());
     }
