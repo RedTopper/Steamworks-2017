@@ -52,7 +52,7 @@ public class CommandRotate extends PIDCommand {
 
     protected void execute() {
 		double blind = SubsystemDrive.ips2rpm(Util.getAndSetDouble("SPEED CAMERA: Blind Inches", 18.0));
-		if(auto == Autonomous.GEAR_LEFT) blind *= -1.0;
+		if(auto == Autonomous.GEAR_LEFT || auto == Autonomous.GEAR_LEFT_RUN) blind *= -1.0;
 		SmartDashboard.putBoolean("Target Found", canSee);
 		
 		//update canSee here too, in case usePIDOutput is ever fixed.

@@ -194,6 +194,10 @@ public class Vision extends Thread {
 
 	/**
 	 * Sets a no feed message.
+	 * WARNING: This method blocks the main thread for about 1 frame (to simulate a 
+	 * camera). 
+	 * While this may not be wanted, it is needed for DriverStation to "think"
+	 * that a camera is still connected.
 	 * @param output 
 	 * @param name The name of the device that has no feed.
 	 * @param debug A message to show to the user for debug info.

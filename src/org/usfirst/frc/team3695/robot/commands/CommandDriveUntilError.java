@@ -10,7 +10,7 @@ import org.usfirst.frc.team3695.robot.util.Util;
 import edu.wpi.first.wpilibj.command.Command;
 
 public class CommandDriveUntilError extends Command {
-	public static final long ERROR_TIME = 1000;
+	public static final long ERROR_TIME = 500;
 	public static final int TARGET_ERROR = 500;
 	
 	private final Direction direction;

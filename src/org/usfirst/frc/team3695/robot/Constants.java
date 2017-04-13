@@ -36,7 +36,7 @@ public class Constants {
 			LEFT_MOTOR_INVERT = true,
 			RIGHT_MOTOR_INVERT = false,
 			SHOOTER_MOTOR_INVERT = false,
-			ASCENDER_MOTOR_INVERT = true,
+			ASCENDER_MOTOR_INVERT = false,
 			FEEDER_CONVEYOR_LEFT_INVERT = false,
 			FEEDER_CONVEYOR_RIGHT_INVERT = false,
 			FEEDER_ROTOR_LEFT_INVERT = true,
@@ -50,6 +50,9 @@ public class Constants {
 			CLOSE_GEAR_FEEDER_FLAPS = 4,
 			OPEN_BALL_HOPPER = 7,
 			CLOSE_BALL_HOPPER = 6;
+	
+	public static final double
+			INTIMIDATION_SPEED = 0.5;
 	
 	/**
 	 * Limit Shooter to not hit ceiling
@@ -73,9 +76,10 @@ public class Constants {
 	/**
 	 * RGB LEDS
 	 */
-	public static final int RED_PWM = 1,
-							GREEN_PWM = 2,
-							BLUE_PWM = 3;
+	public static final int 
+			RED_PWM = 1,
+			GREEN_PWM = 2,
+			BLUE_PWM = 3;
 	
 	/**
 	 * Feeder Limits (The Conveyor System iis Ghetto-Rigged using 2 different motors, one of which is supposedly faster. Will Need To Test)

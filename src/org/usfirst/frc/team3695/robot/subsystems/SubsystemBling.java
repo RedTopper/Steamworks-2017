@@ -1,7 +1,8 @@
 package org.usfirst.frc.team3695.robot.subsystems;
 
 import org.usfirst.frc.team3695.robot.Constants;
-import org.usfirst.frc.team3695.robot.commands.CommandBling;
+import org.usfirst.frc.team3695.robot.commands.CommandIntimidate;
+
 import edu.wpi.first.wpilibj.PWM;
 import edu.wpi.first.wpilibj.command.Subsystem;
 
@@ -20,7 +21,7 @@ public class SubsystemBling extends Subsystem {
 	}
 	
     public void initDefaultCommand() {
-    	setDefaultCommand(new CommandBling());
+    	setDefaultCommand(new CommandIntimidate());
     }
     
     /**
@@ -33,6 +34,14 @@ public class SubsystemBling extends Subsystem {
     	redChannel.setRaw(r);
     	blueChannel.setRaw(b);
     	greenChannel.setRaw(g);
+    }
+    
+    public void red() {
+    	RGB(255, 0, 0);
+    }
+    
+    public void blue() {
+    	RGB(0, 255, 0);
     }
 }
 

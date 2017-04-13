@@ -28,7 +28,7 @@ public class SubsystemAscend extends Subsystem {
     }
 	
 	public void climb(Joystick joy){
-		climberMotor.set((Constants.ASCENDER_MOTOR_INVERT ? -1.0 : 1.0 ) * (Xbox.LT(joy) - Xbox.RT(joy)) * Constants.ASCENDER_LIMIT);		
+		climberMotor.set((Constants.ASCENDER_MOTOR_INVERT ? -1.0 : 1.0 ) * Xbox.RT(joy) * Constants.ASCENDER_LIMIT);		
 	}
 }
 

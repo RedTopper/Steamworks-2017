@@ -6,7 +6,7 @@ import edu.wpi.first.wpilibj.command.Command;
 
 public class CommandRotateDegrees extends Command {	
 	public static final double SCALAR = (22.5 * Math.PI) / 360;
-	public static final long TIME_WAIT = 1000;
+	public static final long TIME_WAIT = 250;
 	
 	private boolean inRange;
 	private long time;

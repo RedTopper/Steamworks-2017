@@ -4,6 +4,7 @@ import org.usfirst.frc.team3695.robot.commands.CommandDistance;
 import org.usfirst.frc.team3695.robot.commands.CommandDriveUntilError;
 import org.usfirst.frc.team3695.robot.commands.CommandGearFlap;
 import org.usfirst.frc.team3695.robot.commands.CommandRotate;
+import org.usfirst.frc.team3695.robot.commands.CommandRotateDegrees;
 import org.usfirst.frc.team3695.robot.commands.CommandWait;
 import org.usfirst.frc.team3695.robot.enumeration.Autonomous;
 import org.usfirst.frc.team3695.robot.enumeration.Direction;
@@ -13,7 +14,7 @@ import edu.wpi.first.wpilibj.command.CommandGroup;
 
 public class CommandGroupAuto extends CommandGroup {
 		
-	public static final long TIME_WAIT_FLAP = 250;
+	public static final long TIME_WAIT_FLAP = 500;
 	
 	public CommandGroupAuto(Autonomous auto) {
 				
@@ -27,13 +28,15 @@ public class CommandGroupAuto extends CommandGroup {
 			addSequential(new CommandDistance(12.0 * 8.0));
 			break;
 		case GEAR_LEFT: 
+		case GEAR_LEFT_RUN:
 		case GEAR_RIGHT:
-			addSequential(new CommandDistance(12.0 * 6.0 + 6.0));
+		case GEAR_RIGHT_RUN:
+			addSequential(new CommandDistance(12.0 * 6.0));
 			addSequential(new CommandRotate(auto));
 			addSequential(new CommandDriveUntilError(Direction.FORWARD));
 			addSequential(new CommandGearFlap(Flap.OPEN));
 			addSequential(new CommandWait(TIME_WAIT_FLAP));
-			addSequential(new CommandDistance(-(12.0 * 2.0)));
+			addSequential(new CommandDistance(-(12.0 * 3.0)));
 			break;
 		case GEAR_CENTER:
 			addSequential(new CommandDistance(12.0 * 3.0));
@@ -43,7 +46,18 @@ public class CommandGroupAuto extends CommandGroup {
 			addSequential(new CommandWait(TIME_WAIT_FLAP));
 			addSequential(new CommandDriveUntilError(Direction.BACKWARD));
 			break;
-		case GEAR_RIGHT_SHOOT:
+		}
+		
+		switch(auto) {
+		case GEAR_RIGHT_RUN:
+			addSequential(new CommandRotateDegrees(45.0));
+			addSequential(new CommandDriveUntilError(Direction.FORWARD));
+			break;
+		case GEAR_LEFT_RUN:
+			addSequential(new CommandRotateDegrees(-45.0));
+			addSequential(new CommandDriveUntilError(Direction.FORWARD));
+			break;
+		default:
 			break;
 		}
 	}

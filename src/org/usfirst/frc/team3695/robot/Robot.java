@@ -6,11 +6,10 @@ import org.usfirst.frc.team3695.robot.enumeration.Camera;
 import org.usfirst.frc.team3695.robot.enumeration.Video;
 import org.usfirst.frc.team3695.robot.subsystems.SubsystemAscend;
 import org.usfirst.frc.team3695.robot.subsystems.SubsystemBling;
-import org.usfirst.frc.team3695.robot.subsystems.SubsystemFuelFlaps;
 import org.usfirst.frc.team3695.robot.subsystems.SubsystemCompressor;
 import org.usfirst.frc.team3695.robot.subsystems.SubsystemDrive;
+import org.usfirst.frc.team3695.robot.subsystems.SubsystemFuelFlaps;
 import org.usfirst.frc.team3695.robot.subsystems.SubsystemGearFlaps;
-import org.usfirst.frc.team3695.robot.subsystems.SubsystemShooter;
 import org.usfirst.frc.team3695.robot.vision.Vision;
 
 import edu.wpi.first.wpilibj.IterativeRobot;
@@ -36,7 +35,6 @@ public class Robot extends IterativeRobot {
 	public static SubsystemGearFlaps SUB_GEAR_FLAPS;
 	public static SubsystemFuelFlaps SUB_FUEL_FLAPS;
 	public static SubsystemAscend SUB_ASCEND;
-	public static SubsystemShooter SUB_SHOOTER;
 	public static SubsystemBling SUB_BLINGY;
 	
 	//Output and Input
@@ -58,7 +56,6 @@ public class Robot extends IterativeRobot {
 		SUB_GEAR_FLAPS = new SubsystemGearFlaps();
 		SUB_FUEL_FLAPS = new SubsystemFuelFlaps();
 		SUB_ASCEND = new SubsystemAscend();
-		SUB_SHOOTER = new SubsystemShooter();
 		SUB_BLINGY = new SubsystemBling();
 		
 		//Operator Interface
