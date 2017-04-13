@@ -18,6 +18,7 @@ public class CommandDistance extends Command {
 	
     protected void initialize() {
     	Robot.SUB_DRIVE.reset();
+    	time = System.currentTimeMillis() + TIME_WAIT;
     }
 
     protected void execute() {

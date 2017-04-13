@@ -6,7 +6,7 @@ import edu.wpi.first.wpilibj.command.Command;
 
 public class CommandRotateDegrees extends Command {	
 	public static final double SCALAR = (22.5 * Math.PI) / 360;
-	public static final long TIME_WAIT = 250;
+	public static final long TIME_WAIT = 500;
 	
 	private boolean inRange;
 	private long time;
@@ -18,6 +18,7 @@ public class CommandRotateDegrees extends Command {
 	}
 	
     protected void initialize() {
+    	time = System.currentTimeMillis() + TIME_WAIT;
     	Robot.SUB_DRIVE.reset();
     }
 

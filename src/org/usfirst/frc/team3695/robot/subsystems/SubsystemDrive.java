@@ -187,9 +187,9 @@ public class SubsystemDrive extends Subsystem {
 				left1.getPosition() > leftify(leftGoal) - DISTANCE_ALLOWABLE_ERROR && 
 				left1.getPosition() < leftify(leftGoal) + DISTANCE_ALLOWABLE_ERROR;
 		boolean rightInRange = 
-				right1.getPosition() > rightify(leftGoal) - DISTANCE_ALLOWABLE_ERROR && 
-				right1.getPosition() < rightify(leftGoal) + DISTANCE_ALLOWABLE_ERROR;
-				
+				right1.getPosition() > rightify(rightGoal) - DISTANCE_ALLOWABLE_ERROR && 
+				right1.getPosition() < rightify(rightGoal) + DISTANCE_ALLOWABLE_ERROR;
+								
 		log();
 		return leftInRange && rightInRange;
 

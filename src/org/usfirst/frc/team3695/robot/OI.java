@@ -62,7 +62,7 @@ public class OI {
 		SmartDashboard.putData("AutoCamera", new CommandRotate(Autonomous.GEAR_RIGHT));
 		SmartDashboard.putData("ErrorForward", new CommandDriveUntilError(Direction.FORWARD));
 		SmartDashboard.putData("DriveDistance", new CommandDistance(12.0 * 6.0));
-		
+				
 		/**
 		 * And Dean said, Let there be light: and there were flashing LEDs
 		 */
