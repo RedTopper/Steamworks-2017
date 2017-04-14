@@ -1,0 +1,21 @@
+[NetworkTables Storage 3.0]
+double "/LiveWindow/Ungrouped/CANTalon[0]/Mode"=0
+double "/Preferences/ACCEL MOTORS: Inches"=48
+double "/Preferences/CAMERA: Blind (in/s)"=0
+double "/Preferences/CAMERA: Targeting (in/s)"=8
+double "/Preferences/CRUISE MOTORS: Inches"=48
+double "/Preferences/PID CAMERA: D"=0.06
+double "/Preferences/PID CAMERA: I"=0.0001
+double "/Preferences/PID CAMERA: P"=0.015
+double "/Preferences/PID MOTORS MOTION: D"=26
+double "/Preferences/PID MOTORS MOTION: I"=0
+double "/Preferences/PID MOTORS MOTION: P"=2.6
+double "/Preferences/PID MOTORS SPEED: D"=0
+double "/Preferences/PID MOTORS SPEED: I"=0
+double "/Preferences/PID MOTORS SPEED: P"=0.8
+double "/Preferences/SPEED CAMERA: Blind Inches"=36
+double "/Preferences/SPEED CAMERA: Targeting Inches"=36
+double "/Preferences/SPEED ERROR: Forward"=40
+double "/Preferences/Shooter Voltage"=0.6
+string "/SmartDashboard/DB/String 0"=","
+double "/Usage/Client//Count"=28
