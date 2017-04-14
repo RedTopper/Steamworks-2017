@@ -50,12 +50,12 @@ public class CommandGroupAuto extends CommandGroup {
 		
 		switch(auto) {
 		case GEAR_RIGHT_RUN:
-			addSequential(new CommandRotateDegrees(45.0));
-			addSequential(new CommandDriveUntilError(Direction.FORWARD));
+			addSequential(new CommandRotateDegrees(55.0));
+			addSequential(new CommandDistance(12.0 * 15.0));
 			break;
 		case GEAR_LEFT_RUN:
-			addSequential(new CommandRotateDegrees(-45.0));
-			addSequential(new CommandDriveUntilError(Direction.FORWARD));
+			addSequential(new CommandRotateDegrees(-55.0));
+			addSequential(new CommandDistance(12.0 * 15.0));
 			break;
 		default:
 			break;

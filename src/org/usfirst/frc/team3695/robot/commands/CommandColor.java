@@ -21,7 +21,8 @@ public class CommandColor extends Command {
     protected void initialize() {}
 
     protected void execute() {
-    	Robot.SUB_BLINGY.RGB(red, green, blue);    }
+    	Robot.SUB_BLINGY.RGB(red, green, blue);    
+    }
 
     protected boolean isFinished() {
         return false;
@@ -29,7 +30,5 @@ public class CommandColor extends Command {
 
     protected void end() {}
 
-    protected void interrupted() {
-    	end();
-    }
+    protected void interrupted() {}
 }

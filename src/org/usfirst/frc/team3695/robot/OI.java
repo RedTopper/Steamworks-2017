@@ -5,6 +5,7 @@ import org.usfirst.frc.team3695.robot.commands.ButtonCommandBoost;
 import org.usfirst.frc.team3695.robot.commands.ButtonCommandCamera;
 import org.usfirst.frc.team3695.robot.commands.ButtonCommandFlaps;
 import org.usfirst.frc.team3695.robot.commands.ButtonCommandKillCompressor;
+import org.usfirst.frc.team3695.robot.commands.CommandColor;
 import org.usfirst.frc.team3695.robot.commands.CommandDistance;
 import org.usfirst.frc.team3695.robot.commands.CommandDriveUntilError;
 import org.usfirst.frc.team3695.robot.commands.CommandRotate;
@@ -66,7 +67,7 @@ public class OI {
 		/**
 		 * And Dean said, Let there be light: and there were flashing LEDs
 		 */
-		//SmartDashboard.putData("Red", new CommandColor(255, 0, 0));
-		//SmartDashboard.putData("Blue", new CommandColor(0, 0, 255));
+		SmartDashboard.putData("Red", new CommandColor(255, 0, 0));
+		SmartDashboard.putData("Blue", new CommandColor(0, 0, 255));
 	}
 }
